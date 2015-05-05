@@ -1,0 +1,16 @@
+
+
+<html>
+<head>
+</head>
+<body>
+
+<h1>Welcome to the work order page</h1>
+
+<form action='database.php' name='login' action='{$_SERVER['PHP_SELF']}' method='post'>
+	<input type='text' name='username' id='username' /><br>
+	<input type='password' name='password' id='password' />
+	<input type='submit' name='login' value='Login' />
+</form>
+</body>
+</html>
