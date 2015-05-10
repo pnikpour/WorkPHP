@@ -3,6 +3,7 @@
 	include('lib.php');
 	global $user;
 	global $password;
+	global $numberOfRecords;
 	
 ?>
 
@@ -13,6 +14,8 @@
 
 <?php
 
+	// Governs when the user submits a ticket and refreshes the page; will
+	// increment the ticket number count by one
 	if (isset($_POST['saveNew'])) {
 		$user = $_SESSION['user'];
 		$password = $_SESSION['password'];
@@ -76,9 +79,31 @@
 		<th>Problem Code</th>
 	</tr>
 	<tr>
-		<td><input type='text' readonly='true' name='ticketNumber' /></td>
 		<td>
-		<?php $date = date("Y-m-d H:i:s");
+		<?php
+		$numberOfRecords = 0;
+	
+		try {
+			$db = getDB($user, $password);
+		} catch (PDOException $e) {
+			echo 'ERROR: ' . $e->getMessage();
+			session_unset();
+		}
+
+		$query = "use workorder";
+		$db->query($query);
+
+		$query = "select ticketnumber from tickets";
+		$result = $db->query($query);
+		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+			$numberOfRecords++;
+		}
+		echo "<input type='text' readonly='true' name='ticketNumber' value=$numberOfRecords />"
+		?>
+		</td>
+		<td>
+		<?php
+			$date = date("Y-m-d H:i:s");
 			echo "<input type='text' name='dateCreated' value=$date readonly=true />"
 		?>
 		<td>
