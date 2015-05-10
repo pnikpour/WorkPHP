@@ -1,10 +1,9 @@
 <?php
-	if (!isset($_SESSION['username'])) {
-		session_start();
-	}
-//		session_unset();
-//		session_start();
-//	}
+	session_start();
+	include('lib.php');
+	global $user;
+	global $password;
+	
 ?>
 
 <html>
@@ -14,64 +13,58 @@
 
 <?php
 
-if (isset($_POST['saveNew'])) {
-	//session_unset();
-	$username = $_SESSION['username'];
-	$password = $_SESSION['password'];
-	//echo $_SERVER['PHP_SELF'];
-}
-else
-{
-	if (!isset($_SESSION['username'])) {
-		echo 'pingas';
-		$_SESSION['username'] = $_POST['username'];
+	if (isset($_POST['saveNew'])) {
+		$user = $_SESSION['user'];
+		$password = $_SESSION['password'];
+		echo 'The user is ' . $user;
+	}
+	if (!isset($_SESSION['user'])) {
+		echo 'New SESSION';
+		$_SESSION['user'] = $_POST['user'];
 		$_SESSION['password'] = $_POST['password'];
+		$user = $_SESSION['user'];
+		$password = $_SESSION['password'];
 
+		echo 'The user is ' . $user;
+	}
+	$user = $_SESSION['user'];
+	$password = $_SESSION['password'];
+	$hostname = "localhost";
+
+	try {
+		$db = getDB($user, $password);
+	} catch (PDOException $e) {
+		echo 'ERROR: ' . $e->getMessage();
+		session_unset();
+	}
+
+
+	$query = "show schemas";
+	$result = $db->query($query);
+
+	if ($result->rowCount() > 0) {
+	      echo "Database" . "<br>";
+	      while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+		 echo $row["Database"] . "<br>";
+	      }
 	}
 	else {
-	//	$username = $_SESSION['username'];
-	//	$password = $_SESSION['password'];
+	     // echo "0 results";
 	}
-}
-$username = $_SESSION['username'];
-$password = $_SESSION['password'];
-$_SESSION['username'] = $username;
-$_SESSION['password'] = $password;
-$hostname = "localhost";
+	$query = "use workorder";
+	$db->query($query);
 
-try {
-	$db = new PDO("mysql:host=localhost;dbname=workorder;charset=utf8", $username, $password);
-} catch (PDOException $e) {
-	echo 'ERROR: ' . $e->getMessage();
-	session_unset();
-}
+	$query = "select ticketnumber from tickets";
+	$result = $db->query($query);
+	echo "Ticket Number" . "<br>";
+	while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+	      echo $row['ticketNumber'] . "<br>";
+	}
 
-$_SESSION['db'] = $db;
-
-$query = "show schemas";
-$result = $db->query($query);
-
-if ($result->rowCount() > 0) {
-      echo "Database" . "<br>";
-      while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-     	 echo $row["Database"] . "<br>";
-      }
-}
-else {
-     // echo "0 results";
-}
-$query = "use workorder";
-$db->query($query);
-
-$query = "select ticketnumber from tickets";
-$result = $db->query($query);
-echo "Ticket Number" . "<br>";
-while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-      echo $row['ticketNumber'] . "<br>";
-}
-
-unset($db);
+//	unset($db);
 ?>
+
+
 <h1>Form</h1>
 
 <form action="database.php" name='login' method='post'>
@@ -84,23 +77,35 @@ unset($db);
 	</tr>
 	<tr>
 		<td><input type='text' readonly='true' name='ticketNumber' /></td>
-		<td><input type='text' name='dateCreated' /></td>
-		<!--	<textarea rows='4' cols='40' name='problemDescription' />-->
 		<td>
-
+		<?php $date = date("Y-m-d H:i:s");
+			echo "<input type='text' name='dateCreated' value=$date readonly=true />"
+		?>
+		<td>
 		<select name='problemCode'>
 		<?php
-		$db = $_SESSION['db'];
-		$table = "tickets";
-		$col = "problemCode";
-		$sql = 'SHOW COLUMNS FROM '.$table.' WHERE field="'.$col.'"';
-		    $row = $db->query($sql)->fetch(PDO::FETCH_ASSOC);
-		    foreach(explode("','",substr($row['Type'],6,-2)) as $option) {
-		    print("<option>$option</option>");
-		}
+			try {
+
+			$db = getDB($user, $password);
+			$table = "tickets";
+			$col = "problemCode";
+			$sql = 'SHOW COLUMNS FROM '.$table.' WHERE field="'.$col.'"';
+			    $row = $db->query($sql)->fetch(PDO::FETCH_ASSOC);
+			    foreach(explode("','",substr($row['Type'],6,-2)) as $option) {
+			    echo("<option>$option</option>");
+			}
+			} catch (PDOException $e) {
+				echo "ERROR: " . $e->getMessage();
+			}	
 		?>
 		</select>
 		</td>
+	</tr>
+	<tr>
+		<th colspan='3'>Problem Details</th>
+	</tr>
+	<tr>
+		<td colspan='3'><textarea rows='4' cols='40' name='problemDescription'></textarea></td>
 	</tr>
 </table>
 <br>
@@ -112,14 +117,30 @@ unset($db);
 	<tr>
 		<td>
 		<select name='assignedTo'>
-			<option value="pnikpour">pnikpour</option>
+		<?php
+			$db = getDB($user, $password);
+			$table = "tickets";
+			$col = 'assignedTo';
+			$sql = 'SHOW COLUMNS FROM '.$table.' WHERE field="'.$col.'"';
+			$row = $db->query($sql)->fetch(PDO::FETCH_ASSOC);
+			foreach(explode("','", substr($row['Type'],6,-2)) as $option) {
+				echo ("<option>$option</option>");
+			}
+		?>
 		</select>
 		</td>
 		<td>
 		<select name='status'>
-			<option></option>
-			<option value="OPEN">OPEN</option>
-			<option value="CLOSED">CLOSED</option>
+		<?php
+			$db = getDB($user, $password);
+			$table = "tickets";
+			$col = 'status';
+			$sql = 'SHOW COLUMNS FROM '.$table.' WHERE field="'.$col.'"';
+			$row = $db->query($sql)->fetch(PDO::FETCH_ASSOC);
+			foreach(explode("','", substr($row['Type'],6,-2)) as $option) {
+				echo ("<option>$option</option>");
+			}
+		?>
 		</select>
 		</td>
 	</tr>
@@ -128,5 +149,4 @@ unset($db);
 </body>
 </html>
 
-<?php
-?>
+
