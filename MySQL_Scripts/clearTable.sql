@@ -1,0 +1,2 @@
+DELETE FROM tickets;
+ALTER TABLE tickets AUTO_INCREMENT = 1000;

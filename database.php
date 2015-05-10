@@ -4,7 +4,7 @@
 	global $user;
 	global $password;
 	global $numberOfRecords;
-	
+	global $db;	
 ?>
 
 <html>
@@ -19,16 +19,31 @@
 	if (isset($_POST['saveNew'])) {
 		$user = $_SESSION['user'];
 		$password = $_SESSION['password'];
-		echo 'The user is ' . $user;
+		$db = getDB($user, $password);
+		
+		// Submit the ticket to the database
+		$dateCreated = $_POST['dateCreated'];
+		$problemDescription = $_POST['problemDescription'];
+		$problemCode = $_POST['problemCode'];
+		$assignedTo = $_POST['assignedTo'];
+		$dateClosed = $_POST['dateClosed'];
+		$status = $_POST['status'];
+
+		$query = "INSERT INTO tickets (dateCreated, problemDescription, problemCode, assignedTo, status, dateClosed) values ('$dateCreated', '$problemDescription', '$problemCode', '$assignedTo', '$status', '$dateClosed');";
+		if (!$db->exec($query)) {
+			print_r($db->errorInfo()); 
+		}
+		
 	}
+
+	// Check user session; if the session is new, use post data from logon form; otherwise renew user credentials
+	// with session variables
 	if (!isset($_SESSION['user'])) {
-		echo 'New SESSION';
 		$_SESSION['user'] = $_POST['user'];
 		$_SESSION['password'] = $_POST['password'];
 		$user = $_SESSION['user'];
 		$password = $_SESSION['password'];
 
-		echo 'The user is ' . $user;
 	}
 	$user = $_SESSION['user'];
 	$password = $_SESSION['password'];
@@ -39,29 +54,6 @@
 	} catch (PDOException $e) {
 		echo 'ERROR: ' . $e->getMessage();
 		session_unset();
-	}
-
-
-	$query = "show schemas";
-	$result = $db->query($query);
-
-	if ($result->rowCount() > 0) {
-	      echo "Database" . "<br>";
-	      while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-		 echo $row["Database"] . "<br>";
-	      }
-	}
-	else {
-	     // echo "0 results";
-	}
-	$query = "use workorder";
-	$db->query($query);
-
-	$query = "select ticketnumber from tickets";
-	$result = $db->query($query);
-	echo "Ticket Number" . "<br>";
-	while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-	      echo $row['ticketNumber'] . "<br>";
 	}
 
 //	unset($db);
@@ -81,7 +73,6 @@
 	<tr>
 		<td>
 		<?php
-		$numberOfRecords = 0;
 	
 		try {
 			$db = getDB($user, $password);
@@ -89,22 +80,20 @@
 			echo 'ERROR: ' . $e->getMessage();
 			session_unset();
 		}
-
-		$query = "use workorder";
-		$db->query($query);
-
-		$query = "select ticketnumber from tickets";
-		$result = $db->query($query);
-		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-			$numberOfRecords++;
+		$stmt = $db->query("SELECT MAX(ticketNumber) from tickets");
+		$newID = $stmt->fetch(PDO::FETCH_NUM);
+		$newID = $newID[0]+1;
+		if ($newID < 1000) {
+			$newID = 1000;
 		}
-		echo "<input type='text' readonly='true' name='ticketNumber' value=$numberOfRecords />"
+		echo "<input type='text' readonly='true' name='ticketNumber' value=$newID />"
 		?>
 		</td>
 		<td>
 		<?php
-			$date = date("Y-m-d H:i:s");
-			echo "<input type='text' name='dateCreated' value=$date readonly=true />"
+			$date = date("Y-m-d");
+			$date = date("Y-m-d", strtotime(str_replace('-', '/', $date)));
+			echo "<input type='text' name='dateCreated' value=$date readonly='true' />"
 		?>
 		<td>
 		<select name='problemCode'>
@@ -138,6 +127,7 @@
 	<tr>
 		<th>Assigned to</th>
 		<th>Status</th>
+		<th>Date Closed</th>
 	</tr>
 	<tr>
 		<td>
@@ -155,7 +145,7 @@
 		</select>
 		</td>
 		<td>
-		<select name='status'>
+		<select name='status' onchange='var today = new Date(); var dd = today.getDate(); var mm = today.getMonth()+1; mm = (mm < 10 ? "0" : "") + mm; var yyyy = today.getFullYear(); document.getElementById("dateClosed").value = yyyy + "-" + mm + "-" + dd'>
 		<?php
 			$db = getDB($user, $password);
 			$table = "tickets";
@@ -167,6 +157,9 @@
 			}
 		?>
 		</select>
+		</td>
+		<td>
+			<input type='text' name='dateClosed' id='dateClosed' />
 		</td>
 	</tr>
 </table>
