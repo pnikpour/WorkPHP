@@ -1,1 +1,2 @@
-sudo rsync -a  --exclude .git setup Lamp . /var/www/html
+sudo cp index.php database.php lib.php /var/www/html
+sudo cp index.php database.php lib.php /var/www/html/UserDefinedStuff
