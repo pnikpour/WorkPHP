@@ -10,6 +10,8 @@
 
 <html>
 <head>
+	<script src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js'></script>
+	<link rel='stylesheet' href='assets/styles.css' type='text/css' />
 </head>
 <body>
 
@@ -84,10 +86,10 @@ if ($user !== 'parsa') {
 	</tr>
 	<tr>
 		<td>
-		<input type='text'  name='newName' />
+		<input type='text' class='logon'  name='newName' />
 		</td>
 		<td>
-		<input type='password' name='newPassword' />
+		<input type='password' class='logon' name='newPassword' />
 		</td>
 	</tr>
 </table>

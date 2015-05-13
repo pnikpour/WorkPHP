@@ -10,15 +10,17 @@
 
 <html>
 <head>
+	<script src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js'></script>
+	<link rel='stylesheet' href='assets/styles.css' type='text/css' />
 </head>
 <body>
 
 <h1>Create and Edit Users Login</h1>
 
 <form action='addUser.php' name='login' method='post'>
-	<input type='text' name='user' /> <br>
-	<input type='password' name='password' />
-	<input type='submit' name='login' value='Login' />
+	<input type='text' class='logon' name='user' /> <br>
+	<input type='password' class='logon' name='password' />
+	<input type='submit' class='logon' name='login' value='Login' />
 </form>
 </body>
 </html>
