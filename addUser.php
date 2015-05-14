@@ -12,6 +12,13 @@
 <head>
 	<script src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js'></script>
 	<link rel='stylesheet' href='assets/styles.css' type='text/css' />
+	<script type='text/javascript'>
+	$('document').ready(function() {
+	
+		$('td').css('padding', '6px 10px');
+		$('body').css('background-color', '#D0D0D0');	
+	});
+	</script>
 </head>
 <body>
 
@@ -78,7 +85,9 @@ if ($user !== 'parsa') {
 <h1>Form</h1>
 
 <form action="addUser.php" name='login' method='post'>
-<input type='submit' name='saveNew' value='Save and New' />
+<div class='btnHeader'><input type='submit' name='saveNew' value='Save and New' />
+</div>
+
 <table border=1>
 	<tr>
 		<th>New Username</th>

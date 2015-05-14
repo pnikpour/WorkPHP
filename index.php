@@ -12,23 +12,13 @@
 <head>
 	<script src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js'></script>
 	<link rel='stylesheet' href='assets/styles.css' type='text/css' />
-<!--	<script type='text/javascript'>
-		$(document).ready(function() {
-			$('.ghost').each(function() {
-				var d = $(this).val();
-				$(this).focus(function() {
-					if ($(this).val() == d) {
-						$(this).val('').removeClass('ghost');
-					}
-				});
-				$(this).blur(function() {
-					if ($(this).val() == '') {
-						$(this).val(d).addClass('ghost');
-					}
-				});
-			});
-		});
-	</script> -->
+	<script type='text/javascript'>
+	$('document').ready(function() {
+	
+		$('td').css('padding', '6px 10px');
+		$('body').css('background-color', '#D0D0D0');	
+	});
+	</script>
 </head>
 <body>
 
