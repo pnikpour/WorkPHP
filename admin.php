@@ -22,12 +22,12 @@
 </head>
 <body>
 
-<h1>Login Page</h1>
+<h1>Create and Edit Users Login</h1>
 
-<form action='database.php' name='login' class='logon' method='post'>
-	<input type='text' name='user' placeholder='Login' /> <br>
-	<input type='password' name='password' placeholder='Password' />
-	<input type='submit' name='login' value='Login' />
+<form action='addUser.php' name='login' method='post'>
+	<input type='text' class='logon' name='user' /> <br>
+	<input type='password' class='logon' name='password' />
+	<input type='submit' class='logon' name='login' value='Login' />
 </form>
 </body>
 </html>

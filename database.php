@@ -9,6 +9,15 @@
 
 <html>
 <head>
+	<script src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js'></script>
+	<link rel='stylesheet' href='assets/styles.css' type='text/css' />
+	<script type='text/javascript'>
+	$('document').ready(function() {
+	
+		$('td').css('padding', '6px 10px');
+		$('body').css('background-color', '#D0D0D0');	
+	});
+	</script>
 </head>
 <body>
 
@@ -63,12 +72,14 @@
 <h1>Form</h1>
 
 <form action="database.php" name='login' method='post'>
-<input type='submit' name='saveNew' value='Save and New' />
+<div class='btnHeader'><input type='submit' name='saveNew' value='Save and New' />
+</div>
+
 <table border=1>
 	<tr>
-		<th>Ticket Number</th>
-		<th>Date Created</th>
-		<th>Problem Code</th>
+		<th><h2>Ticket Number</h2></th>
+		<th><h2>Date Created</h2></th>
+		<th><h2>Problem Code</h2></th>
 	</tr>
 	<tr>
 		<td>
@@ -116,18 +127,18 @@
 		</td>
 	</tr>
 	<tr>
-		<th colspan='3'>Problem Details</th>
+		<th colspan='3'><h2>Problem Details</h2></th>
 	</tr>
 	<tr>
-		<td colspan='3'><textarea rows='4' cols='40' name='problemDescription'></textarea></td>
+		<td colspan='3'><textarea rows='5' style='width: 100%;'  name='problemDescription'></textarea></td>
 	</tr>
 </table>
 <br>
 <table border=1>
 	<tr>
-		<th>Assigned to</th>
-		<th>Status</th>
-		<th>Date Closed</th>
+		<th><h2>Assigned To</h2></th>
+		<th><h2>Status</h2></th>
+		<th><h2>Date Closed</h2></th>
 	</tr>
 	<tr>
 		<td>
