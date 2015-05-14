@@ -36,7 +36,7 @@
 
 <form action='database.php' name='login' class='logon' method='post'>
 	<input type='text' name='user' placeholder='Login' /> <br>
-	<input type='password' name='password' />
+	<input type='password' name='password' placeholder='Password' />
 	<input type='submit' name='login' value='Login' />
 </form>
 </body>
