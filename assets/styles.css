@@ -24,8 +24,9 @@ table {
 }
 
 .ghost {
-	font-size: 16pt;
-	color: #ccc;
+//	font-size: 16pt;
+	color: #C0C0C0;
+	font-size: 30px;
 }
 
 input {

@@ -34,7 +34,6 @@ if (!isset($_SESSION['user'])) {
 if ($user !== 'parsa') {
 		echo 'Access Denied for user ' . $user;
 		exit();
-	//	header("Location: http://www.blueberryphp.com/index.php");
 	}	
 
 ?>
@@ -52,6 +51,10 @@ if ($user !== 'parsa') {
 		$newPassword = $_POST['newPassword'];
 
 		$query = "CREATE USER '" . $newName . "'@'localhost' IDENTIFIED BY '" . $newPassword . "'";
+		if (!$db->exec($query)) {
+			print_r($db->errorInfo()); 
+		}
+		$query = "GRANT INSERT on workorder.tickets to '" . $newName . "'@'localhost'";
 		if (!$db->exec($query)) {
 			print_r($db->errorInfo()); 
 		}

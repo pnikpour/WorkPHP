@@ -43,6 +43,8 @@
 			print_r($db->errorInfo()); 
 		}
 		
+	} elseif (isset($_POST['goHome'])) {
+		header('Location: index.php');
 	}
 
 	// Check user session; if the session is new, use post data from logon form; otherwise renew user credentials
@@ -61,8 +63,9 @@
 	try {
 		$db = getDB($user, $password);
 	} catch (PDOException $e) {
-		echo 'ERROR: ' . $e->getMessage();
+		echo 'ERROR:' . $e->getMessage();
 		session_unset();
+		exit();
 	}
 
 //	unset($db);
@@ -72,7 +75,9 @@
 <h1>Form</h1>
 
 <form action="database.php" name='login' method='post'>
-<div class='btnHeader'><input type='submit' name='saveNew' value='Save and New' />
+<div class='btnHeader'>
+	<input type='submit' name='saveNew' value='Save and New' />
+	<input type='submit' name='goHome' value='Back to Home' />
 </div>
 
 <table border=1>

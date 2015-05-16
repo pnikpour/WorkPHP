@@ -5,12 +5,51 @@
 	session_write_close();
 	setcookie(session_name(),'',0,'/');
 	session_regenerate_id(true);
+
+	include('lib.php');
+	global $user;
+	global $password;
+	global $numberOfRecords;
+	global $db;	
 ?>
 
+
+<?php
+	if (isset($_POST['login'])) {
+		try {
+
+			$user = $_POST['user'];
+			$password = $_POST['password'];
+			$db = getDB($user, $password);
+
+			$url = 'http://blueberryphp.com/database.php';
+			$fields = array (
+				'user' => $user,
+				'password' => $password,
+			);
+//			$postVars = httpd_build_query($fields);
+			$ch = curl_init();
+			
+			curl_setopt($ch, CURLOPT_URL, $url);
+			curl_setopt($ch, CURLOPT_POST, count($fields));
+			curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
+			
+			$result = curl_exec($ch);
+			curl_close($ch);
+
+		//	header('Location: database.php');
+		} catch (PDOException $e) {
+			echo 'Invalid username or password; please try again';
+			session_unset();
+		}
+	}
+?>
 
 <html>
 <head>
 	<script src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js'></script>
+	<script src='ghost.js'></script>
+
 	<link rel='stylesheet' href='assets/styles.css' type='text/css' />
 	<script type='text/javascript'>
 	$('document').ready(function() {
@@ -24,7 +63,7 @@
 
 <h1>Login Page</h1>
 
-<form action='database.php' name='login' class='logon' method='post'>
+<form action='database.php' name='login' class='logon' method='POST'>
 	<input type='text' name='user' placeholder='Login' /> <br>
 	<input type='password' name='password' placeholder='Password' />
 	<input type='submit' name='login' value='Login' />
