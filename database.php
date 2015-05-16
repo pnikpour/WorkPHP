@@ -43,7 +43,7 @@
 			print_r($db->errorInfo()); 
 		}
 		
-	} elseif (isset($_POST['goHome'])) {
+	} elseif (isset($_POST['logout'])) {
 		header('Location: index.php');
 	}
 
@@ -74,10 +74,11 @@
 
 <h1>Form</h1>
 
-<form action="database.php" name='login' method='post'>
+<form action="database.php" name='ticket' id='ticket' method='post'>
 <div class='btnHeader'>
 	<input type='submit' name='saveNew' value='Save and New' />
-	<input type='submit' name='goHome' value='Back to Home' />
+	<input type='button' name='clear' value='Clear' onclick="document.getElementById('ticket').reset()" />
+	<input type='submit' name='logout' value='Log Out' />
 </div>
 
 <table border=1>

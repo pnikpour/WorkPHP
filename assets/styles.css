@@ -14,13 +14,13 @@ form {
 table {
 	margin-left: 10%;
 //	margin-right: auto;
-	width: 80%;
+	width: 60%;
 }
 
 .btnHeader {
 	margin-left: 10%;
 //	margin-right: auto;
-	width: 200px;
+//	width: 800px;
 }
 
 .ghost {
@@ -31,12 +31,27 @@ table {
 
 input {
 	font-size: 30px;
+//	width: 100%;
 }
 
 h2 {
 	font-size: 24px;
 }
 
+td {
+	width: 30%;
+}
+
+//td:nth-child(3) {
+//	background-color:yellow;
+//	width:100%;
+//}
+
+#formContainer {
+	text-align: center;
+}
+
 select {
 	font-size: 24px;
+	width: 100%;
 }

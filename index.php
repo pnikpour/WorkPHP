@@ -63,10 +63,12 @@
 
 <h1>Login Page</h1>
 
-<form action='database.php' name='login' class='logon' method='POST'>
-	<input type='text' name='user' placeholder='Login' /> <br>
-	<input type='password' name='password' placeholder='Password' />
-	<input type='submit' name='login' value='Login' />
-</form>
+<div id='formContainer'>
+	<form action='database.php' name='login' class='logon' method='POST'>
+		<input type='text' name='user' placeholder='Login' /> <br>
+		<input type='password' name='password' placeholder='Password' /> <br />
+		<input type='submit' name='login' value='Login' />
+	</form>
+</div>
 </body>
 </html>
