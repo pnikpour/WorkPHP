@@ -1,0 +1,126 @@
+<!DOCTYPE HTML>
+
+<html>
+<head>
+<title>Animation jQuery</title>
+<script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script type='text/javascript'>
+
+	
+	$(document).ready(function() {
+		$('#container').css('padding', '0px');
+		$('#container').css('margin-right', 'auto');
+		$('#container').css('margin-right', 'auto');
+		$('#container').css('width', '800px');
+		$('#bottomLine').animate({width: '+=100px'}, 'fast', function() {
+			$('#topLine').animate({width: '+=100px'}, 'fast', function() {
+				$('#leftLine').animate({height: '+=100px'}, 'fast', function() {
+					$('#rightLine').animate({height: '+=100px'}, 'fast', function() {		
+						$('#bottomLineBack').animate({width: '+=100px'}, 'fast', function() {
+							$('#topLineBack').animate({width: '+=100px'}, 'fast', function() {
+								$('#leftLineBack').animate({height: '+=100px'}, 'fast', function() {
+									$('#rightLineBack').animate({height: '+=100px'}, 'fast', function() {
+										$('#midLineBack').animate({height: '+=50px'}, 'fast', function() {
+											$('#horizLineBack').animate({width: '+=50px'}, 'fast', function() {
+												$('#diagTopLeft').animate({height: '+=(Math.sqrt(200))'}, 'fast', function() {
+													$('#horizLineFront').animate({width: '+=50px'}, 'fast', function() {
+														$('#vertLineFront').animate({height: '+=50px'}, 'fast', function() {
+															$('#diagTopLeft').animate({height: '+=71px'}, 'fast', function() {
+																$('#diagTopLeft').animate({borderSpacing: 45}, {
+																	step: function(now, fx) {
+																		$(this).css('-webkit-transform', 'rotate('+now+'deg)');
+																}, duration: 'fast'}, 'linear');
+															});
+														});
+													});
+												});
+											});	
+										});
+									});
+								});
+							});
+						});
+					});
+				});
+			});
+		});
+	});
+	
+	function rotate($id) {
+	$id.animate({borderSpacing: -90}, {
+		step: function(now, fx) {
+			$(this).css('-webkit-transform', 'rotate('+now+'deg');
+		}, duration:'slow'}, 'linear');
+	}
+
+	function doDiagonal($line) {
+
+		$($line).animate({height: '+=100'}, 'fast');	
+		var $rotated  = $($line);
+		rotate(45);
+		
+		function rotate(degree) {
+			$rotated.animate({
+   	                '-webkit-transform': 'rotate(' + degree + 'deg)',
+                        '-moz-transform': 'rotate(' + degree + 'deg)',
+                        '-ms-transform': 'rotate(' + degree + 'deg)',
+                        '-o-transform': 'rotate(' + degree + 'deg)',
+                        'transform': 'rotate(' + degree + 'deg)',
+                        'zoom': 1
+		            }, 5000);
+		}
+
+	}
+</script>
+
+</head>
+<body>
+
+<div id='container' style='top:100px;'>
+	<!--Front face -->
+	<div id='bottomLine' style='background:gray; height:1px; width:0px; top:201px; position:relative;'></div>
+	<div id='topLine' style='background:red; height:1px; width:0px; top:100px; position:relative;'></div>
+	<div id='leftLine' style='background:blue; width:1px; top:100px; position:relative;'></div>
+	<div id='rightLine' style='background:green; width:1px; top:0px; left:100px; position:relative;'></div>
+
+	<!--Back face -->
+	<div id='bottomLineBack' style='background:gray; height:1px; left:50px; width:0px; top:-52px; position:relative;'></div>
+	<div id='topLineBack' style='background:red; height:1px; left:50px; width:0px; top:-152px; position:relative;'></div>
+	<div id='leftLineBack' style='background:blue; width:1px; left: 50px; top:-153px; position:relative;'></div>
+	<div id='rightLineBack' style='background:green; width:1px; top:-253px; left:150px; position:relative;'></div>
+
+	<div id='midLineBack' style='background:gray; height:0px; width:1px; top:-352px; left:100px; position:relative;'></div>
+	<div id='horizLineBack' style='background:gray; height:1px; width:0px; top:-353px; left:100px; position:relative;'></div>
+
+
+	<div id='horizLineFront' style='background:blue; height:1px; width:0px; top:-305px; position:relative;'></div>
+	<div id='vertLineFront' style='background:green; height:0px; width:1px; left:50px; top:-305px; position:relative;'></div>
+
+	
+	<div id='diagTopLeft' style='background:red; height:0px; width:1px; left:25px; top:-465px; position:relative;'></div>
+	<div id='diagTopRight' style='background:gray; height:0px; width:1px; left:125px; top:-465px; position:relative;'></div>
+	<!--Front face 
+	<div id='topLine' style='background:red; height:1px; width:0px; top:100px; position:relative;'></div>
+	<div id='leftLine' style='background:blue; width:1px; top:98px; position:relative;'></div>
+	<div id='rightLine' style='background:green; width:1px; top:-2px; left:100px; position:relative;'></div>
+	
+
+	<div id='bottomLine' style='background:gray; height:1px; width:0px; top:200px; position:relative;'></div>
+	<div id='topLine' style='background:red; height:1px; width:0px; top:100px; position:relative;'></div>
+	<div id='leftLine' style='background:blue; width:1px; top:98px; position:relative;'></div>
+	<div id='rightLine' style='background:green; width:1px; top:-2px; left:100px; position:relative;'></div>
+
+	<div id='bottomLine' style='background:gray; height:1px; width:0px; top:200px; position:relative;'></div>
+	<div id='topLine' style='background:red; height:1px; width:0px; top:100px; position:relative;'></div>
+	<div id='leftLine' style='background:blue; width:1px; top:98px; position:relative;'></div>
+	<div id='rightLine' style='background:green; width:1px; top:-2px; left:100px; position:relative;'></div>
+
+	<div id='bottomLine' style='background:gray; height:1px; width:0px; top:200px; position:relative;'></div>
+	<div id='topLine' style='background:red; height:1px; width:0px; top:100px; position:relative;'></div>
+	<div id='leftLine' style='background:blue; width:1px; top:98px; position:relative;'></div>
+	<div id='rightLine' style='background:green; width:1px; top:-2px; left:100px; position:relative;'></div>
+	-->
+</div>
+
+</body>
+</html>

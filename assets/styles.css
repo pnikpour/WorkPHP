@@ -12,25 +12,25 @@ form {
 }
 
 table {
-	margin-left: 10%;
+//	margin-left: 10%;
 //	margin-right: auto;
-	width: 60%;
+//	width: 60%;
 }
 
 .btnHeader {
-	margin-left: 10%;
+//	margin-left: 20%;
 //	margin-right: auto;
 //	width: 800px;
 }
 
 .ghost {
-//	font-size: 16pt;
 	color: #C0C0C0;
 	font-size: 30px;
 }
 
 input {
 	font-size: 30px;
+	//margin-left: 30%;
 //	width: 100%;
 }
 
@@ -48,7 +48,18 @@ td {
 //}
 
 #formContainer {
-	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	width: 80%;
+}
+
+#logonForm {
+	margin-left: 30%;
+	width: 60%;	
+}
+
+#logonForm * {
+	font-size: 50px;
 }
 
 select {
