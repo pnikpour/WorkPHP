@@ -22,7 +22,18 @@
 									$('#rightLineBack').animate({height: '+=100px'}, 'fast', function() {
 										$('#midLineBack').animate({height: '+=50px'}, 'fast', function() {
 											$('#horizLineBack').animate({width: '+=50px'}, 'fast', function() {
-												$('#diagTopLeft').animate({height: '+=(Math.sqrt(200))'}, 'fast');
+												$('#diagTopLeft').animate({height: '+=(Math.sqrt(200))'}, 'fast', function() {
+													$('#horizLineFront').animate({width: '+=50px'}, 'fast', function() {
+														$('#vertLineFront').animate({height: '+=50px'}, 'fast', function() {
+															$('#diagTopLeft').animate({height: '+=71px'}, 'fast', function() {
+																$('#diagTopLeft').animate({borderSpacing: 45}, {
+																	step: function(now, fx) {
+																		$(this).css('-webkit-transform', 'rotate('+now+'deg)');
+																}, duration: 'fast'}, 'linear');
+															});
+														});
+													});
+												});
 											});	
 										});
 									});
@@ -35,6 +46,13 @@
 		});
 	});
 	
+	function rotate($id) {
+	$id.animate({borderSpacing: -90}, {
+		step: function(now, fx) {
+			$(this).css('-webkit-transform', 'rotate('+now+'deg');
+		}, duration:'slow'}, 'linear');
+	}
+
 	function doDiagonal($line) {
 
 		$($line).animate({height: '+=100'}, 'fast');	
@@ -73,8 +91,14 @@
 
 	<div id='midLineBack' style='background:gray; height:0px; width:1px; top:-352px; left:100px; position:relative;'></div>
 	<div id='horizLineBack' style='background:gray; height:1px; width:0px; top:-353px; left:100px; position:relative;'></div>
+
+
+	<div id='horizLineFront' style='background:blue; height:1px; width:0px; top:-305px; position:relative;'></div>
+	<div id='vertLineFront' style='background:green; height:0px; width:1px; left:50px; top:-305px; position:relative;'></div>
+
 	
-	<div id='diagTopLeft' style='background:red; height:0px; width:1px; top:-450px; position:relative;'></div>
+	<div id='diagTopLeft' style='background:red; height:0px; width:1px; left:25px; top:-465px; position:relative;'></div>
+	<div id='diagTopRight' style='background:gray; height:0px; width:1px; left:125px; top:-465px; position:relative;'></div>
 	<!--Front face 
 	<div id='topLine' style='background:red; height:1px; width:0px; top:100px; position:relative;'></div>
 	<div id='leftLine' style='background:blue; width:1px; top:98px; position:relative;'></div>
