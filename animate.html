@@ -25,12 +25,25 @@
 												$('#diagTopLeft').animate({height: '+=(Math.sqrt(200))'}, 'fast', function() {
 													$('#horizLineFront').animate({width: '+=50px'}, 'fast', function() {
 														$('#vertLineFront').animate({height: '+=50px'}, 'fast', function() {
-															$('#diagTopLeft').animate({height: '+=71px'}, 'fast', function() {
-																$('#diagTopLeft').animate({borderSpacing: 45}, {
-																	step: function(now, fx) {
-																		$(this).css('-webkit-transform', 'rotate('+now+'deg)');
-																}, duration: 'fast'}, 'linear');
-															});
+															rotateDiag('#diagTopLeft');
+															rotateDiag('#diagTopRight');
+															rotateDiag('#diagTopMid');
+
+															rotateDiag('#diagBottomLeft');
+															rotateDiag('#diagBottomRight');
+															rotateDiag('#diagBottomMid');
+
+															rotateDiag('#diagMidLeft');
+															rotateDiag('#diagMidRight');
+															rotateDiag('#diagMidMid');
+															
+															drawHorizontalSupport('#horizLineTop');
+															drawHorizontalSupport('#horizLineMid');
+															drawHorizontalSupport('#horizLineBottom');
+
+															drawVerticalSupport('#vertLineLeft');
+															drawVerticalSupport('#vertLineRight');
+
 														});
 													});
 												});
@@ -45,81 +58,72 @@
 			});
 		});
 	});
-	
-	function rotate($id) {
-	$id.animate({borderSpacing: -90}, {
-		step: function(now, fx) {
-			$(this).css('-webkit-transform', 'rotate('+now+'deg');
-		}, duration:'slow'}, 'linear');
+
+	function drawHorizontalSupport(line) {
+		$(line).animate({width: '+=100'}, 'fast');
 	}
-
-	function doDiagonal($line) {
-
-		$($line).animate({height: '+=100'}, 'fast');	
-		var $rotated  = $($line);
-		rotate(45);
-		
-		function rotate(degree) {
-			$rotated.animate({
-   	                '-webkit-transform': 'rotate(' + degree + 'deg)',
-                        '-moz-transform': 'rotate(' + degree + 'deg)',
-                        '-ms-transform': 'rotate(' + degree + 'deg)',
-                        '-o-transform': 'rotate(' + degree + 'deg)',
-                        'transform': 'rotate(' + degree + 'deg)',
-                        'zoom': 1
-		            }, 5000);
-		}
-
+	
+	function drawVerticalSupport(line) {
+		$(line).animate({height: '+=100'}, 'fast');
+	}
+	
+	function rotateDiag(line) {
+		$(line).animate({height: '+=71px'}, 'fast', function() {
+		$(line).animate({borderSpacing: 405}, {
+				step: function(now, fx) {
+					$(this).css('-webkit-transform', 'rotate('+now+'deg)');
+			}, duration: 'fast'}, 'linear');
+		});
 	}
 </script>
 
 </head>
 <body>
 
-<div id='container' style='top:100px;'>
+<div id='container' style='top:100px; position:absolute;'>
 	<!--Front face -->
-	<div id='bottomLine' style='background:gray; height:1px; width:0px; top:201px; position:relative;'></div>
-	<div id='topLine' style='background:red; height:1px; width:0px; top:100px; position:relative;'></div>
-	<div id='leftLine' style='background:blue; width:1px; top:100px; position:relative;'></div>
-	<div id='rightLine' style='background:green; width:1px; top:0px; left:100px; position:relative;'></div>
+	<div id='bottomLine' style='background:gray; height:1px; width:0px; top:100px; position:absolute;'></div>
+	<div id='topLine' style='background:red; height:1px; width:0px; top:0px; position:absolute;'></div>
+	<div id='leftLine' style='background:blue; width:1px; top:0px; position:absolute;'></div>
+	<div id='rightLine' style='background:green; width:1px; top:0px; left:100px; position:absolute;'></div>
 
 	<!--Back face -->
-	<div id='bottomLineBack' style='background:gray; height:1px; left:50px; width:0px; top:-52px; position:relative;'></div>
-	<div id='topLineBack' style='background:red; height:1px; left:50px; width:0px; top:-152px; position:relative;'></div>
-	<div id='leftLineBack' style='background:blue; width:1px; left: 50px; top:-153px; position:relative;'></div>
-	<div id='rightLineBack' style='background:green; width:1px; top:-253px; left:150px; position:relative;'></div>
+	<div id='bottomLineBack' style='background:gray; height:1px; left:50px; width:0px; top:50px; position:absolute;'></div>
+	<div id='topLineBack' style='background:red; height:1px; left:50px; width:0px; top:-50px; position:absolute;'></div>
+	<div id='leftLineBack' style='background:blue; width:1px; left: 50px; top:-50px; position:absolute;'></div>
+	<div id='rightLineBack' style='background:green; width:1px; top:-50px; left:150px; position:absolute;'></div>
 
-	<div id='midLineBack' style='background:gray; height:0px; width:1px; top:-352px; left:100px; position:relative;'></div>
-	<div id='horizLineBack' style='background:gray; height:1px; width:0px; top:-353px; left:100px; position:relative;'></div>
+	<!--Back face support lines -->
+	<div id='midLineBack' style='background:gray; height:0px; width:1px; top:-50px; left:100px; position:absolute;'></div>
+	<div id='horizLineBack' style='background:gray; height:1px; width:0px; top:0px; left:100px; position:absolute;'></div>
 
+	<!-- Front face support lines -->
+	<div id='horizLineFront' style='background:blue; height:1px; width:0px; top:50px; position:absolute;'></div>
+	<div id='vertLineFront' style='background:green; height:0px; width:1px; left:50px; top:50px; position:absolute;'></div>
 
-	<div id='horizLineFront' style='background:blue; height:1px; width:0px; top:-305px; position:relative;'></div>
-	<div id='vertLineFront' style='background:green; height:0px; width:1px; left:50px; top:-305px; position:relative;'></div>
+	<!-- Top diagonal support lines -->
+	<div id='diagTopLeft' style='background:red; height:0px; width:1px; left:25px; top:-60px; position:absolute;'></div>
+	<div id='diagTopRight' style='background:gray; height:0px; width:1px; left:125px; top:-60px; position:absolute;'></div>
+	<div id='diagTopMid' style='background:blue; height:0px; width:1px; left:75px; top:-60px; position:absolute;'></div>
 
-	
-	<div id='diagTopLeft' style='background:red; height:0px; width:1px; left:25px; top:-465px; position:relative;'></div>
-	<div id='diagTopRight' style='background:gray; height:0px; width:1px; left:125px; top:-465px; position:relative;'></div>
-	<!--Front face 
-	<div id='topLine' style='background:red; height:1px; width:0px; top:100px; position:relative;'></div>
-	<div id='leftLine' style='background:blue; width:1px; top:98px; position:relative;'></div>
-	<div id='rightLine' style='background:green; width:1px; top:-2px; left:100px; position:relative;'></div>
-	
+	<!-- Bottom diagonal support lines -->
+	<div id='diagMidLeft' style='background:red; height:0px; width:1px; left:25px; top:-10px; position:absolute;'></div>
+	<div id='diagMidRight' style='background:gray; height:0px; width:1px; left:125px; top:-10px; position:absolute;'></div>
+	<div id='diagMidMid' style='background:blue; height:0px; width:1px; left:75px; top:-10px; position:absolute;'></div>
 
-	<div id='bottomLine' style='background:gray; height:1px; width:0px; top:200px; position:relative;'></div>
-	<div id='topLine' style='background:red; height:1px; width:0px; top:100px; position:relative;'></div>
-	<div id='leftLine' style='background:blue; width:1px; top:98px; position:relative;'></div>
-	<div id='rightLine' style='background:green; width:1px; top:-2px; left:100px; position:relative;'></div>
+	<!-- Bottom diagonal support lines -->
+	<div id='diagBottomLeft' style='background:red; height:0px; width:1px; left:25px; top:40px; position:absolute;'></div>
+	<div id='diagBottomRight' style='background:gray; height:0px; width:1px; left:125px; top:40px; position:absolute;'></div>
+	<div id='diagBottomMid' style='background:blue; height:0px; width:1px; left:75px; top:40px; position:absolute;'></div>
 
-	<div id='bottomLine' style='background:gray; height:1px; width:0px; top:200px; position:relative;'></div>
-	<div id='topLine' style='background:red; height:1px; width:0px; top:100px; position:relative;'></div>
-	<div id='leftLine' style='background:blue; width:1px; top:98px; position:relative;'></div>
-	<div id='rightLine' style='background:green; width:1px; top:-2px; left:100px; position:relative;'></div>
+	<!-- Horizontal level supoprt lines -->
+	<div id='horizLineTop' style='background:red; height:1px; width:0px; left:25px; top:-25px; position:absolute;'></div>
+	<div id='horizLineMid' style='background:gray; height:1px; width:0px; left:25px; top:25px; position:absolute;'></div>
+	<div id='horizLineBottom' style='background:blue; height:1px; width:0px; left:25px; top:75px; position:absolute;'></div>
 
-	<div id='bottomLine' style='background:gray; height:1px; width:0px; top:200px; position:relative;'></div>
-	<div id='topLine' style='background:red; height:1px; width:0px; top:100px; position:relative;'></div>
-	<div id='leftLine' style='background:blue; width:1px; top:98px; position:relative;'></div>
-	<div id='rightLine' style='background:green; width:1px; top:-2px; left:100px; position:relative;'></div>
-	-->
+	<div id='vertLineLeft' style='background:gray; height:0px; width:1px; left:25px; top:-25px; position:absolute;'></div>
+	<div id='vertLineRight' style='background:blue; height:0px; width:1px; left:125px; top:-25px; position:absolute;'></div>
+
 </div>
 
 </body>
