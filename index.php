@@ -1,4 +1,5 @@
 <?php
+	// Start session
 	session_start();
 	session_unset();
 	session_destroy();
@@ -6,7 +7,10 @@
 	setcookie(session_name(),'',0,'/');
 	session_regenerate_id(true);
 
+	// Include external functions for getting the current database connection
 	include('lib.php');
+
+	// Declare global variables
 	global $user;
 	global $password;
 	global $numberOfRecords;
@@ -15,6 +19,7 @@
 
 
 <?php
+	// If user pressed login button, attempt to connect to database with those credentials
 	if (isset($_POST['login'])) {
 		try {
 

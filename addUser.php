@@ -31,7 +31,7 @@ if (!isset($_SESSION['user'])) {
 }
 
 
-if ($user !== 'parsa') {
+if ($user !== 'parsa' && $user !== 'root') {
 		echo 'Access Denied for user ' . $user;
 		exit();
 	}	
@@ -52,11 +52,11 @@ if ($user !== 'parsa') {
 
 		$query = "CREATE USER '" . $newName . "'@'localhost' IDENTIFIED BY '" . $newPassword . "'";
 		if (!$db->exec($query)) {
-			print_r($db->errorInfo()); 
+	//		print_r($db->errorInfo()); 
 		}
-		$query = "GRANT INSERT on workorder.tickets to '" . $newName . "'@'localhost'";
+		$query = "GRANT SELECT, INSERT, UPDATE, DELETE on workorder.* to '" . $newName . "'@'localhost' identified by '" . $newPassword . "'";
 		if (!$db->exec($query)) {
-			print_r($db->errorInfo()); 
+	//		print_r($db->errorInfo()); 
 		}
 		echo 'User ' . $newName . ' added to database.';	
 	}
