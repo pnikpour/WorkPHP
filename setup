@@ -1,1 +1,0 @@
-sudo rsync -a --exclude .git setup Lamp . /var/www/html
