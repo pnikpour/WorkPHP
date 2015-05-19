@@ -1,0 +1,70 @@
+
+// To be used with animate3.html
+
+* {
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+form {
+	display: block;
+	margin-top: 100px;
+	margin-left: auto;
+	margin-right: auto;
+	//width: 60%;
+}
+
+table {
+//	margin-left: 10%;
+//	margin-right: auto;
+//	width: 60%;
+}
+
+.btnHeader {
+//	margin-left: 20%;
+//	margin-right: auto;
+//	width: 800px;
+}
+
+.ghost {
+	color: #C0C0C0;
+	font-size: 30px;
+}
+
+input {
+	font-size: 30px;
+	//margin-left: 30%;
+//	width: 100%;
+}
+
+h2 {
+	font-size: 24px;
+}
+
+td {
+	width: 30%;
+}
+
+//td:nth-child(3) {
+//	background-color:yellow;
+//	width:100%;
+//}
+
+#formContainer {
+	margin-left: auto;
+	margin-right: auto;
+	width: 80%;
+}
+
+#logonForm {
+	margin-left: 30%;
+	width: 60%;	
+}
+
+#logonForm * {
+	font-size: 50px;
+}
+
+select {
+	font-size: 24px;
+	width: 100%;
+}
