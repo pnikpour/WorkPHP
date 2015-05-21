@@ -5,43 +5,43 @@
 <title>Animation jQuery</title>
 <link rel='stylesheet' href='assets/stylesLogo.css' type='text/css'/>
 <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-<script type='text/javascript'>
-
-	
-	$(document).ready(function() {
-
-	$('#square').fadeOut(500, function() {
-		$(this).css('background', '#ffffff').fadeIn(2000);
-	});
-});
-//	$('#square').animate({width: '+=100px',  height: '+=200', backgroundColor: "#ffffff"}, 'medium');
-	function drawHorizontalSupport(line) {
-		$(line).animate({width: '+=100'}, 'fast');
-	}
-	
-	function drawVerticalSupport(line) {
-		$(line).animate({height: '+=100'}, 'fast');
-	}
-	
-	function rotateDiag(line) {
-		$(line).animate({height: '+=71px'}, 'fast', function() {
-		$(line).animate({borderSpacing: 405}, {
-				step: function(now, fx) {
-					$(this).css('-webkit-transform', 'rotate('+now+'deg)');
-			}, duration: 'fast'}, 'linear');
-		});
-
-	}
-</script>
-
 </head>
 <body>
 
 <div id='container' style='top:100px; position:absolute;'>
 
 	<!--Front face -->
-	<div class='line' id='square' style=' background:gray; height:50px; width:50px; top:100px; position:absolute;'></div>
+	<div class='line' id='square' style=' background:gray; left:0px; height:50px; width:50px; top:100px; position:absolute;'></div>
 </div>
+
+<script type='text/javascript'>
+
+	
+	$(document).ready(function() {
+
+		addKeys();	
+	});	
+	
+	function addKeys() {
+
+			window.onkeyup = function(e) {
+				//var key = e.keyCode ? e.getCode : e.which;
+				var key = e.keyCode;
+				
+				if (key == 39) {
+					alert();
+					$('#square').animate({left: '+=50px'}, 'fast');
+				} else
+				if (key == 37) {
+					$('#square').animate({left: '-=50px'}, 'fast');
+				}
+				
+			}
+
+			alert('done');
+		}
+</script>
+
 
 </body>
 </html>
