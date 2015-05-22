@@ -1,0 +1,6 @@
+sudo yum -y remove php php-mysql httpd mysql-server
+sudo yum -y install php php-mysql httpd mysql-server
+
+sudo cp ../httpd.conf /etc/httpd/conf/
+sudo systemctl restart mysqld
+mysql -u root < '../../MySQL_Scripts/makeDB.sql'

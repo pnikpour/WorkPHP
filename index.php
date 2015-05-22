@@ -68,7 +68,7 @@
 
 <h1>Login Page</h1>
 	<div id='logonForm'>
-		<form action='database.php' name='login' class='logon' method='POST'>
+		<form action='menu.php' name='login' class='logon' method='POST'>
 			<input type='text' name='user' placeholder='Login' /> <br>
 			<input type='password' name='password' placeholder='Password' /> <br>
 			<div class='btnHeader'>

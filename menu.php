@@ -23,28 +23,9 @@
 
 <?php
 
-	// Governs when the user submits a ticket and refreshes the page; will
-	// increment the ticket number count by one
-	if (isset($_POST['saveNew'])) {
-		$user = $_SESSION['user'];
-		$password = $_SESSION['password'];
-		$db = getDB($user, $password);
-		
-		// Submit the ticket to the database
-		$dateCreated = $_POST['dateCreated'];
-		$problemDescription = $_POST['problemDescription'];
-		$problemCode = $_POST['problemCode'];
-		$assignedTo = $_POST['assignedTo'];
-		$dateClosed = $_POST['dateClosed'];
-		$status = $_POST['status'];
-
-		$query = "INSERT INTO tickets (dateCreated, problemDescription, problemCode, assignedTo, status, dateClosed) values ('$dateCreated', '$problemDescription', '$problemCode', '$assignedTo', '$status', '$dateClosed');";
-		if (!$db->exec($query)) {
-			print_r($db->errorInfo()); 
-		}
-		
-	} elseif (isset($_POST['logout'])) {
-		header('Location: index.php');
+	// If Create Work Order button is clicked, navigate to work order creation form
+	if (isset($_SESSION['createWorkorder'])) {
+		header('Location: database.php');
 	}
 
 	// Check user session; if the session is new, use post data from logon form; otherwise renew user credentials
@@ -68,14 +49,13 @@
 		exit();
 	}
 
-//	unset($db);
 ?>
 
 
 <h1>Form</h1>
 
 <div class='formContainer'>
-	<form action="database.php" name='ticket' id='ticket' method='post'>
+	<form action="$_SERVER['PHP_SELF']" name='menu' id='menu' method='post'>
 	<div class='btnHeader'>
 		<input type='submit' name='saveNew' value='Save and New' />
 		<input type='button' name='clear' value='Clear' onclick="document.getElementById('ticket').reset()" />
