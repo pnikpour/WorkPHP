@@ -27,7 +27,7 @@
 			$password = $_POST['password'];
 			$db = getDB($user, $password);
 
-			$url = 'http://blueberryphp.com/database.php';
+			$url = 'database.php';
 			$fields = array (
 				'user' => $user,
 				'password' => $password,

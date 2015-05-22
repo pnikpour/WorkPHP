@@ -1,6 +1,13 @@
-sudo yum -y remove php php-mysql httpd mysql-server
+#sudo yum -y remove php php-mysql httpd mysql-server
 sudo yum -y install php php-mysql httpd mysql-server
+#sudo rm -r /var/lib/mysql/*
 
 sudo cp ../httpd.conf /etc/httpd/conf/
 sudo systemctl restart mysqld
+sudo systemctl restart httpd
 mysql -u root < '../../MySQL_Scripts/makeDB.sql'
+sudo chown -R apache:apache /var/www
+systemctl restart mysqld
+
+
+echo 'The root password for "rootWO" has been set to an empty string; please change this through logging into the application and resetting it there'

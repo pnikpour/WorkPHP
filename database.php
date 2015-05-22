@@ -31,6 +31,7 @@
 		$db = getDB($user, $password);
 		
 		// Submit the ticket to the database
+		$ticketNumber = $_POST['ticketNumber'];
 		$dateCreated = $_POST['dateCreated'];
 		$problemDescription = $_POST['problemDescription'];
 		$problemCode = $_POST['problemCode'];
@@ -38,7 +39,7 @@
 		$dateClosed = $_POST['dateClosed'];
 		$status = $_POST['status'];
 
-		$query = "INSERT INTO tickets (dateCreated, problemDescription, problemCode, assignedTo, status, dateClosed) values ('$dateCreated', '$problemDescription', '$problemCode', '$assignedTo', '$status', '$dateClosed');";
+		$query = "INSERT INTO tickets (ticketNumber, dateCreated, problemDescription, problemCode, assignedTo, status, dateClosed) values ('$ticketNumber', '$dateCreated', '$problemDescription', '$problemCode', '$assignedTo', '$status', '$dateClosed');";
 		if (!$db->exec($query)) {
 			print_r($db->errorInfo()); 
 		}
