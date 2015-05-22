@@ -1,10 +1,25 @@
 <?php
+	ini_set('display_startup_errors',1);
+	ini_set('display_errors',1);
+	error_reporting(-1);
 	session_start();
 	include('lib.php');
 	global $user;
 	global $password;
 	global $numberOfRecords;
 	global $db;	
+
+	function getMaxTicketNumber($db) {
+		
+		$stmt = $db->query("SELECT MAX(ticketNumber) from tickets");
+		$newID = $stmt->fetch(PDO::FETCH_NUM);
+		$newID = $newID[0]+1;
+		if ($newID < 1000) {
+			$newID = 1000;
+		}
+
+		return $newID;
+	}
 ?>
 
 <html>
@@ -22,7 +37,6 @@
 <body>
 
 <?php
-
 	// Governs when the user submits a ticket and refreshes the page; will
 	// increment the ticket number count by one
 	if (isset($_POST['saveNew'])) {
@@ -31,14 +45,13 @@
 		$db = getDB($user, $password);
 		
 		// Submit the ticket to the database
-		$ticketNumber = $_POST['ticketNumber'];
+		$ticketNumber = getMaxTicketNumber($db);
 		$dateCreated = $_POST['dateCreated'];
 		$problemDescription = $_POST['problemDescription'];
 		$problemCode = $_POST['problemCode'];
 		$assignedTo = $_POST['assignedTo'];
 		$dateClosed = $_POST['dateClosed'];
 		$status = $_POST['status'];
-
 		$query = "INSERT INTO tickets (ticketNumber, dateCreated, problemDescription, problemCode, assignedTo, status, dateClosed) values ('$ticketNumber', '$dateCreated', '$problemDescription', '$problemCode', '$assignedTo', '$status', '$dateClosed');";
 		if (!$db->exec($query)) {
 			print_r($db->errorInfo()); 
@@ -47,7 +60,6 @@
 	} elseif (isset($_POST['logout'])) {
 		header('Location: index.php');
 	}
-
 	// Check user session; if the session is new, use post data from logon form; otherwise renew user credentials
 	// with session variables
 	if (!isset($_SESSION['user'])) {
@@ -55,12 +67,10 @@
 		$_SESSION['password'] = $_POST['password'];
 		$user = $_SESSION['user'];
 		$password = $_SESSION['password'];
-
 	}
 	$user = $_SESSION['user'];
 	$password = $_SESSION['password'];
 	$hostname = "localhost";
-
 	try {
 		$db = getDB($user, $password);
 	} catch (PDOException $e) {
@@ -68,7 +78,6 @@
 		session_unset();
 		exit();
 	}
-
 //	unset($db);
 ?>
 
@@ -99,12 +108,8 @@
 				echo 'ERROR: ' . $e->getMessage();
 				session_unset();
 			}
-			$stmt = $db->query("SELECT MAX(ticketNumber) from tickets");
-			$newID = $stmt->fetch(PDO::FETCH_NUM);
-			$newID = $newID[0]+1;
-			if ($newID < 1000) {
-				$newID = 1000;
-			}
+			
+			$newID = getMaxTicketNumber($db);
 			echo "<input type='text' readonly='true' name='ticketNumber' value=$newID />"
 			?>
 			</td>
@@ -118,7 +123,6 @@
 			<select name='problemCode'>
 			<?php
 				try {
-
 				$db = getDB($user, $password);
 				$table = "tickets";
 				$col = "problemCode";
@@ -186,5 +190,3 @@
 </div>
 </body>
 </html>
-
-
