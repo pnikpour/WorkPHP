@@ -1,4 +1,5 @@
-sudo yum -y remove php php-mysql httpd mysql-server
+//sudo yum -y remove php php-mysql httpd mysql-server
+sudo yum -y remove mysql-server
 sudo yum -y install php php-mysql httpd mysql-server
 sudo rm -r /var/lib/mysql/*
 

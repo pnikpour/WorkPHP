@@ -92,8 +92,13 @@
 }
 ?>
 <!--<form name='adminOptions' action='javascript:hideThis($("#adminOptions"))' id='adminOptions' name='adminOptions' style='visibility:hidden' method='post'>-->
-<form name='adminOptions' action='addUser.php' id='adminOptions' name='adminOptions' style='visibility:visible' method='post'>
+<form name='adminOptions' action='addUser.php' id='adminOptions' name='adminOptions' style='visibility:hidden' method='post'>
 	<input type='submit' name='addUsers' id='addUsers' value='Add Users' />
+	<?php
+		if (isset($_POST['user'])) {
+			echo '<script>$("#adminOptions").css("visibility", "visible")</script>';
+		}
+	?>
 </form>
 </body>
 </html>
