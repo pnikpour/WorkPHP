@@ -4,8 +4,6 @@
 	global $user;
 	global $password;
 	global $db;
-	
-	
 ?>
 
 <html>
@@ -24,6 +22,9 @@
 
 
 <?php
+$user = $_SESSION['user'];
+$password = $_SESSION['password'];
+
 if (!isset($_SESSION['user'])) {
 	$user = $_POST['user'];
 } else {
