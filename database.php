@@ -8,23 +8,16 @@
 	global $password;
 	global $numberOfRecords;
 	global $db;	
-
-	function getMaxTicketNumber($db) {
-		
-		$stmt = $db->query("SELECT MAX(ticketNumber) from tickets");
-		$newID = $stmt->fetch(PDO::FETCH_NUM);
-		$newID = $newID[0]+1;
-		if ($newID < 1000) {
-			$newID = 1000;
-		}
-
-		return $newID;
-	}
+	
+	$user = getUser();
+	$password = getPassword();
+	$db = getDB($user, $password);
 ?>
 
 <html>
 <head>
-	<script src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js'></script>
+	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 	<link rel='stylesheet' href='assets/styles.css' type='text/css' />
 	<script type='text/javascript'>
 	$('document').ready(function() {
@@ -40,9 +33,9 @@
 	// Governs when the user submits a ticket and refreshes the page; will
 	// increment the ticket number count by one
 	if (isset($_POST['saveNew'])) {
-		$user = $_SESSION['user'];
-		$password = $_SESSION['password'];
-		$db = getDB($user, $password);
+//		$user = $_SESSION['user'];
+//		$password = $_SESSION['password'];
+//		$db = getDB($user, $password);
 		
 		// Submit the ticket to the database
 		$ticketNumber = getMaxTicketNumber($db);

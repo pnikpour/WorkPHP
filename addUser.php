@@ -4,11 +4,17 @@
 	global $user;
 	global $password;
 	global $db;
+	
+	$user = getUser();
+	$password = getPassword();
+	$db = getDB($user, $password);
 ?>
 
 <html>
 <head>
-	<script src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js'></script>
+	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+	
 	<link rel='stylesheet' href='assets/styles.css' type='text/css' />
 	<script type='text/javascript'>
 	$('document').ready(function() {
@@ -22,14 +28,7 @@
 
 
 <?php
-$user = $_SESSION['user'];
-$password = $_SESSION['password'];
 
-if (!isset($_SESSION['user'])) {
-	$user = $_POST['user'];
-} else {
-	$user = $_SESSION['user'];
-}
 
 
 if ($user !== 'parsa' && $user !== 'root') {
@@ -44,45 +43,32 @@ if ($user !== 'parsa' && $user !== 'root') {
 	// Governs when the user submits a ticket and refreshes the page; will
 	// increment the ticket number count by one
 	if (isset($_POST['saveNew'])) {
-		$user = $_SESSION['user'];
-		$password = $_SESSION['password'];
-		$db = getDB($user, $password);
-		
 		$newName = $_POST['newName'];
 		$newPassword = $_POST['newPassword'];
-
 		$query = "CREATE USER '" . $newName . "'@'localhost' IDENTIFIED BY '" . $newPassword . "'";
 		if (!$db->exec($query)) {
-	//		print_r($db->errorInfo()); 
+			print_r($db->errorInfo()); 
 		}
 		$query = "GRANT SELECT, INSERT, UPDATE, DELETE on workorder.* to '" . $newName . "'@'localhost' identified by '" . $newPassword . "'";
 		if (!$db->exec($query)) {
-	//		print_r($db->errorInfo()); 
-		}
+			print_r($db->errorInfo()); 
+	}
 		echo 'User ' . $newName . ' added to database.';	
 	}
 
-	// Check user session; if the session is new, use post data from logon form; otherwise renew user credentials
-	// with session variables
-	if (!isset($_SESSION['user'])) {
-		$_SESSION['user'] = $_POST['user'];
-		$_SESSION['password'] = $_POST['password'];
-		$user = $_SESSION['user'];
-		$password = $_SESSION['password'];
+//	// Check user session; if the session is new, use post data from logon form; otherwise renew user credentials
+//	// with session variables
 
-	}
-	$user = $_SESSION['user'];
-	$password = $_SESSION['password'];
-	$hostname = "localhost";
-
-	try {
-		$db = getDB($user, $password);
-	} catch (PDOException $e) {
-		echo 'ERROR: ' . $e->getMessage();
-		session_unset();
-	}
-
-//	unset($db);
+//	$hostname = "localhost";
+//
+//	try {
+//		$db = getDB($user, $password);
+//	} catch (PDOException $e) {
+//		echo 'ERROR: ' . $e->getMessage();
+//		session_unset();
+//	}
+//
+////	unset($db);
 ?>
 
 

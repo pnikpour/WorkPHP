@@ -20,15 +20,9 @@
 	global $db;	
 	include('lib.php');
 	
-	if (isset($_SESSION['user']) && isset($_POST['user'])) {
-		$user = $_POST['user'];
-		$password = $_POST['password'];
-	} else
-	if (isset($_SESSION['user'])) {
-		$user = $_SESSION['user'];
-		$password = $_SESSION['password'];
-	}
-	
+	$user = getUser();
+	$password = getPassword();
+	$db = getDB($user, $password);
 ?>
 
 <?php
@@ -50,7 +44,8 @@
 
 <html>
 <head>
-	<script src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js'></script>
+	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 	<script src='hide.js'></script>
 	<script src='ghost.js'></script>
 	
