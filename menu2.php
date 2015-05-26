@@ -31,8 +31,10 @@
 	// If Create Work Order button is clicked, navigate to work order creation form
 	if (isset($_POST['createWorkorder'])) {
 		header('Location: database.php');
+	} else
+	if (isset($_POST['adminPage'])) {
+		header('Location: addUser.php');
 	}
-
 	try {
 		$db = getDB($user, $password);
 	} catch (PDOException $e) {
@@ -44,7 +46,7 @@
 ?>
 
 
-<h1>Form</h1>
+<h1>Menu Page</h1>
 <nav>
 	<a href='database.php'>
 		<ul>Create Work Order</ul>
@@ -55,6 +57,10 @@
 </nav>
 <div class='formContainer'>
 	<form action="<?php echo $_SERVER['PHP_SELF'];?>" name='menu' id='menu' method='post'>
+	<div class='btnHeader'>
+		<input type='submit' name='createWorkorder' value='Save and New' />
+		
+	</div>
 
 	</form>
 </div>
