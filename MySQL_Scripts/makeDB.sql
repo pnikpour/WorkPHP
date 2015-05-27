@@ -10,10 +10,10 @@ CREATE TABLE tickets (
 	dateClosed date, status enum('OPEN', 'CLOSED'), PRIMARY KEY(ticketNumber)
 );
 
-CREATE TABLE users {
-	username VARCHAR(25) NOT NULL, groups ENUM('User', 'Administrator') NOT NULL);
-};
+CREATE TABLE users (
+	username VARCHAR(25) NOT NULL, groups ENUM('User', 'Administrator') NOT NULL
+);
 
-UPDATE TABLE users SET groups = 'Administrator' WHERE username LIKE 'root' AND username LIKE 'rootWO';
+UPDATE users SET groups = 'Administrator' WHERE username LIKE 'root' AND username LIKE 'rootWO';
 
 ALTER TABLE workorder.tickets AUTO_INCREMENT = 1000;

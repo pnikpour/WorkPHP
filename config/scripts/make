@@ -1,13 +1,30 @@
-//sudo yum -y remove php php-mysql httpd mysql-server
+#sudo yum -y remove php php-mysql httpd mysql-server
+
+# Remove MySQL; re-install
 sudo yum -y remove mysql-server
 sudo yum -y install php php-mysql httpd mysql-server
 sudo rm -r /var/lib/mysql/*
 
+# If apache html directory does not exist, create it
+sudo mkdir -p '/var/www/html'
+
+scriptDir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)
+cd $scriptDir
+cd '../../public'
+./setup
+
+
+# Copy the httpd.conf to the appropriate directory
 sudo cp /var/www/html/config/httpd.conf /etc/httpd/conf/
+
+# Restart services
 sudo systemctl restart mysqld
 sudo systemctl restart httpd
-mysql -u root < '/var/www/html/MySQL_Scripts/makeDB.sql'
-sudo chown -R apache:apache /var/www
 
+# Make the database and permissions
+mysql -u root < '/var/www/html/MySQL_Scripts/makeDB.sql'
+
+# Set the owner of the web directory and its subdirectories to apache user
+sudo chown -R apache:apache /var/www
 
 echo 'The root password for "rootWO" has been set to an empty string; please change this through logging into the application and resetting it there'
