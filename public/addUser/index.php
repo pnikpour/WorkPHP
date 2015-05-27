@@ -1,6 +1,6 @@
 <?php
 	session_start();
-	include('assets/php/lib.php');
+	include('../lib.php');
 	global $user;
 	global $password;
 	global $db;
@@ -15,7 +15,7 @@
 	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
 	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 	
-	<link rel='stylesheet' href='assets/css/styles.css' type='text/css' />
+	<link rel='stylesheet' href='../assets/styles.css' type='text/css' />
 	<script type='text/javascript'>
 	$('document').ready(function() {
 	

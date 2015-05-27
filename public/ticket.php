@@ -3,7 +3,7 @@
 	ini_set('display_errors',1);
 	error_reporting(-1);
 	session_start();
-	include('lib.php');
+	include('assets/php/lib.php');
 	global $user;
 	global $password;
 	global $numberOfRecords;
@@ -18,7 +18,7 @@
 <head>
 	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
 	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-	<link rel='stylesheet' href='assets/styles.css' type='text/css' />
+	<link rel='stylesheet' href='../assets/styles.css' type='text/css' />
 	<script type='text/javascript'>
 	$('document').ready(function() {
 	
@@ -75,7 +75,7 @@
 <h1>Form</h1>
 
 <div class='formContainer'>
-	<form action="database.php" name='ticket' id='ticket' method='post'>
+	<form action="<?php echo $_SERVER['PHP_SELF']; ?>" name='ticket' id='ticket' method='post'>
 	<div class='btnHeader'>
 		<input type='submit' name='saveNew' value='Save and New' />
 		<input type='button' name='clear' value='Clear' onclick="document.getElementById('ticket').reset()" />

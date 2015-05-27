@@ -4,7 +4,7 @@
 	error_reporting(-1);
 
 	session_start();
-	include('../lib.php');
+	include('assets/php/lib.php');
 	global $user;
 	global $password;
 	global $numberOfRecords;
@@ -47,13 +47,13 @@
 <h1>Menu</h1>
 <form action="<?php echo $_SERVER['PHP_SELF'];?>" name='menu' id='menu' method='post'>
 	<nav>
-		<a href='../ticket/index.php'>
+		<a href='ticket.php'>
 			<ul>Create Work Order</ul>
 		</a>
-		<a href='../addUser/index.php'>
+		<a href='addUser.php'>
 			<ul>Add Users</ul>
 		</a>
-		<a href='../index.php' name='logout' onclick='menu.submit();' >
+		<a href='index.php' name='logout' onclick='menu.submit();' >
 			<ul>Log Out</ul>
 		</a>
 	</nav>

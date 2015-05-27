@@ -12,7 +12,7 @@
 		header('Location: menu');
 	}
 	// Include external functions for getting the current database connection
-	include('lib.php');
+	include('assets/php/lib.php');
 
 	// Declare global variables
 	global $user;
@@ -60,7 +60,7 @@
 <head>
 	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
 	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-	<script src='ghost.js'></script>
+	<script src='assets/ghost.js'></script>
 
 	<link rel='stylesheet' href='assets/styles.css' type='text/css' />
 	<script type='text/javascript'>
@@ -75,7 +75,7 @@
 
 <h1>Login Page</h1>
 	<div id='logonForm'>
-		<form action='./menu' name='login' class='logon' method='POST'>
+		<form action='menu.php' name='login' class='logon' method='POST'>
 			<input type='text' name='user' placeholder='Login' /> <br>
 			<input type='password' name='password' placeholder='Password' /> <br>
 			<div class='btnHeader'>
