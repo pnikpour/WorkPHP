@@ -1,1 +1,0 @@
-sudo rsync -a --exclude .git . /var/www/html
