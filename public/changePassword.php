@@ -94,18 +94,18 @@
 	<table border=1>
 		<tr>
 			<td>
-			<input type='text' class='logon' name='newName' />
+			<input type='text' class='logon' name='username' placeholder='Username' />
 			</td>
 		</tr>
 		<tr>
 			<td>
-			<input type='password' class='logon' name='password1' />
+			<input type='password' class='logon' name='password1' placeholder='Password' />
 			</td>
 
 		</tr>
 		<tr>
 			<td>
-			<input type='password' class=logon' name='password2' />
+			<input type='password' class=logon' name='password2' placeholder='Confirm Password' />
 			</td>
 		</tr>
 		<tr>
