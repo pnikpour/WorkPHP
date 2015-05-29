@@ -50,6 +50,8 @@
 	} elseif (isset($_POST['logout'])) {
 		session_unset();
 		header('Location: index.php');
+	} elseif (isset($_POST['home'])) {
+		header('Location: index.php');
 	}
 ?>
 
