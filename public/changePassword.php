@@ -49,22 +49,25 @@
 
 	// Governs when the user submits a ticket and refreshes the page; will
 	// increment the ticket number count by one
-	if (isset($_POST['change']) || isset($_POST['submit'])) {
-		$newName = $_POST['newName'];
-		$newPassword = $_POST['newPassword'];
-		$query = "CREATE USER '" . $newName . "'@'localhost' IDENTIFIED BY '" . $newPassword . "'";
+	$password1 = $_POST['password1'];
+	$password2 = $_POST['password2'];
+
+	if ($password1 !== $password2) {
+		echo 'The passwords did not match';
+	}
+
+	if (isset($_POST['submit']) && $password1 == $password2) {
+		$username = $_POST['username'];
+		$newPassword = $password1;
+		$password1 = null;
+		$password2 = null;
+
+		$query = "SET PASSWORD FOR '" . $username . "'@'localhost' IDENTIFIED BY '" . $newPassword . "'";
 		if (!$db->exec($query)) {
 			print_r($db->errorInfo()); 
+		} else {
+			echo 'Password changed for ' . $username '.';
 		}
-		$query = "GRANT SELECT, INSERT, UPDATE, DELETE on workorder.* to '" . $newName . "'@'localhost' identified by '" . $newPassword . "'";
-		if (!$db->exec($query)) {
-			print_r($db->errorInfo()); 
-		}
-		$query = "INSERT INTO users values ('" . $newName . "', 'User')";
-		if (!$db->exec($query)) {
-			print_r($db->errorInfo()); 
-		}
-		echo 'User ' . $newName . ' added to database.';	
 	}
 
 	// Logout snippet
@@ -84,12 +87,11 @@
 
 <form action="<?php echo $_SERVER['PHP_SELF'] ?>" name='addUserForm' id='addUserForm' method='post'>
 	<nav>
-		<input type='submit' class='button' name='home' id='home' />
+		<input type='submit' class='button' name='home' id='home' value='Home' />
 		<input type='submit' class='button' name='ticket' value='Create Work Order' />
 		<input type='submit' class='button' name='addUser' value='Add Users' />
 		<input type='submit' class='button' name='logout' value='Log Out' />
 	</nav>
-	</div>
 
 	<table border=1>
 		<tr>
