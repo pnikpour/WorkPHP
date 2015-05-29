@@ -48,27 +48,9 @@
 		}
 		
 	} elseif (isset($_POST['logout'])) {
+		session_unset();
 		header('Location: index.php');
 	}
-	// Check user session; if the session is new, use post data from logon form; otherwise renew user credentials
-	// with session variables
-	if (!isset($_SESSION['user'])) {
-		$_SESSION['user'] = $_POST['user'];
-		$_SESSION['password'] = $_POST['password'];
-		$user = $_SESSION['user'];
-		$password = $_SESSION['password'];
-	}
-	$user = $_SESSION['user'];
-	$password = $_SESSION['password'];
-	$hostname = "localhost";
-	try {
-		$db = getDB($user, $password);
-	} catch (PDOException $e) {
-		echo 'ERROR:' . $e->getMessage();
-		session_unset();
-		exit();
-	}
-//	unset($db);
 ?>
 
 
@@ -77,9 +59,10 @@
 <div class='formContainer'>
 	<form action="<?php echo $_SERVER['PHP_SELF']; ?>" name='ticket' id='ticket' method='post'>
 	<div class='btnHeader'>
-		<input type='submit' name='saveNew' value='Save and New' />
-		<input type='button' name='clear' value='Clear' onclick="document.getElementById('ticket').reset()" />
-		<input type='submit' name='logout' value='Log Out' />
+		<input type='submit' class='button' id='home' name='home' value='Home' />
+		<input type='submit' class='button' name='saveNew' value='Save and New' />
+		<input type='button' class='button' name='clear' value='Clear' onclick="document.getElementById('ticket').reset()" />
+		<input type='submit' class='button' name='logout' value='Log Out' />
 	</div>
 
 	<table border=1>
