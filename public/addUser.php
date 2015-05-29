@@ -1,4 +1,8 @@
 <?php
+	ini_set('display_startup_errors',1);
+	ini_set('display_errors',1);
+	error_reporting(-1);
+
 	session_start();
 	include('assets/php/lib.php');
 	global $user;
@@ -8,13 +12,20 @@
 	$user = getUser();
 	$password = getPassword();
 	$db = getDB($user, $password);
+
+	if (isAdmin($user, $db)) {
+		$_SESSION['privilege'] = true;
+	} else {
+		$_SESSION['privilege'] = false;
+	}
+
 ?>
 
 <html>
 <head>
 	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
 	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-	
+	<script src='assets/js/effect.js' type='text/javascript'></script>
 	<link rel='stylesheet' href='assets/css/styles.css' type='text/css' />
 	<script type='text/javascript'>
 	$('document').ready(function() {
@@ -29,12 +40,10 @@
 
 <?php
 
-
-
-if ($user !== 'parsa' && $user !== 'root') {
+if ($_SESSION['privilege'] == false) {
 		echo 'Access Denied for user ' . $user;
 		exit();
-	}	
+}	
 
 ?>
 
@@ -42,7 +51,7 @@ if ($user !== 'parsa' && $user !== 'root') {
 
 	// Governs when the user submits a ticket and refreshes the page; will
 	// increment the ticket number count by one
-	if (isset($_POST['saveNew'])) {
+	if (isset($_POST['saveNew']) || isset($_POST['submit'])) {
 		$newName = $_POST['newName'];
 		$newPassword = $_POST['newPassword'];
 		$query = "CREATE USER '" . $newName . "'@'localhost' IDENTIFIED BY '" . $newPassword . "'";
@@ -53,45 +62,56 @@ if ($user !== 'parsa' && $user !== 'root') {
 		if (!$db->exec($query)) {
 			print_r($db->errorInfo()); 
 		}
+		$query = "INSERT INTO users values ('" . $newName . "', 'User')";
+		if (!$db->exec($query)) {
+			print_r($db->errorInfo()); 
+		}
 		echo 'User ' . $newName . ' added to database.';	
 	}
 
-//	// Check user session; if the session is new, use post data from logon form; otherwise renew user credentials
-//	// with session variables
-
-//	$hostname = "localhost";
-//
-//	try {
-//		$db = getDB($user, $password);
-//	} catch (PDOException $e) {
-//		echo 'ERROR: ' . $e->getMessage();
-//		session_unset();
-//	}
-//
-////	unset($db);
+	// Logout snippet
+	if (isset($_POST['logout'])) {
+		logout();
+	} else
+	if (isset($_POST['addUser'])) {
+		header('Location: addUser.php');
+	} else
+	if (isset($_POST['ticket'])) {
+		header('Location: ticket.php');
+	}
 ?>
 
 
 <h1>Form</h1>
 
-<form action="<?php echo $_SERVER['PHP_SELF'] ?>" name='login' method='post'>
-<div class='btnHeader'><input type='submit' name='saveNew' value='Save and New' />
-</div>
+<form action="<?php echo $_SERVER['PHP_SELF'] ?>" name='addUserForm' id='addUserForm' method='post'>
+	<nav>
+		<input type='submit' class='button' name='home' id='home' />
+		<input type='submit' class='button' name='ticket' value='Create Work Order' />
+		<input type='submit' class='button' name='addUser' value='Add Users' />
+		<input type='submit' class='button' name='logout' value='Log Out' />
+	</nav>
+	</div>
 
-<table border=1>
-	<tr>
-		<th>New Username</th>
-		<th>New Password for Username</th>
-	</tr>
-	<tr>
-		<td>
-		<input type='text' class='logon'  name='newName' />
-		</td>
-		<td>
-		<input type='password' class='logon' name='newPassword' />
-		</td>
-	</tr>
-</table>
+	<table border=1>
+		<tr>
+			<th>New Username</th>
+			<th>New Password for Username</th>
+		</tr>
+		<tr>
+			<td>
+			<input type='text' class='logon'  name='newName' />
+			</td>
+			<td>
+			<input type='password' class='logon' name='newPassword' />
+			</td>
+		</tr>
+		<tr>
+			<td>
+			<input type='submit' class='button' name='submit' value='Submit' />
+			</td>
+		</tr>
+	</table>
 </form>
 </body>
 </html>
