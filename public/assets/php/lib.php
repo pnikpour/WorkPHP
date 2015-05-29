@@ -16,6 +16,20 @@ function getMaxTicketNumber($db) {
 	return $newID;
 }
 
+
+function isAdmin($user, $db) {
+	$query = 'SELECT groups FROM workorder.users WHERE username LIKE "' . $user . '"';
+	$stmt = $db->prepare($query);
+	$stmt->execute();
+	$rows = $stmt->fetch(PDO::FETCH_ASSOC);
+	$group = $rows['groups'];
+	if ($group == 'Administrator') {
+		return true;
+	} else {
+		return false;
+	}
+}
+
 function getPassword() {
 	if (isset($_POST['password'])) {
 		$password = $_POST['password'];
@@ -24,6 +38,11 @@ function getPassword() {
 		$password = $_SESSION['password'];
 	}
 	return $password;
+}
+
+function logout() {
+	session_unset();
+	header('Location: index.php');
 }
 
 function getUser() {
