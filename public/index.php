@@ -1,7 +1,9 @@
 <?php
+
 	// Start session
-	if (session_status() === PHP_SESSION_NONE) {
-		session_start();
+	session_start();
+//	if (session_status() === PHP_SESSION_NONE) {
+	if (!$_SESSION['user']) {
 		session_unset();
 		session_destroy();
 		session_write_close();
@@ -9,7 +11,7 @@
 		session_regenerate_id(true);
 	} else {
 		session_start();
-		header('Location: menu');
+		header('Location: menu.php');
 	}
 	// Include external functions for getting the current database connection
 	include('assets/php/lib.php');
@@ -20,7 +22,15 @@
 	global $numberOfRecords;
 	global $db;
 
+	function alert($str) {
+		echo "<script>alert('" . $str . "')</script>";
+	}
 
+	if (isset($_SESSION['user'])) {
+		$user = getUser();
+		$password = getPassword();
+		$db = getDB($user, $password);
+	}
 ?>
 
 
@@ -60,7 +70,7 @@
 <head>
 	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
 	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-	<script src='assets/ghost.js'></script>
+	<script src='assets/js/ghost.js'></script>
 
 	<link rel='stylesheet' href='assets/styles.css' type='text/css' />
 	<script type='text/javascript'>
@@ -72,17 +82,21 @@
 	</script>
 </head>
 <body>
+	<?php
+		if (!isset($_SESSION['user'])) { ?>
+		<h1>Login Page</h1>
+			<div id='logonForm'>
+				<form action='menu.php' name='login' class='logon' method='POST'>
+					<input type='text' name='user' placeholder='Login' /> <br>
+					<input type='password' name='password' placeholder='Password' /> <br>
+					<div class='btnHeader'>
+						<input type='submit' name='login' value='Login' />
+					</div>		
 
-<h1>Login Page</h1>
-	<div id='logonForm'>
-		<form action='menu.php' name='login' class='logon' method='POST'>
-			<input type='text' name='user' placeholder='Login' /> <br>
-			<input type='password' name='password' placeholder='Password' /> <br>
-			<div class='btnHeader'>
-				<input type='submit' name='login' value='Login' />
-			</div>		
+				</form>
+			<div>
+	<?php
+	} ?>
 
-		</form>
-	<div>
 </body>
 </html>
