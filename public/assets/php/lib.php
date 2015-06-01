@@ -1,7 +1,13 @@
 <?php
 
 function getDB($user, $password) {
-	return new PDO("mysql:host=localhost;dbname=workorder;charset=utf8", $user, $password);
+	try {
+		return new PDO("mysql:host=localhost;dbname=workorder;charset=utf8", $user, $password);
+	}
+	catch (Exception $e) {
+		session_unset();
+		header('Location: index.php');
+	}
 }
 
 function getMaxTicketNumber($db) {

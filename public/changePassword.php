@@ -56,30 +56,33 @@
 		echo 'The passwords did not match';
 	}
 
-	if (isset($_POST['submit']) && $password1 == $password2) {
+	////	if (isset($_POST['submit']) && $password1 == $password2) {
+	if (isset($_POST['submit'])) {
 		$username = $_POST['username'];
 		$newPassword = $password1;
-		$password1 = null;
-		$password2 = null;
+	//	$password1 = null;
+	//	$password2 = null;
 
-		$query = "SET PASSWORD FOR '" . $username . "'@'localhost' IDENTIFIED BY '" . $newPassword . "'";
+		$query = "SET PASSWORD FOR '" . $username . "'@'localhost' = PASSWORD('" . $newPassword . "')";
 		if (!$db->exec($query)) {
 			print_r($db->errorInfo()); 
 		} else {
-			echo 'Password changed for ' . $username '.';
+			echo "Password changed for " . $username;
 		}
-	}
-
-	// Logout snippet
+	} else 
 	if (isset($_POST['logout'])) {
 		logout();
 	} else
 	if (isset($_POST['addUser'])) {
 		header('Location: addUser.php');
 	} else
+	if (isset($_POST['home'])) {
+		header('Location: index.php');
+	} else
 	if (isset($_POST['ticket'])) {
 		header('Location: ticket.php');
 	}
+
 ?>
 
 

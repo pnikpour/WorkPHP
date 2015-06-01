@@ -54,15 +54,22 @@ if ($_SESSION['privilege'] == false) {
 	if (isset($_POST['saveNew']) || isset($_POST['submit'])) {
 		$newName = $_POST['newName'];
 		$newPassword = $_POST['newPassword'];
+		$userLevel = $_POST['userLevel'];
+
 		$query = "CREATE USER '" . $newName . "'@'localhost' IDENTIFIED BY '" . $newPassword . "'";
 		if (!$db->exec($query)) {
 			print_r($db->errorInfo()); 
 		}
-		$query = "GRANT SELECT, INSERT, UPDATE, DELETE on workorder.* to '" . $newName . "'@'localhost' identified by '" . $newPassword . "'";
+
+		if ($userLevel !== 'User') {
+			$query = "GRANT ALL ON *.* to '" . $newName . "'@'localhost' identified by '" . $newPassword . "'";
+		} else {
+			$query = "GRANT SELECT, INSERT, UPDATE, DELETE on workorder.* to '" . $newName . "'@'localhost' identified by '" . $newPassword . "'";
+		}
 		if (!$db->exec($query)) {
 			print_r($db->errorInfo()); 
 		}
-		$query = "INSERT INTO users values ('" . $newName . "', 'User')";
+		$query = "INSERT INTO users values ('" . $newName . "', '" . $userLevel . "')";
 		if (!$db->exec($query)) {
 			print_r($db->errorInfo()); 
 		}
@@ -78,6 +85,9 @@ if ($_SESSION['privilege'] == false) {
 	} else
 	if (isset($_POST['ticket'])) {
 		header('Location: ticket.php');
+	} else
+	if (isset($_POST['home'])) {
+		header('Location: index.php');
 	}
 ?>
 
@@ -86,7 +96,7 @@ if ($_SESSION['privilege'] == false) {
 
 <form action="<?php echo $_SERVER['PHP_SELF'] ?>" name='addUserForm' id='addUserForm' method='post'>
 	<nav>
-		<input type='submit' class='button' name='home' id='home' />
+		<input type='submit' class='button' name='home' id='home' value='Home' />
 		<input type='submit' class='button' name='ticket' value='Create Work Order' />
 		<input type='submit' class='button' name='addUser' value='Add Users' />
 		<input type='submit' class='button' name='logout' value='Log Out' />
@@ -97,6 +107,7 @@ if ($_SESSION['privilege'] == false) {
 		<tr>
 			<th>New Username</th>
 			<th>New Password for Username</th>
+			<th>User Level</th>
 		</tr>
 		<tr>
 			<td>
@@ -104,6 +115,12 @@ if ($_SESSION['privilege'] == false) {
 			</td>
 			<td>
 			<input type='password' class='logon' name='newPassword' />
+			</td>
+			<td>
+			<select id='userLevel' name='userLevel' >
+				<option value='Administrator'>Administrator</option>
+				<option value='User'>User</option>
+			</select>
 			</td>
 		</tr>
 		<tr>

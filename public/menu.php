@@ -20,25 +20,28 @@
 <head>
 	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
 	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-	<script src='../assets/effect.js' type='text/javascript'></script>
-	<link rel='stylesheet' href='../assets/styles.css' type='text/css' />
+	<script src='assets/js/effect.js' type='text/javascript'></script>
+	<link rel='stylesheet' href='assets/css/styles.css' type='text/css' />
 	
 </head>
 <body>
 
 <?php
 	// Logout snippet
-	if (isset($_POST['logout'])) {
-		session_unset();
-		header('Location: ../index.php');
+	if (isset($_POST['home'])) {
+		header('Location: index.php');
 	}
-
-	try {
-		$db = getDB($user, $password);
-	} catch (PDOException $e) {
-		echo 'ERROR:' . $e->getMessage();
-		session_unset();
-		exit();
+	if (isset($_POST['logout'])) {
+		logout();
+	} else
+	if (isset($_POST['addUser'])) {
+		header('Location: addUser.php');
+	} else
+	if (isset($_POST['ticket'])) {
+		header('Location: ticket.php');
+	} else
+	if (isset($_POST['changePassword'])) {
+		header('Location: changePassword.php');
 	}
 
 ?>
@@ -47,17 +50,20 @@
 <h1>Menu</h1>
 <form action="<?php echo $_SERVER['PHP_SELF'];?>" name='menu' id='menu' method='post'>
 	<nav>
-		<a href='ticket.php'>
-			<ul>Create Work Order</ul>
-		</a>
-		<a href='addUser.php'>
-			<ul>Add Users</ul>
-		</a>
-		<a href='index.php' name='logout' onclick='menu.submit();' >
-			<ul>Log Out</ul>
-		</a>
+		<input type='submit' class='button' id='home' name='home' value='Home' />
+		<input type='submit' class='button' id='ticket' name='ticket' value='Create Work Order' />
+		<input type='submit' class='button' name='logout' value='Log Out' />
 	</nav>
 </form>
+
+<?php
+	if (isAdmin($user, $db)) { ?>
+		<script>
+			$('#ticket').after("<input type='submit' class='button' id='addUser' name='addUser' value='Add Users' />");
+			$('#addUser').after("<input type='submit' class='button' id='changePassword' name='changePassword' value='Change Password' />");
+		</script>
+		<?php
+	} ?>
 </body>
 </html>
 

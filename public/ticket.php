@@ -18,14 +18,8 @@
 <head>
 	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
 	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-	<link rel='stylesheet' href='../assets/styles.css' type='text/css' />
-	<script type='text/javascript'>
-	$('document').ready(function() {
-	
-		$('td').css('padding', '6px 10px');
-		$('body').css('background-color', '#D0D0D0');	
-	});
-	</script>
+	<script src='assets/js/effect.js' type='text/javascript'></script>
+	<link rel='stylesheet' href='assets/css/styles.css' type='text/css' />
 </head>
 <body>
 
@@ -36,20 +30,20 @@
 		
 		// Submit the ticket to the database
 		$ticketNumber = getMaxTicketNumber($db);
+		$requestor = $_SESSION['user'];
 		$dateCreated = $_POST['dateCreated'];
 		$problemDescription = $_POST['problemDescription'];
 		$problemCode = $_POST['problemCode'];
 		$assignedTo = $_POST['assignedTo'];
 		$dateClosed = $_POST['dateClosed'];
 		$status = $_POST['status'];
-		$query = "INSERT INTO tickets (ticketNumber, dateCreated, problemDescription, problemCode, assignedTo, status, dateClosed) values ('$ticketNumber', '$dateCreated', '$problemDescription', '$problemCode', '$assignedTo', '$status', '$dateClosed');";
+		$query = "INSERT INTO tickets (ticketNumber, requestor, dateCreated, problemDescription, problemCode, assignedTo, status, dateClosed) values ('$ticketNumber', '$requestor', '$dateCreated', '$problemDescription', '$problemCode', '$assignedTo', '$status', '$dateClosed');";
 		if (!$db->exec($query)) {
 			print_r($db->errorInfo()); 
 		}
 		
 	} elseif (isset($_POST['logout'])) {
-		session_unset();
-		header('Location: index.php');
+		logout();
 	} elseif (isset($_POST['home'])) {
 		header('Location: index.php');
 	}
@@ -70,54 +64,53 @@
 	<table border=1>
 		<tr>
 			<th><h2>Ticket Number</h2></th>
+			<th><h2>Requestor</h2></th>
 			<th><h2>Date Created</h2></th>
 			<th><h2>Problem Code</h2></th>
 		</tr>
 		<tr>
 			<td>
-			<?php
-		
-			try {
-				$db = getDB($user, $password);
-			} catch (PDOException $e) {
-				echo 'ERROR: ' . $e->getMessage();
-				session_unset();
-			}
-			
-			$newID = getMaxTicketNumber($db);
-			echo "<input type='text' readonly='true' name='ticketNumber' value=$newID />"
-			?>
+				<?php
+					$newID = getMaxTicketNumber($db);
+					echo "<input type='text' readonly='true' name='ticketNumber' value=$newID />";
+				?>
 			</td>
 			<td>
-			<?php
-				$date = date("Y-m-d");
-				$date = date("Y-m-d", strtotime(str_replace('-', '/', $date)));
-				echo "<input type='text' name='dateCreated' value=$date readonly='true' />"
-			?>
+				<?php
+					$requestor = $_SESSION['user'];
+					echo "<input type='text' readonly='true' name='requestor' value=$requestor />";
+				?>
+			</td>
+			<td>
+				<?php
+					$date = date("Y-m-d");
+					$date = date("Y-m-d", strtotime(str_replace('-', '/', $date)));
+					echo "<input type='text' name='dateCreated' value=$date readonly='true' />";
+				?>
 			<td>
 			<select name='problemCode'>
-			<?php
-				try {
-				$db = getDB($user, $password);
-				$table = "tickets";
-				$col = "problemCode";
-				$sql = 'SHOW COLUMNS FROM '.$table.' WHERE field="'.$col.'"';
-				    $row = $db->query($sql)->fetch(PDO::FETCH_ASSOC);
-				    foreach(explode("','",substr($row['Type'],6,-2)) as $option) {
-				    echo("<option>$option</option>");
-				}
-				} catch (PDOException $e) {
-					echo "ERROR: " . $e->getMessage();
-				}	
-			?>
+				<?php
+					try {
+					$db = getDB($user, $password);
+					$table = "tickets";
+					$col = "problemCode";
+					$sql = 'SHOW COLUMNS FROM '.$table.' WHERE field="'.$col.'"';
+					    $row = $db->query($sql)->fetch(PDO::FETCH_ASSOC);
+					    foreach(explode("','",substr($row['Type'],6,-2)) as $option) {
+					    echo("<option>$option</option>");
+					}
+					} catch (PDOException $e) {
+						echo "ERROR: " . $e->getMessage();
+					}	
+				?>
 			</select>
 			</td>
 		</tr>
 		<tr>
-			<th colspan='3'><h2>Problem Details</h2></th>
+			<th colspan='4'><h2>Problem Details</h2></th>
 		</tr>
 		<tr>
-			<td colspan='3'><textarea rows='5' style='width: 100%;'  name='problemDescription'></textarea></td>
+			<td colspan='4'><textarea rows='5' style='width: 100%;'  name='problemDescription'></textarea></td>
 		</tr>
 	</table>
 	<br>
@@ -130,22 +123,21 @@
 		<tr>
 			<td>
 			<select name='assignedTo'>
-			<?php
-				$db = getDB($user, $password);
-				$table = "tickets";
-				$col = 'assignedTo';
-				$sql = 'SHOW COLUMNS FROM '.$table.' WHERE field="'.$col.'"';
-				$row = $db->query($sql)->fetch(PDO::FETCH_ASSOC);
-				foreach(explode("','", substr($row['Type'],6,-2)) as $option) {
-					echo ("<option>$option</option>");
-				}
-			?>
+				<?php
+					$db = getDB($user, $password);
+					$table = "tickets";
+					$col = 'assignedTo';
+					$sql = 'SHOW COLUMNS FROM '.$table.' WHERE field="'.$col.'"';
+					$row = $db->query($sql)->fetch(PDO::FETCH_ASSOC);
+					foreach(explode("','", substr($row['Type'],6,-2)) as $option) {
+						echo ("<option>$option</option>");
+					}
+				?>
 			</select>
 			</td>
 			<td>
 			<select name='status' onchange='var today = new Date(); var dd = today.getDate(); var mm = today.getMonth()+1; mm = (mm < 10 ? "0" : "") + mm; var yyyy = today.getFullYear(); document.getElementById("dateClosed").value = yyyy + "-" + mm + "-" + dd'>
 			<?php
-				$db = getDB($user, $password);
 				$table = "tickets";
 				$col = 'status';
 				$sql = 'SHOW COLUMNS FROM '.$table.' WHERE field="'.$col.'"';

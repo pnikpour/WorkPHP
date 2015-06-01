@@ -27,4 +27,4 @@ mysql -u root < '/var/www/html/MySQL_Scripts/makeDB.sql'
 # Set the owner of the web directory and its subdirectories to apache user
 sudo chown -R apache:apache /var/www
 
-echo 'The root password for "rootWO" has been set to an empty string; please change this through logging into the application and resetting it there'
+echo 'The default password for accounts root and rootWO has been set to "blueberry". Please log in to change the root passwords through the web client or MySQL console';

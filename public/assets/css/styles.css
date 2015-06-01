@@ -4,12 +4,13 @@
 }
 
 body {
-	background: '#D0D0D0';
+background: '#D0D0D0';
 }
 
-nav > a > ul {
+nav > a > ul .button {
 	display: inline;
 	text-decoration: none;
+	background-color: black;
 	color: white;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
@@ -21,26 +22,23 @@ form {
 	margin-top: 100px;
 	margin-left: auto;
 	margin-right: auto;
-	//width: 60%;
+//	width: 75%;
 }
 
-ul {
+.button {
 	padding: 5px;
+	color: white;
 	background: black;
-	max-width: 100px;
+	background-color: black;
+	//max-width: 200px;
 }
 
 table {
 //	margin-left: 10%;
-//	margin-right: auto;
-//	width: 60%;
+	margin-right: auto;
+	width: 60%;
 }
 
-.btnHeader {
-//	margin-left: 20%;
-//	margin-right: auto;
-//	width: 800px;
-}
 
 .ghost {
 	color: #C0C0C0;
@@ -49,8 +47,6 @@ table {
 
 input {
 	font-size: 30px;
-	//margin-left: 30%;
-//	width: 100%;
 }
 
 h2 {
@@ -58,18 +54,14 @@ h2 {
 }
 
 td {
-	width: 30%;
+	width: 50%;
 }
 
-//td:nth-child(3) {
-//	background-color:yellow;
-//	width:100%;
-//}
-
 .formContainer {
-	margin-left: auto;
-	margin-right: auto;
-	width: 80%;
+//	margin-left: auto;
+//	margin-right: auto;
+	margin-left: 10%;
+	width: 75%;
 }
 
 #logonForm {
