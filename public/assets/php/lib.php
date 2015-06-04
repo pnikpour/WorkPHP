@@ -1,6 +1,9 @@
 <?php
 
-function getDB($user, $password) {
+//require (dirname(__FILE__).'/../../password_compat/lib/password.php')
+require('/var/www/html/public/password_compat/lib/password.php');
+
+function getDB() {
 	try {
 		return new PDO("mysql:host=localhost;dbname=workorder;charset=utf8", 'secureUser', 'BL3FFEE5WUsrJQnx');
 	}
@@ -21,6 +24,26 @@ function getMaxTicketNumber($db) {
 
 	return $newID;
 }
+
+// Accepts username and cleartext password; verifies password with hashed one in database
+function authUser($user, $pass, $db) {
+	$query = 'SELECT username, hash, groups FROM workorder.users WHERE username LIKE "' . $user . '"';
+	$stmt = $db->prepare($query);
+	$stmt->execute();
+	$rows = $stmt->fetch(PDO::FETCH_ASSOC);
+	$group = $rows['groups'];	
+	$hash = $rows['hash'];
+
+	if (password_verify($pass, $hash)) {
+		$_SESSION['user'] = $user;
+		$_SESSION['password'] = $hash;
+	} else {
+		echo 'Invalid';
+		session_unset();
+		exit();
+	}
+}
+
 
 
 function isAdmin($user, $db) {

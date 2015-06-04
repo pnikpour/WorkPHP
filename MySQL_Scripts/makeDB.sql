@@ -3,6 +3,8 @@ CREATE SCHEMA workorder;
 USE workorder;
 
 -- Initially set privileges for secure user account
+CREATE USER secureUser@localhost;
+SET PASSWORD FOR secureUser@localhost = PASSWORD('BL3FFEE5WUsrJQnx');
 GRANT SELECT, UPDATE, INSERT on workorder.* to 'secureUser'@'localhost' IDENTIFIED BY 'BL3FFEE5WUsrJQnx';
 FLUSH PRIVILEGES;
 
@@ -18,23 +20,22 @@ CREATE TABLE tickets (
 CREATE TABLE users (
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, 
 	username VARCHAR(25) NOT NULL,
-	password CHAR(128) NOT NULL,
-	groups ENUM('User', 'Administrator') NOT NULL,
-	salt CHAR(128) NOT NULL
+	hash CHAR(128) NOT NULL,
+	groups ENUM('User', 'Administrator') NOT NULL
 ) ENGINE = InnoDB;
 
-CREATE TABLE loginAttempts {
+CREATE TABLE loginAttempts (
 	userID INT(11) NOT NULL,
-	time VARCHAR(30) NOT NULL
-} ENGINE = InnoDB;
+	attemptTime VARCHAR(30) NOT NULL
+) ENGINE = InnoDB;
 
 -- Set temporary default passwords for root accounts
 SET PASSWORD FOR root@localhost = PASSWORD('blueberry');
-SET PASSWORD FOR secureUser@localhost = PASSWORD('BL3FFEE5WUsrJQnx');
+
 
 -- Insert root accounts in users table in the workorder database; set admin attributes
-INSERT INTO users (username) VALUES ('root'), ('rootWO');
-UPDATE users SET groups = 'Administrator' WHERE username LIKE 'root' OR username LIKE 'rootWO';
+-- INSERT INTO users (username) VALUES ('root'), ('rootWO');
+-- UPDATE users SET groups = 'Administrator' WHERE username LIKE 'root' OR username LIKE 'rootWO';
 
 -- Set the default ticket number
 ALTER TABLE workorder.tickets AUTO_INCREMENT = 1000;

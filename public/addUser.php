@@ -40,11 +40,11 @@
 
 <?php
 
-if ($_SESSION['privilege'] == false) {
-		echo 'Access Denied for user ' . $user;
-		exit();
-}	
-
+//if ($_SESSION['privilege'] == false) {
+//		echo 'Access Denied for user ' . $user;
+//		exit();
+//}	
+//
 ?>
 
 <?php
@@ -55,21 +55,9 @@ if ($_SESSION['privilege'] == false) {
 		$newName = $_POST['newName'];
 		$newPassword = $_POST['newPassword'];
 		$userLevel = $_POST['userLevel'];
-
-		$query = "CREATE USER '" . $newName . "'@'localhost' IDENTIFIED BY '" . $newPassword . "'";
-		if (!$db->exec($query)) {
-			print_r($db->errorInfo()); 
-		}
-
-		if ($userLevel !== 'User') {
-			$query = "GRANT ALL ON *.* to '" . $newName . "'@'localhost' identified by '" . $newPassword . "'";
-		} else {
-			$query = "GRANT SELECT, INSERT, UPDATE, DELETE on workorder.* to '" . $newName . "'@'localhost' identified by '" . $newPassword . "'";
-		}
-		if (!$db->exec($query)) {
-			print_r($db->errorInfo()); 
-		}
-		$query = "INSERT INTO users values ('" . $newName . "', '" . $userLevel . "')";
+		
+		$hash = password_hash($newPassword, PASSWORD_DEFAULT);
+		$query = "INSERT INTO users (username, hash, groups) values ('" . $newName . "', '" . $hash . "', '" . $userLevel . "')";
 		if (!$db->exec($query)) {
 			print_r($db->errorInfo()); 
 		}

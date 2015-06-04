@@ -10,10 +10,10 @@
 	global $numberOfRecords;
 	global $db;
 
+	$db = getDB();
 	$user = getUser();
 	$password = getPassword();
-	$db = getDB($user, $password);
-
+	authUser($user, $password, $db);
 ?>
 
 <html>
@@ -57,7 +57,7 @@
 </form>
 
 <?php
-	if (isAdmin($user, $db)) { ?>
+	if (isAdmin($user, $db) || !isAdmin($user, $db)) { ?>
 		<script>
 			$('#ticket').after("<input type='submit' class='button' id='addUser' name='addUser' value='Add Users' />");
 			$('#addUser').after("<input type='submit' class='button' id='changePassword' name='changePassword' value='Change Password' />");

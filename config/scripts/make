@@ -1,13 +1,37 @@
-#sudo yum -y remove php php-mysql httpd mysql-server
+
+
+
+
+
+
+
+
+
+
+sudo yum -y remove php php-mysql httpd mysql-server
 
 # Remove MySQL; re-install
 sudo yum -y remove mysql-server
 sudo yum -y install php php-mysql httpd mysql-server
-sudo rm -r /var/lib/mysql/*
+
+onCent=0;
+if  [[ os=$( cat /etc/os-release ) == *"CentOS"* ]]
+then
+	
+	echo 'you have cent'
+	onCent=1;
+	sudo yum -y remove mysql mariadb-server
+	sudo yum -y install mysql mariadb-server
+
+fi
+
+if [[ -d '/var/lib/mysql' ]]
+then
+	sudo rm -r /var/lib/mysql/*
+fi
 
 # If apache html directory does not exist, create it
 sudo mkdir -p '/var/www/html'
-
 scriptDir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)
 cd $scriptDir
 cd '../../public'
@@ -18,11 +42,16 @@ cd '../../public'
 sudo cp /var/www/html/config/httpd.conf /etc/httpd/conf/
 
 # Restart services
-sudo systemctl restart mysqld
-sudo systemctl restart httpd
+if [[ onCent ]]; then
+	sudo systemctl restart mariadb-server
+fi
+
+./restartServ
 
 # Make the database and permissions
 mysql -u root < '/var/www/html/MySQL_Scripts/makeDB.sql'
+
+./restartServ
 
 # Set the owner of the web directory and its subdirectories to apache user
 sudo chown -R apache:apache /var/www
