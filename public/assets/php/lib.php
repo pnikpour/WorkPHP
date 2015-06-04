@@ -2,7 +2,7 @@
 
 function getDB($user, $password) {
 	try {
-		return new PDO("mysql:host=localhost;dbname=workorder;charset=utf8", $user, $password);
+		return new PDO("mysql:host=localhost;dbname=workorder;charset=utf8", 'secureUser', 'BL3FFEE5WUsrJQnx');
 	}
 	catch (Exception $e) {
 		session_unset();
