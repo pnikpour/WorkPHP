@@ -1,6 +1,5 @@
 <?php
 
-//require (dirname(__FILE__).'/../../password_compat/lib/password.php')
 require('/var/www/html/public/password_compat/lib/password.php');
 
 function getDB() {
