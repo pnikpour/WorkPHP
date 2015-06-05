@@ -1,8 +1,8 @@
 
 
 # Remove MySQL; re-install
-sudo yum -y remove php php-mysql httpd mysql-server
-sudo yum -y install php php-mysql httpd mysql-server
+sudo yum -y remove php php-mysql httpd mysql-server mariadb-server
+sudo yum -y install php php-mysql httpd mysql-server mariadb-server
 
 onCent=0;
 if  [[ os=$( cat /etc/os-release ) == *"CentOS"* ]]
@@ -10,8 +10,8 @@ then
 	
 	echo 'you have cent'
 	onCent=1;
-	sudo yum -y remove mysql mariadb-server
-	sudo yum -y install mysql mariadb-server
+#	sudo yum -y remove mysql mariadb-server
+#	sudo yum -y install mysql mariadb-server
 
 fi
 
@@ -32,9 +32,9 @@ cd '../../public'
 sudo cp /var/www/html/config/httpd.conf /etc/httpd/conf/
 
 # Restart services
-if [[ onCent ]]; then
-	sudo systemctl restart mariadb-server
-fi
+#if [[ onCent ]]; then
+#	sudo systemctl restart mariadb-server
+#fi
 
 ./restartServ
 

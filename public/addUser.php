@@ -9,16 +9,13 @@
 	global $password;
 	global $db;
 	
-	$user = getUser();
-	$password = getPassword();
-	$db = getDB($user, $password);
-
-	if (isAdmin($user, $db)) {
-		$_SESSION['privilege'] = true;
+	if (isset($_SESSION['user'])) {	
+		$user = getUser();
+		$password = getPassword();
+		$db = getDB($user, $password);
 	} else {
-		$_SESSION['privilege'] = false;
+		header('Location: forbidden.php');
 	}
-
 ?>
 
 <html>
@@ -27,30 +24,13 @@
 	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 	<script src='assets/js/effect.js' type='text/javascript'></script>
 	<link rel='stylesheet' href='assets/css/styles.css' type='text/css' />
-	<script type='text/javascript'>
-	$('document').ready(function() {
-	
-		$('td').css('padding', '6px 10px');
-		$('body').css('background-color', '#D0D0D0');	
-	});
-	</script>
 </head>
 <body>
 
 
 <?php
 
-//if ($_SESSION['privilege'] == false) {
-//		echo 'Access Denied for user ' . $user;
-//		exit();
-//}	
-//
-?>
-
-<?php
-
-	// Governs when the user submits a ticket and refreshes the page; will
-	// increment the ticket number count by one
+	// Create the user
 	if (isset($_POST['saveNew']) || isset($_POST['submit'])) {
 		$newName = $_POST['newName'];
 		$newPassword = $_POST['newPassword'];
@@ -65,18 +45,7 @@
 	}
 
 	// Logout snippet
-	if (isset($_POST['logout'])) {
-		logout();
-	} else
-	if (isset($_POST['addUser'])) {
-		header('Location: addUser.php');
-	} else
-	if (isset($_POST['ticket'])) {
-		header('Location: ticket.php');
-	} else
-	if (isset($_POST['home'])) {
-		header('Location: index.php');
-	}
+	navPOST();
 ?>
 
 

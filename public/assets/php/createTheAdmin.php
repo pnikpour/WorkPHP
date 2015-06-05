@@ -4,7 +4,7 @@
 	error_reporting(-1);
 
 	session_start();
-	include('assets/php/lib.php');
+	include('lib.php');
 	global $user;
 	global $password;
 	global $db;

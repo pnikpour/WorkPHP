@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 require('/var/www/html/public/password_compat/lib/password.php');
 
@@ -12,6 +13,25 @@ function getDB() {
 	}
 }
 
+function navPOST() {
+	if (isset($_POST['home'])) {
+		header('Location: index.php');
+	}
+	if (isset($_POST['logout'])) {
+		logout();
+	} else
+	if (isset($_POST['addUser'])) {
+		header('Location: addUser.php');
+	} else
+	if (isset($_POST['ticket'])) {
+		header('Location: ticket.php');
+	} else
+	if (isset($_POST['changePassword'])) {
+		header('Location: changePassword.php');
+	}
+
+}
+
 function getMaxTicketNumber($db) {
 	
 	$stmt = $db->query("SELECT MAX(ticketNumber) from tickets");
@@ -22,25 +42,6 @@ function getMaxTicketNumber($db) {
 	}
 
 	return $newID;
-}
-
-// Accepts username and cleartext password; verifies password with hashed one in database
-function authUser($user, $pass, $db) {
-	$query = 'SELECT username, hash, groups FROM workorder.users WHERE username LIKE "' . $user . '"';
-	$stmt = $db->prepare($query);
-	$stmt->execute();
-	$rows = $stmt->fetch(PDO::FETCH_ASSOC);
-	$group = $rows['groups'];	
-	$hash = $rows['hash'];
-
-	if (password_verify($pass, $hash)) {
-		$_SESSION['user'] = $user;
-		$_SESSION['password'] = $hash;
-	} else {
-		echo 'Invalid';
-		session_unset();
-		exit();
-	}
 }
 
 
@@ -78,10 +79,10 @@ function getUser() {
 		$user = $_POST['user'];
 		$_SESSION['user'] = $user;
 
-	} else {
+	} else 
+	if (isset($_SESSION['user'])){
 		$user = $_SESSION['user'];
 	}
-
 	return $user;
 }
 //if (isset($_SESSION['user'])) {

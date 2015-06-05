@@ -12,6 +12,8 @@
 	$user = getUser();
 	$password = getPassword();
 	$db = getDB($user, $password);
+
+	date_default_timezone_set('America/Los_Angeles');
 ?>
 
 <html>
@@ -47,6 +49,7 @@
 	} elseif (isset($_POST['home'])) {
 		header('Location: index.php');
 	}
+
 ?>
 
 
@@ -91,7 +94,6 @@
 			<select name='problemCode'>
 				<?php
 					try {
-					$db = getDB($user, $password);
 					$table = "tickets";
 					$col = "problemCode";
 					$sql = 'SHOW COLUMNS FROM '.$table.' WHERE field="'.$col.'"';

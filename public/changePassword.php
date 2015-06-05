@@ -9,9 +9,13 @@
 	global $password;
 	global $db;
 	
-	$user = getUser();
-	$password = getPassword();
-	$db = getDB($user, $password);
+	if (isset($_SESSION['user'])) {	
+		$user = getUser();
+		$password = getPassword();
+		$db = getDB($user, $password);
+	} else {
+		header('Location: forbidden.php');
+	}
 
 	if (isAdmin($user, $db)) {
 		$_SESSION['privilege'] = true;
@@ -37,52 +41,48 @@
 </head>
 <body>
 
-
-<?php
-	if ($_SESSION['privilege'] == false) {
-		echo 'Access Denied for user ' . $user;
-		exit();
-	}	
-?>
-
 <?php
 
-	// Governs when the user submits a ticket and refreshes the page; will
-	// increment the ticket number count by one
-	$password1 = $_POST['password1'];
-	$password2 = $_POST['password2'];
-
-	if ($password1 !== $password2) {
-		echo 'The passwords did not match';
-	}
-
-	////	if (isset($_POST['submit']) && $password1 == $password2) {
+		////	if (isset($_POST['submit']) && $password1 == $password2) {
 	if (isset($_POST['submit'])) {
+		$password1 = null;
+		$password2 = null;
+		if (isset($_POST['password1']) && isset($_POST['password2'])) {
+			$password1 = $_POST['password1'];
+			$password2 = $_POST['password2'];
+		}
+
+		$doPasswordChange = true;
+		if ($password1 !== $password2) {
+			echo 'The passwords did not match';
+			$doPasswordChange = false;
+		}
+		if (strlen($password1) < 6 || strlen($password2) < 6) {
+			echo 'The password length requirement has not been met; please provide a password of at least six characters long';
+			$doPasswordChange = false;
+		}
+
+
 		$username = $_POST['username'];
 		$newPassword = $password1;
-	//	$password1 = null;
-	//	$password2 = null;
 
-		$query = "SET PASSWORD FOR '" . $username . "'@'localhost' = PASSWORD('" . $newPassword . "')";
-		if (!$db->exec($query)) {
-			print_r($db->errorInfo()); 
-		} else {
-			echo "Password changed for " . $username;
+		if ($username == '') {
+			echo 'Please specify a username';
+			$doPasswordChange = false;
 		}
-	} else 
-	if (isset($_POST['logout'])) {
-		logout();
-	} else
-	if (isset($_POST['addUser'])) {
-		header('Location: addUser.php');
-	} else
-	if (isset($_POST['home'])) {
-		header('Location: index.php');
-	} else
-	if (isset($_POST['ticket'])) {
-		header('Location: ticket.php');
-	}
 
+		if ($doPasswordChange) {
+			$hash = password_hash($newPassword, PASSWORD_DEFAULT);
+			$query = "UPDATE users SET hash='" . $hash . "' WHERE username LIKE '" . $username . "'";
+			if (!$db->exec($query)) {
+				print_r($db->errorInfo()); 
+			}
+			echo 'Password for ' . $username . ' changed';	
+		}
+
+	} else {
+		navPOST();
+	}
 ?>
 
 

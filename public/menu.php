@@ -1,4 +1,5 @@
 <?php
+	
 	ini_set('display_startup_errors',1);
 	ini_set('display_errors',1);
 	error_reporting(-1);
@@ -10,10 +11,11 @@
 	global $numberOfRecords;
 	global $db;
 
-	$db = getDB();
+//	$db = getDB();
 	$user = getUser();
-	$password = getPassword();
-	authUser($user, $password, $db);
+//	$password = getPassword();
+//	$user = $_SESSION['user'];
+	$db = getDB();
 ?>
 
 <html>
@@ -27,23 +29,7 @@
 <body>
 
 <?php
-	// Logout snippet
-	if (isset($_POST['home'])) {
-		header('Location: index.php');
-	}
-	if (isset($_POST['logout'])) {
-		logout();
-	} else
-	if (isset($_POST['addUser'])) {
-		header('Location: addUser.php');
-	} else
-	if (isset($_POST['ticket'])) {
-		header('Location: ticket.php');
-	} else
-	if (isset($_POST['changePassword'])) {
-		header('Location: changePassword.php');
-	}
-
+	navPOST();
 ?>
 
 
@@ -57,7 +43,7 @@
 </form>
 
 <?php
-	if (isAdmin($user, $db) || !isAdmin($user, $db)) { ?>
+	if (isAdmin($user, $db)) { ?>
 		<script>
 			$('#ticket').after("<input type='submit' class='button' id='addUser' name='addUser' value='Add Users' />");
 			$('#addUser').after("<input type='submit' class='button' id='changePassword' name='changePassword' value='Change Password' />");
