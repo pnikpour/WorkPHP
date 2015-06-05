@@ -32,6 +32,7 @@ CREATE TABLE loginAttempts (
 -- Set temporary default passwords for root accounts
 SET PASSWORD FOR root@localhost = PASSWORD('blueberry');
 
+INSERT INTO users (username, hash, groups) values ('root', 'pass123', 'Administrator');
 
 -- Insert root accounts in users table in the workorder database; set admin attributes
 -- INSERT INTO users (username) VALUES ('root'), ('rootWO');
