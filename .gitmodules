@@ -1,3 +1,6 @@
 [submodule "password_compat"]
 	path = password_compat
 	url = https://github.com/ircmaxell/password_compat
+[submodule "public/password_compa"]
+	path = public/password_compa
+	url = https://github.com/ircmaxell/password_compat
