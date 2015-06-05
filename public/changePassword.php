@@ -89,13 +89,9 @@
 <h1>Form</h1>
 
 <form action="<?php echo $_SERVER['PHP_SELF'] ?>" name='addUserForm' id='addUserForm' method='post'>
-	<nav>
-		<input type='submit' class='button' name='home' id='home' value='Home' />
-		<input type='submit' class='button' name='ticket' value='Create Work Order' />
-		<input type='submit' class='button' name='addUser' value='Add Users' />
-		<input type='submit' class='button' name='logout' value='Log Out' />
-	</nav>
-
+	
+	<?php include 'assets/php/lib.php'; ?>
+	
 	<table border=1>
 		<tr>
 			<td>

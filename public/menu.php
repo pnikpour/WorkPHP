@@ -35,21 +35,11 @@
 
 <h1>Menu</h1>
 <form action="<?php echo $_SERVER['PHP_SELF'];?>" name='menu' id='menu' method='post'>
-	<nav>
-		<input type='submit' class='button' id='home' name='home' value='Home' />
-		<input type='submit' class='button' id='ticket' name='ticket' value='Create Work Order' />
-		<input type='submit' class='button' name='logout' value='Log Out' />
-	</nav>
+
+<?php include 'assets/php/createNav.php'; ?>
+
 </form>
 
-<?php
-	if (isAdmin($user, $db)) { ?>
-		<script>
-			$('#ticket').after("<input type='submit' class='button' id='addUser' name='addUser' value='Add Users' />");
-			$('#addUser').after("<input type='submit' class='button' id='changePassword' name='changePassword' value='Change Password' />");
-		</script>
-		<?php
-	} ?>
 </body>
 </html>
 

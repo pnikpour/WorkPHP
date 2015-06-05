@@ -57,13 +57,10 @@
 
 <div class='formContainer'>
 	<form action="<?php echo $_SERVER['PHP_SELF']; ?>" name='ticket' id='ticket' method='post'>
-	<div class='btnHeader'>
-		<input type='submit' class='button' id='home' name='home' value='Home' />
-		<input type='submit' class='button' name='saveNew' value='Save and New' />
-		<input type='button' class='button' name='clear' value='Clear' onclick="document.getElementById('ticket').reset()" />
-		<input type='submit' class='button' name='logout' value='Log Out' />
-	</div>
 
+	<?php include 'assets/php/createNav.php'; ?>
+
+	
 	<table border=1>
 		<tr>
 			<th><h2>Ticket Number</h2></th>
@@ -93,17 +90,17 @@
 			<td>
 			<select name='problemCode'>
 				<?php
-					try {
+				try {
 					$table = "tickets";
 					$col = "problemCode";
 					$sql = 'SHOW COLUMNS FROM '.$table.' WHERE field="'.$col.'"';
-					    $row = $db->query($sql)->fetch(PDO::FETCH_ASSOC);
-					    foreach(explode("','",substr($row['Type'],6,-2)) as $option) {
-					    echo("<option>$option</option>");
+					$row = $db->query($sql)->fetch(PDO::FETCH_ASSOC);
+					foreach(explode("','",substr($row['Type'],6,-2)) as $option) {
+						echo("<option>$option</option>");
 					}
-					} catch (PDOException $e) {
-						echo "ERROR: " . $e->getMessage();
-					}	
+				} catch (PDOException $e) {
+					echo "ERROR: " . $e->getMessage();
+				}	
 				?>
 			</select>
 			</td>
@@ -126,7 +123,6 @@
 			<td>
 			<select name='assignedTo'>
 				<?php
-					$db = getDB($user, $password);
 					$table = "tickets";
 					$col = 'assignedTo';
 					$sql = 'SHOW COLUMNS FROM '.$table.' WHERE field="'.$col.'"';
@@ -155,6 +151,8 @@
 			</td>
 		</tr>
 	</table>
+
+	<input type='submit' class='button' name='saveNew' value='Save and New' />
 	</form>
 </div>
 </body>
