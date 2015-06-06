@@ -18,13 +18,13 @@
 
 <html>
 <head>
-	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-	<script src='assets/js/effect.js' type='text/javascript'></script>
+	<script type='text/javascript' src="//code.jquery.com/jquery-1.10.2.js"></script>
+	<script type='text/javascript' src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+	<script type='text/javascript' src='assets/js/effect.js' type='text/javascript'></script>
 	<link rel='stylesheet' href='assets/css/styles.css' type='text/css' />
 </head>
-<body>
 
+<body>
 <?php
 	// Governs when the user submits a ticket and refreshes the page; will
 	// increment the ticket number count by one
@@ -43,12 +43,8 @@
 		if (!$db->exec($query)) {
 			print_r($db->errorInfo()); 
 		}
-		
-	} elseif (isset($_POST['logout'])) {
-		logout();
-	} elseif (isset($_POST['home'])) {
-		header('Location: index.php');
 	}
+	navPOST();
 
 ?>
 
@@ -59,7 +55,6 @@
 	<form action="<?php echo $_SERVER['PHP_SELF']; ?>" name='ticket' id='ticket' method='post'>
 
 	<?php include 'assets/php/createNav.php'; ?>
-
 	
 	<table border=1>
 		<tr>

@@ -16,15 +16,7 @@
 	} else {
 		header('Location: forbidden.php');
 	}
-
-	if (isAdmin($user, $db)) {
-		$_SESSION['privilege'] = true;
-	} else {
-		$_SESSION['privilege'] = false;
-	}
-
 ?>
-
 <html>
 <head>
 	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
@@ -90,7 +82,7 @@
 
 <form action="<?php echo $_SERVER['PHP_SELF'] ?>" name='addUserForm' id='addUserForm' method='post'>
 	
-	<?php include 'assets/php/lib.php'; ?>
+	<?php include 'assets/php/createNav.php'; ?>
 	
 	<table border=1>
 		<tr>

@@ -11,11 +11,10 @@
 	global $numberOfRecords;
 	global $db;
 
-//	$db = getDB();
+	$db = getDB();
 	$user = getUser();
 //	$password = getPassword();
 //	$user = $_SESSION['user'];
-	$db = getDB();
 ?>
 
 <html>
@@ -34,12 +33,14 @@
 
 
 <h1>Menu</h1>
-<form action="<?php echo $_SERVER['PHP_SELF'];?>" name='menu' id='menu' method='post'>
 
-<?php include 'assets/php/createNav.php'; ?>
+<div class='formContainer'>
+	<form action="<?php echo $_SERVER['PHP_SELF'];?>" name='menu' id='menu' method='post'>
 
-</form>
-
+	<?php include 'assets/php/createNav.php'; ?>
+	<p>content</p>
+	</form>
+</div>
 </body>
 </html>
 
