@@ -3,15 +3,17 @@
 	ini_set('display_errors',1);
 	error_reporting(-1);
 
-	session_start();
 	include('assets/php/lib.php');
 	global $user;
 	global $password;
 	global $db;
+
+	// If not an admin, redirect to forbidden.php
+	forbid($_SESSION['user']);
 	
 	if (isset($_SESSION['user'])) {	
 		$user = getUser();
-		$password = getPassword();
+	//	$password = getPassword();
 		$db = getDB($user, $password);
 	} else {
 		header('Location: forbidden.php');

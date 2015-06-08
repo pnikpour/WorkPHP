@@ -1,5 +1,4 @@
 <?php
-	session_start();
 
 	// Include external functions for getting the current database connection
 	include('assets/php/lib.php');

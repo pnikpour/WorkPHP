@@ -1,10 +1,11 @@
 <?php
-	session_start();
 
 	// Include external functions for getting the current database connection
 	include('assets/php/lib.php');
 
 	// Start session
+	session_start();
+
 //	if (session_status() === PHP_SESSION_NONE) {
 	if (!isset($_SESSION['user'])) {
 		session_unset();
@@ -14,36 +15,6 @@
 //		session_regenerate_id(true);
 	} else {
 		header('Location: menu.php');
-	}
-
-	// Declare global variables
-	global $user;
-	global $password;
-	global $numberOfRecords;
-	global $db;
-
-//	if (isset($_POST['user'])) {
-//		$user = getUser();
-//		$password = getPassword();
-//		$db = getDB($user, $password);
-//		header('Location: menu.php');
-//	}
-?>
-
-
-<?php
-	// If user pressed login button, attempt to connect to database with those credentials
-	if (isset($_POST['login'])) {
-		try {
-			$user = $_POST['user'];
-			$password = $_POST['password'];
-			$db = getDB();
-			authUser($user, $password, $db);
-			header('Location: menu.php');
-		} catch (PDOException $e) {
-			echo 'Invalid username or password; please try again';
-			session_unset();
-		}
 	}
 ?>
 
@@ -63,21 +34,16 @@
 	</script>
 </head>
 <body>
-	<?php
-		if (!isset($_SESSION['user'])) { ?>
-		<h1>Login Page</h1>
-			<div id='logonForm'>
-				<form action='login.php' name='login' class='logon' method='POST'>
-					<input type='text' name='user' placeholder='Login' /> <br>
-					<input type='password' name='password' placeholder='Password' /> <br>
-					<div class='btnHeader'>
-						<input type='submit' name='login' value='Login' />
-					</div>		
+	<h1>Login Page</h1>
+	<div id='logonForm'>
+		<form action='login.php' name='login' class='logon' method='POST'>
+			<input type='text' name='user' placeholder='Login' /> <br>
+			<input type='password' name='password' placeholder='Password' /> <br>
+			<div class='btnHeader'>
+				<input type='submit' name='login' value='Login' />
+			</div>		
 
-				</form>
-			<div>
-	<?php
-	} ?>
-
+		</form>
+	<div>
 </body>
 </html>

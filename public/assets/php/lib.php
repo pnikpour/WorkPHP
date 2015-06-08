@@ -5,11 +5,17 @@ require('/var/www/html/public/password_compat/lib/password.php');
 
 function getDB() {
 	try {
-		return new PDO("mysql:host=localhost;dbname=workorder;charset=utf8", 'secureUser', 'BL3FFEE5WUsrJQnx');
+	return new PDO("mysql:host=localhost;dbname=workorder;charset=utf8", 'secureUser', 'BL3FFEE5WUsrJQnx');
 	}
 	catch (Exception $e) {
 		session_unset();
 		header('Location: index.php');
+	}
+}
+
+function forbid($user) {
+	if (!isAdmin($user, getDB()) || $user = '') {
+		header('Location: forbidden.php');
 	}
 }
 
@@ -75,15 +81,14 @@ function logout() {
 }
 
 function getUser() {
-	if (isset($_POST['user'])) {
-		$user = $_POST['user'];
-		$_SESSION['user'] = $user;
-
-	} else 
-	if (isset($_SESSION['user'])){
-		$user = $_SESSION['user'];
-	}
-	return $user;
+//	if (isset($_POST['user'])) {
+//		$user = $_POST['user'];
+//		$_SESSION['user'] = $user;
+//
+//	} else {
+//		$user = $_SESSION['user'];
+//	}
+	return $_SESSION['user'];
 }
 //if (isset($_SESSION['user'])) {
 //		$user = $_SESSION['user'];

@@ -1,10 +1,15 @@
 
 * {
+	display: block;
 	font-family: Arial, Helvetica, sans-serif;
 }
 
+aside {
+	float: right;
+}
+
 body {
-background: '#D0D0D0';
+	background: '#D0D0D0';
 }
 
 nav > a > ul .button {
