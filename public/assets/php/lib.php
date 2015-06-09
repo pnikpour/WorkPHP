@@ -59,7 +59,6 @@ function adminExists() {
 	$result = getDB()->prepare($query);
 	$result->execute(array(':group' => 'Administrator'));
 	$rows = $result->rowCount();
-	echo $rows;
 	if ($rows == 0) { // The admin does not exist
 		return false;
 	} else { // The admin does exist
