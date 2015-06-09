@@ -60,11 +60,9 @@ function adminExists() {
 	$result->execute(array(':group' => 'Administrator'));
 	$rows = $result->rowCount();
 	echo $rows;
-	if ($rows == 0) {
-		echo 'The administrator does not exist. You should create the admin.';
+	if ($rows == 0) { // The admin does not exist
 		return false;
-	} else {
-		echo 'The admin already exists. Carry on.';
+	} else { // The admin does exist
 		return true;
 	}
 	
