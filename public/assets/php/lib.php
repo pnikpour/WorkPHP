@@ -5,7 +5,7 @@ require('/var/www/html/public/password_compat/lib/password.php');
 
 function getDB() {
 	try {
-	return new PDO("mysql:host=localhost;dbname=workorder;charset=utf8", 'secureUser', 'BL3FFEE5WUsrJQnx');
+		return new PDO("mysql:host=localhost;dbname=workorder;charset=utf8", 'secureUser', 'BL3FFEE5WUsrJQnx');
 	}
 	catch (Exception $e) {
 		session_unset();
@@ -14,32 +14,67 @@ function getDB() {
 }
 
 function forbid($user) {
-	if (!isAdmin($user, getDB()) || $user = '') {
-		header('Location: forbidden.php');
+	if (!isAdmin($user, getDB()) || $user = '' || !(isset($_SESSION['user']))) {
+		header('Location: ../forbidden');
 	}
 }
 
 function navPOST() {
 	if (isset($_POST['home'])) {
-		header('Location: index.php');
+		header('Location: ../index.php');
 	}
 	if (isset($_POST['logout'])) {
 		logout();
 	} else
 	if (isset($_POST['addUser'])) {
-		header('Location: addUser.php');
+		header('Location: ../add');
 	} else
 	if (isset($_POST['ticket'])) {
-		header('Location: ticket.php');
+		header('Location: ../ticket');
 	} else
 	if (isset($_POST['changePassword'])) {
-		header('Location: changePassword.php');
+		header('Location: ../password');
+	} else
+	if (isset($_POST['filters'])) {
+		header('Location: ../filters');
 	}
 
 }
 
-function getMaxTicketNumber($db) {
+function userExists($user) {
+	$query = 'SELECT * FROM users WHERE username LIKE :user';
+	$result = getDB()->prepare($query);
+	$result->execute(array(':user' => $user));
+	$rows = $result->rowCount();
+	echo $rows;
+	if ($rows == 0) {
+		return false;
+	} else {
+		return true;
+	}
+}
+
+function adminExists() {
+	$query = 'SELECT username FROM users WHERE groups LIKE :group';
+	$result = getDB()->prepare($query);
+	$result->execute(array(':group' => 'Administrator'));
+	$rows = $result->rowCount();
+	echo $rows;
+	if ($rows == 0) {
+		echo 'The administrator does not exist. You should create the admin.';
+		return false;
+	} else {
+		echo 'The admin already exists. Carry on.';
+		return true;
+	}
 	
+}
+
+function setupAdmin() {
+	header('Location: initAdmin/');
+}
+
+function getMaxTicketNumber($db) {	
 	$stmt = $db->query("SELECT MAX(ticketNumber) from tickets");
 	$newID = $stmt->fetch(PDO::FETCH_NUM);
 	$newID = $newID[0]+1;
@@ -66,38 +101,17 @@ function isAdmin($user, $db) {
 }
 
 function getPassword() {
-	if (isset($_POST['password'])) {
-		$password = $_POST['password'];
-		$_SESSION['password'] = $password;
-	} else {
-		$password = $_SESSION['password'];
-	}
-	return $password;
+	return $_SESSION['password'];
 }
 
 function logout() {
 	session_unset();
-	header('Location: index.php');
+	session_destroy();
+	header('Location: ../index.php');
 }
 
 function getUser() {
-//	if (isset($_POST['user'])) {
-//		$user = $_POST['user'];
-//		$_SESSION['user'] = $user;
-//
-//	} else {
-//		$user = $_SESSION['user'];
-//	}
 	return $_SESSION['user'];
 }
-//if (isset($_SESSION['user'])) {
-//		$user = $_SESSION['user'];
-//	} else
-//	if (isset($_POST['user'])) {
-//		$user = $_POST['user'];
-//	}
-//
-//	return $user;
-//}
 
 ?>

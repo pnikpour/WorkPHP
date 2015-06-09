@@ -2,7 +2,7 @@
 	ini_set('display_startup_errors',1);
 	ini_set('display_errors',1);
 	error_reporting(-1);
-	include('assets/php/lib.php');
+	include('../assets/php/lib.php');
 	global $user;
 	global $password;
 	global $numberOfRecords;
@@ -19,8 +19,8 @@
 <head>
 	<script type='text/javascript' src="//code.jquery.com/jquery-1.10.2.js"></script>
 	<script type='text/javascript' src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-	<script type='text/javascript' src='assets/js/effect.js' type='text/javascript'></script>
-	<link rel='stylesheet' href='assets/css/styles.css' type='text/css' />
+	<script type='text/javascript' src='../assets/js/effect.js' type='text/javascript'></script>
+	<link rel='stylesheet' href='../assets/css/styles.css' type='text/css' />
 </head>
 
 <body>
@@ -53,7 +53,7 @@
 <div class='formContainer'>
 	<form action="<?php echo $_SERVER['PHP_SELF']; ?>" name='ticket' id='ticket' method='post'>
 
-	<?php include 'assets/php/createNav.php'; ?>
+	<?php include '../assets/php/createNav.php'; ?>
 	
 	<table border=1>
 		<tr>

@@ -3,7 +3,7 @@
 	ini_set('display_startup_errors',1);
 	ini_set('display_errors',1);
 	error_reporting(-1);
-	include('assets/php/lib.php');
+	include('../assets/php/lib.php');
 
 	// Accepts username and cleartext password; verifies password with hashed one in database
 	function authUser($user, $pass) {
@@ -19,7 +19,7 @@
 		if (password_verify($pass, $hash)) {
 			$_SESSION['user'] = $user;
 			$_SESSION['password'] = $hash;
-			header('Location: menu.php');
+			header('Location: ../menu');
 		} else { // Increment the login attempts by one; throw error if max attempts is reached
 			echo 'Invalid';
 			

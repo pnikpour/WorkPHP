@@ -3,7 +3,7 @@
 	ini_set('display_errors',1);
 	error_reporting(-1);
 
-	include('assets/php/lib.php');
+	include('../assets/php/lib.php');
 	global $user;
 	global $password;
 	global $db;
@@ -16,7 +16,7 @@
 	//	$password = getPassword();
 		$db = getDB($user, $password);
 	} else {
-		header('Location: forbidden.php');
+		header('Location: ../forbidden');
 	}
 ?>
 
@@ -24,8 +24,8 @@
 <head>
 	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
 	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-	<script src='assets/js/effect.js' type='text/javascript'></script>
-	<link rel='stylesheet' href='assets/css/styles.css' type='text/css' />
+	<script src='../assets/js/effect.js' type='text/javascript'></script>
+	<link rel='stylesheet' href='../assets/css/styles.css' type='text/css' />
 </head>
 <body>
 
@@ -38,12 +38,20 @@
 		$newPassword = $_POST['newPassword'];
 		$userLevel = $_POST['userLevel'];
 		
-		$hash = password_hash($newPassword, PASSWORD_DEFAULT);
-		$query = "INSERT INTO users (username, hash, groups) values ('" . $newName . "', '" . $hash . "', '" . $userLevel . "')";
-		if (!$db->exec($query)) {
-			print_r($db->errorInfo()); 
+		if (userExists($newName)) {
+			echo 'User already exists; please specify a different username';
+		} else
+		if (strlen(trim($newName)) == 0) {
+			echo 'Please specify a username';
+		} else {
+			$hash = password_hash($newPassword, PASSWORD_DEFAULT);
+			$query = "INSERT INTO users (username, hash, groups) values ('" . $newName . "', '" . $hash . "', '" . $userLevel . "')";
+			if (!$db->exec($query)) {
+				print_r($db->errorInfo()); 
+			}
+
+			echo 'User ' . $newName . ' added to database';
 		}
-		echo 'User ' . $newName . ' added to database.';	
 	}
 
 	// Logout snippet
@@ -55,7 +63,7 @@
 
 <form action="<?php echo $_SERVER['PHP_SELF'] ?>" name='addUserForm' id='addUserForm' method='post'>
 
-	<?php include 'assets/php/createNav.php'; ?>
+	<?php include '../assets/php/createNav.php'; ?>
 
 	<table border=1>
 		<tr>

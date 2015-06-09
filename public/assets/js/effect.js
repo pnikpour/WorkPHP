@@ -1,12 +1,9 @@
-
 $('document').ready(function() {
 
-	$('ul').mouseover(function() {
-		$(this).animate({backgroundColor: '#D0D0D0'}, 'fast');
-	});
-
-	$('ul').mouseleave(function() {
-		$(this).animate({backgroundColor: 'black'}, 'fast');
+	$('.color').change(function() {
+		hex = $('.color').val();
+		$('body').css('backgroundColor', hex);
+		$('.button').css('backgroundColor', hex);
 	});
 
 	$('.button').mouseover(function() {

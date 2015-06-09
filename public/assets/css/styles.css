@@ -1,6 +1,6 @@
 
 * {
-	display: block;
+//	display: block;
 	font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -9,10 +9,10 @@ aside {
 }
 
 body {
-	background: '#D0D0D0';
+	background: white;
 }
 
-nav > a > ul .button {
+.button {
 	display: inline;
 	text-decoration: none;
 	background-color: black;
@@ -27,20 +27,20 @@ form {
 	margin-top: 100px;
 	margin-left: auto;
 	margin-right: auto;
-//	width: 75%;
 }
 
-.button {
-	padding: 5px;
-	color: white;
-	background: black;
-	background-color: black;
-	//max-width: 200px;
-}
+//.button {
+//	padding: 5px;
+//	color: white;
+//	background: black;
+//	background-color: black;
+//}
 
 table {
-//	margin-left: 10%;
+	border-style: solid;
+	border-width: 1px;
 	margin-right: auto;
+	padding: 10px;
 	width: 60%;
 }
 
@@ -48,6 +48,14 @@ table {
 .ghost {
 	color: #C0C0C0;
 	font-size: 30px;
+}
+
+.filterForm {
+//	padding: 10px;
+}
+
+.filterForm table {
+	width: 100px;
 }
 
 input {
@@ -62,11 +70,8 @@ td {
 	width: 50%;
 }
 
-.formContainer {
-//	margin-left: auto;
-//	margin-right: auto;
-	margin-left: 10%;
-	width: 75%;
+th {
+	font-size: 24px;
 }
 
 #logonForm {
