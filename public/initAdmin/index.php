@@ -5,6 +5,11 @@
 	
 	include('../assets/php/lib.php');
 
+	// If user tried accessing this page directly, redirect to login page
+	if (adminExists()) {
+		header('Location: ../index.php');
+	}
+
 	global $db;
 	$db = getDB();
 ?>
