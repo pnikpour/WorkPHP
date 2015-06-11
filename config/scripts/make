@@ -1,4 +1,8 @@
 
+# Set script directory
+scriptDir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)
+
+cd ../../
 git submodule init
 git submodule update
 
@@ -23,7 +27,6 @@ fi
 
 # If apache html directory does not exist, create it
 sudo mkdir -p '/var/www/html'
-scriptDir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)
 cd $scriptDir
 cd '../../public'
 ./setup
