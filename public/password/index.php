@@ -7,14 +7,22 @@
 	global $user;
 	global $password;
 	global $db;
-	
+
+	forbid();
+
+	if (!isset($_SESSION['user'])) {	
+		header('Location: ../forbidden');
+	} else {
+		// If not an admin, redirect to forbidden.php
+		forbid();
+	}
+
 	if (isset($_SESSION['user'])) {	
 		$user = getUser();
 		$password = getPassword();
 		$db = getDB($user, $password);
 	}
 
-	forbid($_SESSION['user']);
 ?>
 <html>
 <head>
