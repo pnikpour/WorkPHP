@@ -12,7 +12,7 @@
 		header('Location: ../forbidden');
 	} else {
 		// If not an admin, redirect to forbidden.php
-		forbid($_SESSION['user']);
+		forbid();
 	}
 ?>
 
