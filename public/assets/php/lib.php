@@ -14,8 +14,35 @@ function getDB() {
 }
 
 function forbid($user) {
-	if (!isAdmin($user, getDB()) || $user = '' || !(isset($_SESSION['user']))) {
+	if (!isAdmin($user) || $user = '' || !(isset($_SESSION['user']))) {
 		header('Location: ../forbidden');
+	}
+}
+
+// Setup table displaying outstanding workorders; if regular user, display tickets created by that user; if admin,
+// display all outstanding tickets
+function generateDashboard() {
+	$user = $_SESSION['user'];
+	if (isAdmin($user)) {
+		$query = 'SELECT * FROM tickets';
+	} else {
+		$query = 'SELECT * FROM tickets WHERE requestor LIKE :requestor';
+		$result = getDB()->prepare($query);
+		$result->bindParam(':requestor', $_SESSION['user']);
+		$result->execute();
+		
+		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+			$ticketNumber = $row['ticketNumber'];
+			$dateCreated = $row['dateCreated'];
+			$problemDescription = $row['problemDescription'];
+			$requestor = $row['requestor'];
+			$problemCode = $row['problemCode'];
+			$assignedTo = $row['assignedTo'];
+			$dateClosed = $row['dateClosed'];
+			$status = $row['status'];
+
+			echo $ticketNumber;
+		}
 	}
 }
 
@@ -84,7 +111,8 @@ function getMaxTicketNumber($db) {
 
 
 
-function isAdmin($user, $db) {
+function isAdmin($user) {
+	$db = getDB();
 	$query = 'SELECT groups FROM workorder.users WHERE username LIKE "' . $user . '"';
 	$stmt = $db->prepare($query);
 	$stmt->execute();

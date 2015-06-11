@@ -1,0 +1,1 @@
+DELETE FROM workorder.users;

@@ -45,11 +45,12 @@
 			echo 'Please specify a username';
 		} else {
 			$hash = password_hash($newPassword, PASSWORD_DEFAULT);
-			$query = "INSERT INTO users (username, hash, groups) values ('" . $newName . "', '" . $hash . "', '" . $userLevel . "')";
-			if (!$db->exec($query)) {
-				print_r($db->errorInfo()); 
-			}
-
+			$query = "INSERT INTO users (username, hash, groups) values (:newName, :hash, :userLevel)";
+			$result = $db->prepare($query);
+			$result->bindParam(':newName', $newName);
+			$result->bindParam(':hash', $hash);
+			$result->bindParam(':userLevel', $userLevel);
+			$result->execute();
 			echo 'User ' . $newName . ' added to database';
 		}
 	}

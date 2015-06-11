@@ -1,8 +1,9 @@
 
+git submodule init
+git submodule update
 
 # Remove MySQL; re-install
-sudo yum -y remove php php-mysql httpd mysql-server mariadb-server
-sudo yum -y install php php-mysql httpd mysql-server mariadb-server
+sudo yum -y reinstall php php-mysql httpd mysql-server mariadb-server
 
 onCent=0;
 if  [[ os=$( cat /etc/os-release ) == *"CentOS"* ]]

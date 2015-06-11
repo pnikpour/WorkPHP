@@ -49,6 +49,11 @@
 		<?php include '../assets/php/createNav.php'; ?>
 	</form>
 </div>
+
+<?php
+	generateDashboard();
+?>
+
 </body>
 </html>
 

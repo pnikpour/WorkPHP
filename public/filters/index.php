@@ -7,9 +7,6 @@
 	global $user;
 	global $password;
 	global $db;
-
-	// If not an admin, redirect to forbidden.php
-	forbid($_SESSION['user']);
 	
 	if (isset($_SESSION['user'])) {	
 		$user = getUser();
