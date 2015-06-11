@@ -8,7 +8,7 @@
 	global $password;
 	global $db;
 
-	if (isset(!$_SESSION['user'])) {	
+	if (!isset($_SESSION['user'])) {	
 		header('Location: ../forbidden');
 	} else {
 		// If not an admin, redirect to forbidden.php
