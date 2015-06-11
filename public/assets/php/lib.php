@@ -15,9 +15,14 @@ function getDB() {
 
 function forbid() {
 	$user = getUser();
-	if (!isAdmin() || $user = '' || !(isset($_SESSION['user']))) {
+	if (!isset($_SESSION['user'])) {	
 		header('Location: ../forbidden');
+	} else {
+		if (!isAdmin() || $user = '') {
+			header('Location: ../forbidden');
+		}
 	}
+
 }
 
 // Setup table displaying outstanding workorders; if regular user, display tickets created by that user; if admin,
