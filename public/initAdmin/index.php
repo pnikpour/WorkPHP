@@ -43,19 +43,8 @@
 		echo 'User ' . $newName . ' added to database.';	
 	}
 
-	// Logout snippet
-	if (isset($_POST['logout'])) {
-		logout();
-	} else
-	if (isset($_POST['addUser'])) {
-		header('Location: addUser.php');
-	} else
-	if (isset($_POST['ticket'])) {
-		header('Location: ticket.php');
-	} else
-	if (isset($_POST['home'])) {
-		header('Location: index.php');
-	}
+	navPOST();
+
 ?>
 
 
