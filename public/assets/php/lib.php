@@ -13,8 +13,9 @@ function getDB() {
 	}
 }
 
-function forbid($user) {
-	if (!isAdmin($user) || $user = '' || !(isset($_SESSION['user']))) {
+function forbid() {
+	$user = getUser();
+	if (!isAdmin() || $user = '' || !(isset($_SESSION['user']))) {
 		header('Location: ../forbidden');
 	}
 }
@@ -22,8 +23,7 @@ function forbid($user) {
 // Setup table displaying outstanding workorders; if regular user, display tickets created by that user; if admin,
 // display all outstanding tickets
 function generateDashboard() {
-	$user = $_SESSION['user'];
-	if (isAdmin($user)) {
+	if (isAdmin()) {
 		$query = 'SELECT * FROM tickets';
 	} else {
 		$query = 'SELECT * FROM tickets WHERE requestor LIKE :requestor';
@@ -111,11 +111,13 @@ function getMaxTicketNumber($db) {
 
 
 
-function isAdmin($user) {
+function isAdmin() {
+	$user = getUser();
 	$db = getDB();
-	$query = 'SELECT groups FROM workorder.users WHERE username LIKE "' . $user . '"';
-	$stmt = $db->prepare($query);
-	$stmt->execute();
+	$query = 'SELECT groups FROM workorder.users WHERE username LIKE :user';
+	$result = $db->prepare($query);
+	$result->bindParam(':user', $user);
+	$result->execute();
 	$rows = $stmt->fetch(PDO::FETCH_ASSOC);
 	$group = $rows['groups'];
 	if ($group == 'Administrator') {
