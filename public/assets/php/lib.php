@@ -13,6 +13,12 @@ function getDB() {
 	}
 }
 
+function redirectIfNotLoggedIn() {
+	if (!isset($_SESSION['user'])) {	
+		header('Location: ../');
+	}
+}
+
 function forbid() {
 	$user = getUser();
 	if (!isset($_SESSION['user'])) {	
@@ -26,8 +32,30 @@ function forbid() {
 }
 
 // Echo a table representing a header for inline queries
-printFilterHeader() {
+function printFilterHeader() {
 
+	echo '	<table>
+		<tr>
+			<th>Ticket Number</th>
+			<th>Date Created</th>
+			<th>Problem Description</th>
+			<th>Requestor</th>
+			<th>Problem Code</th>
+			<th>Assigned To</th>
+			<th>Date Closed</th>
+			<th>Status</th>
+		</tr>';
+
+}
+
+function printFilterFooter() {
+	echo '</table>';
+}
+
+function printRecords($arr) {
+	foreach($arr as $a) {
+		echo '<td>' . $a . '</td>';
+	}
 }
 
 // Setup table displaying outstanding workorders; if regular user, display tickets created by that user; if admin,
@@ -37,24 +65,57 @@ function generateDashboard() {
 		$query = 'SELECT * FROM tickets';
 	} else {
 		$query = 'SELECT * FROM tickets WHERE requestor LIKE :requestor';
-		$result = getDB()->prepare($query);
-		$result->bindParam(':requestor', $_SESSION['user']);
-		$result->execute();
-	
-		printFilterHeader();	
-		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-			$ticketNumber = $row['ticketNumber'];
-			$dateCreated = $row['dateCreated'];
-			$problemDescription = $row['problemDescription'];
-			$requestor = $row['requestor'];
-			$problemCode = $row['problemCode'];
-			$assignedTo = $row['assignedTo'];
-			$dateClosed = $row['dateClosed'];
-			$status = $row['status'];
-
-			echo $ticketNumber;
-		}
 	}
+	$result = getDB()->prepare($query);
+	$result->bindParam(':requestor', $_SESSION['user']);
+	$result->execute();	
+
+	printFilterHeader();
+	while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+		$records = array();
+		echo '<tr>';
+//		$ticketNumber = $row['ticketNumber'];
+//		$dateCreated = $row['dateCreated'];
+//		$problemDescription = $row['problemDescription'];
+//		$requestor = $row['requestor'];
+//		$problemCode = $row['problemCode'];
+//		$assignedTo = $row['assignedTo'];
+//		$dateClosed = $row['dateClosed'];
+//		$status = $row['status'];
+	
+		array_push($records, $row['ticketNumber'], $row['dateCreated'], $row['problemDescription'], $row['requestor'], 
+		$row['problemCode'], $row['assignedTo'], $row['dateClosed'], $row['status']);
+	
+
+		printRecords($records);
+		echo '</tr>';
+		
+	}
+	printFilterFooter();
+
+}
+
+function doFilter() {
+//	$query = 'SELECT * FROM tickets WHERE ticketNumber LIKE :ticketNumber AND status LIKE :status';
+	$query = 'SELECT * FROM tickets WHERE status LIKE :status';
+	$result = getDB()->prepare($query);
+//	$result->bindParam(':ticketNumber', $_POST['ticketNumber']);
+	$result->bindParam(':status', $_POST['status']);
+	$result->execute();	
+
+	printFilterHeader();
+	while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+		$records = array();
+		echo '<tr>';
+		array_push($records, $row['ticketNumber'], $row['dateCreated'], $row['problemDescription'], $row['requestor'], 
+		$row['problemCode'], $row['assignedTo'], $row['dateClosed'], $row['status']);
+	
+
+		printRecords($records);
+		echo '</tr>';
+		
+	}
+	printFilterFooter();
 }
 
 function navPOST() {
@@ -109,8 +170,8 @@ function setupAdmin() {
 	header('Location: initAdmin/');
 }
 
-function getMaxTicketNumber($db) {	
-	$stmt = $db->query("SELECT MAX(ticketNumber) from tickets");
+function getMaxTicketNumber() {	
+	$stmt = getDB()->query("SELECT MAX(ticketNumber) from tickets");
 	$newID = $stmt->fetch(PDO::FETCH_NUM);
 	$newID = $newID[0]+1;
 	if ($newID < 1000) {
@@ -124,9 +185,8 @@ function getMaxTicketNumber($db) {
 
 function isAdmin() {
 	$user = getUser();
-	$db = getDB();
 	$query = 'SELECT groups FROM workorder.users WHERE username LIKE :user';
-	$result = $db->prepare($query);
+	$result = getDB()->prepare($query);
 	$result->bindParam(':user', $user);
 	$result->execute();
 	$rows = $result->fetch(PDO::FETCH_ASSOC);
