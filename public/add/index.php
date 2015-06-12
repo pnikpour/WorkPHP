@@ -44,7 +44,7 @@
 		}
 	}
 
-	// Logout snippet
+	// Navigation link action controller
 	navPOST();
 ?>
 
@@ -63,7 +63,7 @@
 		</tr>
 		<tr>
 			<td>
-			<input type='text' class='logon'  name='newName' />
+			<input type='text' class='logon' name='newName' />
 			</td>
 			<td>
 			<input type='password' class='logon' name='newPassword' />

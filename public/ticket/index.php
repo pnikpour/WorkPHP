@@ -22,7 +22,7 @@
 	if (isset($_POST['saveNew'])) {
 		
 		// Submit the ticket to the database
-		$ticketNumber = getMaxTicketNumber(getDB());
+		$ticketNumber = getMaxTicketNumber();
 		$requestor = $_SESSION['user'];
 		$dateCreated = $_POST['dateCreated'];
 		$problemDescription = $_POST['problemDescription'];
@@ -57,7 +57,7 @@
 		<tr>
 			<td>
 				<?php
-					$newID = getMaxTicketNumber(getDB());
+					$newID = getMaxTicketNumber();
 					echo "<input type='text' readonly='true' name='ticketNumber' value=$newID />";
 				?>
 			</td>

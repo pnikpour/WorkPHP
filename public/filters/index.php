@@ -27,11 +27,11 @@
 <h1>Form</h1>
 
 <div class='filterForm'>
-	<form action="<?php echo $_SERVER['PHP_SELF'] ?>" name='addUserForm' id='addUserForm' method='post'>
+	<form action="" name='addUserForm' id='addUserForm' method='post'>
 
 		<?php include '../assets/php/createNav.php'; ?>
 
-		 <table border=1>
+		 <table border=1 class='left'>
 			<tr><th>Ticket Number</th></tr>
 			<tr><td><input type='text' name='ticketNumber' id='ticketNumber'/></td></tr>
 
@@ -50,7 +50,19 @@
 				?>
 			</select>
 			</td></tr>
+			<tr>
+			<td>
+				<input type='submit' class='button' name='query' id='query' value='Submit Query' />
+			</td>
+			</tr>
 		</table>
+		
+		<?php
+			if (isset($_POST['query'])) {
+				doFilter();
+			}
+		?>
+
 	</form>
 </div>
 </body>

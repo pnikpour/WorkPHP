@@ -10,8 +10,6 @@
 		header('Location: ../index.php');
 	}
 
-	global $db;
-	$db = getDB();
 ?>
 
 <html>
@@ -21,9 +19,6 @@
 	<script src='../assets/js/effect.js' type='text/javascript'></script>
 	<link rel='stylesheet' href='../assets/css/styles.css' type='text/css' />
 
-	<script>
-		$('td').css('padding', '6px 10px');
-	</script>
 </head>
 <body>
 
@@ -35,7 +30,7 @@
 		
 		$hash = password_hash($newPassword, PASSWORD_DEFAULT);
 		$query = "INSERT INTO users (username, hash, groups) VALUES (:newName, :hash, :userLevel)";
-		$result = $db->prepare($query);
+		$result = getDB()->prepare($query);
 		$result->bindParam(':newName', $newName);
 		$result->bindParam(':hash', $hash);
 		$result->bindParam(':userLevel', $userLevel);
