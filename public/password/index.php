@@ -10,13 +10,7 @@
 
 	forbid();
 
-	if (!isset($_SESSION['user'])) {	
-		header('Location: ../forbidden');
-	} else {
-		// If not an admin, redirect to forbidden.php
-		forbid();
-	}
-
+	
 	if (isset($_SESSION['user'])) {	
 		$user = getUser();
 		$password = getPassword();
@@ -30,13 +24,6 @@
 	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 	<script src='../assets/js/effect.js' type='text/javascript'></script>
 	<link rel='stylesheet' href='../assets/css/styles.css' type='text/css' />
-	<script type='text/javascript'>
-	$('document').ready(function() {
-	
-		$('td').css('padding', '6px 10px');
-		$('body').css('background-color', '#D0D0D0');	
-	});
-	</script>
 </head>
 <body>
 
@@ -72,10 +59,11 @@
 
 		if ($doPasswordChange) {
 			$hash = password_hash($newPassword, PASSWORD_DEFAULT);
-			$query = "UPDATE users SET hash='" . $hash . "' WHERE username LIKE '" . $username . "'";
-			if (!$db->exec($query)) {
-				print_r($db->errorInfo()); 
-			}
+			$query = "UPDATE users SET hash = :hash WHERE username LIKE :username";
+			$result = getDB().prepare($query);
+			$result->bindParam(':hash', $hash);
+			$result->bindParam(':username', $username);
+			$result->execute();
 			echo 'Password for ' . $username . ' changed';	
 		}
 
