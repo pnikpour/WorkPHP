@@ -4,8 +4,6 @@
 	error_reporting(-1);
 
 	include('../assets/php/lib.php');
-
-	forbid();
 ?>
 
 <html>
@@ -43,15 +41,12 @@
 				<?php
 					$table = "tickets";
 					$col = 'status';
-					$query = 'SHOW COLUMNS FROM :table WHERE field = :col';
-					$result = getDB()->prepare(query);
-					$result->bindParam(':table', $table);
-					$result->bindParam(':col', $col);
-
-					$row = $result->fetch(PDO::FETCH_ASSOC);
-					foreach(explode("','", substr($row['Type'],6,-2)) as $option) {
-						echo ("<option>$option</option>");
+					$query = 'SHOW COLUMNS FROM '.$table.' WHERE field="'.$col.'"';
+   					$row = getDB()->query($query)->fetch(PDO::FETCH_ASSOC);
+					foreach(explode("','",substr($row['Type'],6,-2)) as $option) {
+						print("<option>$option</option>");
 					}
+
 				?>
 			</select>
 			</td></tr>

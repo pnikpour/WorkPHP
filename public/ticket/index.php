@@ -22,7 +22,7 @@
 	if (isset($_POST['saveNew'])) {
 		
 		// Submit the ticket to the database
-		$ticketNumber = getMaxTicketNumber($db);
+		$ticketNumber = getMaxTicketNumber(getDB());
 		$requestor = $_SESSION['user'];
 		$dateCreated = $_POST['dateCreated'];
 		$problemDescription = $_POST['problemDescription'];
@@ -31,8 +31,8 @@
 		$dateClosed = $_POST['dateClosed'];
 		$status = $_POST['status'];
 		$query = "INSERT INTO tickets (ticketNumber, requestor, dateCreated, problemDescription, problemCode, assignedTo, status, dateClosed) values ('$ticketNumber', '$requestor', '$dateCreated', '$problemDescription', '$problemCode', '$assignedTo', '$status', '$dateClosed');";
-		if (!$db->exec($query)) {
-			print_r($db->errorInfo()); 
+		if (!getDB()->exec($query)) {
+			print_r(getDB()->errorInfo()); 
 		}
 	}
 	navPOST();
@@ -57,7 +57,7 @@
 		<tr>
 			<td>
 				<?php
-					$newID = getMaxTicketNumber($db);
+					$newID = getMaxTicketNumber(getDB());
 					echo "<input type='text' readonly='true' name='ticketNumber' value=$newID />";
 				?>
 			</td>
@@ -80,7 +80,7 @@
 					$table = "tickets";
 					$col = "problemCode";
 					$sql = 'SHOW COLUMNS FROM '.$table.' WHERE field="'.$col.'"';
-					$row = $db->query($sql)->fetch(PDO::FETCH_ASSOC);
+					$row = getDB()->query($sql)->fetch(PDO::FETCH_ASSOC);
 					foreach(explode("','",substr($row['Type'],6,-2)) as $option) {
 						echo("<option>$option</option>");
 					}
@@ -112,7 +112,7 @@
 					$table = "tickets";
 					$col = 'assignedTo';
 					$sql = 'SHOW COLUMNS FROM '.$table.' WHERE field="'.$col.'"';
-					$row = $db->query($sql)->fetch(PDO::FETCH_ASSOC);
+					$row = getDB()->query($sql)->fetch(PDO::FETCH_ASSOC);
 					foreach(explode("','", substr($row['Type'],6,-2)) as $option) {
 						echo ("<option>$option</option>");
 					}
@@ -125,7 +125,7 @@
 				$table = "tickets";
 				$col = 'status';
 				$sql = 'SHOW COLUMNS FROM '.$table.' WHERE field="'.$col.'"';
-				$row = $db->query($sql)->fetch(PDO::FETCH_ASSOC);
+				$row = getDB()->query($sql)->fetch(PDO::FETCH_ASSOC);
 				foreach(explode("','", substr($row['Type'],6,-2)) as $option) {
 					echo ("<option>$option</option>");
 				}

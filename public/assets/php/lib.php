@@ -25,6 +25,11 @@ function forbid() {
 
 }
 
+// Echo a table representing a header for inline queries
+printFilterHeader() {
+
+}
+
 // Setup table displaying outstanding workorders; if regular user, display tickets created by that user; if admin,
 // display all outstanding tickets
 function generateDashboard() {
@@ -35,7 +40,8 @@ function generateDashboard() {
 		$result = getDB()->prepare($query);
 		$result->bindParam(':requestor', $_SESSION['user']);
 		$result->execute();
-		
+	
+		printFilterHeader();	
 		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 			$ticketNumber = $row['ticketNumber'];
 			$dateCreated = $row['dateCreated'];
@@ -123,7 +129,7 @@ function isAdmin() {
 	$result = $db->prepare($query);
 	$result->bindParam(':user', $user);
 	$result->execute();
-	$rows = $stmt->fetch(PDO::FETCH_ASSOC);
+	$rows = $result->fetch(PDO::FETCH_ASSOC);
 	$group = $rows['groups'];
 	if ($group == 'Administrator') {
 		return true;

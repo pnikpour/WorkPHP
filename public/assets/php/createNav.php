@@ -1,6 +1,6 @@
 
 <?php
-	include lib.php
+//	include('lib.php');
 	echo
 		"<nav>
 			<input type='submit' class='button' id='home' name='home' value='Home' />
