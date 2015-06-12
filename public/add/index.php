@@ -4,16 +4,9 @@
 	error_reporting(-1);
 
 	include('../assets/php/lib.php');
-	global $user;
-	global $password;
-	global $db;
 	
-	if (!isset($_SESSION['user'])) {	
-		header('Location: ../forbidden');
-	} else {
-		// If not an admin, redirect to forbidden.php
-		forbid();
-	}
+	// If not an admin, redirect to forbidden.php
+	forbid();
 ?>
 
 <html>
@@ -42,7 +35,7 @@
 		} else {
 			$hash = password_hash($newPassword, PASSWORD_DEFAULT);
 			$query = "INSERT INTO users (username, hash, groups) values (:newName, :hash, :userLevel)";
-			$result = $db->prepare($query);
+			$result = getDB()->prepare($query);
 			$result->bindParam(':newName', $newName);
 			$result->bindParam(':hash', $hash);
 			$result->bindParam(':userLevel', $userLevel);

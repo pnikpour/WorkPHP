@@ -4,17 +4,8 @@
 	error_reporting(-1);
 
 	include('../assets/php/lib.php');
-	global $user;
-	global $password;
-	global $db;
 
-	if (!isset($_SESSION['user'])) {	
-		header('Location: ../forbidden');
-	} else {
-		// If not an admin, redirect to forbidden.php
-		forbid($_SESSION['user']);
-	}
-
+	forbid();
 ?>
 
 <html>
@@ -52,8 +43,12 @@
 				<?php
 					$table = "tickets";
 					$col = 'status';
-					$sql = 'SHOW COLUMNS FROM '.$table.' WHERE field="'.$col.'"';
-					$row = $db->query($sql)->fetch(PDO::FETCH_ASSOC);
+					$query = 'SHOW COLUMNS FROM :table WHERE field = :col';
+					$result = getDB()->prepare(query);
+					$result->bindParam(':table', $table);
+					$result->bindParam(':col', $col);
+
+					$row = $result->fetch(PDO::FETCH_ASSOC);
 					foreach(explode("','", substr($row['Type'],6,-2)) as $option) {
 						echo ("<option>$option</option>");
 					}

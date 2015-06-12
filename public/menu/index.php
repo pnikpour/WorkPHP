@@ -5,13 +5,6 @@
 	error_reporting(-1);
 
 	include('../assets/php/lib.php');
-	global $user;
-	global $password;
-	global $numberOfRecords;
-	global $db;
-
-	$user = getUser();
-	$db = getDB();
 ?>
 
 <html>

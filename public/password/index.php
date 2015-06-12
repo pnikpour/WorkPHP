@@ -4,20 +4,10 @@
 	error_reporting(-1);
 
 	include('../assets/php/lib.php');
-	global $user;
-	global $password;
-	global $db;
 
 	forbid();
-
-	
-	if (isset($_SESSION['user'])) {	
-		$user = getUser();
-		$password = getPassword();
-		$db = getDB($user, $password);
-	}
-
 ?>
+
 <html>
 <head>
 	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
