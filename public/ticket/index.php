@@ -4,6 +4,7 @@
 	error_reporting(-1);
 
 	include('../assets/php/lib.php');
+	redirectIfNotLoggedIn();
 	date_default_timezone_set('America/Los_Angeles');
 ?>
 

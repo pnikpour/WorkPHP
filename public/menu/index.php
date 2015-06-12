@@ -5,6 +5,8 @@
 	error_reporting(-1);
 
 	include('../assets/php/lib.php');
+
+	redirectIfNotLoggedIn();
 ?>
 
 <html>

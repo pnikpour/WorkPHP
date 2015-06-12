@@ -7,6 +7,7 @@
 	
 	// If not an admin, redirect to forbidden.php
 	forbid();
+	redirectIfNotLoggedIn();
 ?>
 
 <html>
