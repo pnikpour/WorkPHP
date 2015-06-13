@@ -24,7 +24,7 @@
 			header('Location: ../menu');
 		} else { // Increment the login attempts by one; throw error if max attempts is reached
 	//		session_unset();
-			setErrorVar("That did not work; please try again");
+			setErrorVar('<p>That did not work; please try again</p>');
 			header('Location: ../');
 		}
 	}
