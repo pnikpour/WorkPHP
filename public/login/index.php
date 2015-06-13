@@ -7,6 +7,7 @@
 
 	// Accepts username and cleartext password; verifies password with hashed one in database
 	function authUser($user, $pass) {
+	
 		$db = getDB();
 		$query = 'SELECT username, hash, groups FROM workorder.users WHERE username LIKE :user';
 		$stmt = $db->prepare($query);
@@ -15,6 +16,7 @@
 		$rows = $stmt->fetch(PDO::FETCH_ASSOC);
 		$group = $rows['groups'];	
 		$hash = $rows['hash'];
+
 
 		if (password_verify($pass, $hash)) {
 			$_SESSION['user'] = $user;
@@ -26,6 +28,9 @@
 			header('Location: ../');
 		}
 	}
-
-	authUser($_POST['user'], $_POST['password']);
+	if (!isset($_POST['user']) || !isset($_POST['password'])) {
+		redirectIfNotLoggedIn();
+	} else {
+		authUser($_POST['user'], $_POST['password']);
+	}
 ?>
