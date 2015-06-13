@@ -76,7 +76,7 @@ table {
 }
 
 input {
-	font-size: 30px;
+	font-size: 20px;
 }
 
 //input[type='text'] {
@@ -93,6 +93,11 @@ td {
 
 th {
 	font-size: 24px;
+}
+
+p .error {
+	color: red;
+	font-size: 16px;
 }
 
 #logonForm {
