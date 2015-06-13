@@ -79,10 +79,6 @@ input {
 	font-size: 20px;
 }
 
-//input[type='text'] {
-//	width: 100%;
-//}
-
 h2 {
 	font-size: 24px;
 }
@@ -95,9 +91,9 @@ th {
 	font-size: 24px;
 }
 
-p .error {
+.error {
 	color: red;
-	font-size: 16px;
+	font-size: 20px;
 }
 
 #logonForm {
@@ -105,7 +101,7 @@ p .error {
 	width: 60%;	
 }
 
-#logonForm * {
+#logonForm input {
 	font-size: 50px;
 }
 
