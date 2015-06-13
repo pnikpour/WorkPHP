@@ -5,8 +5,6 @@
 	error_reporting(-1);
 	include('../assets/php/lib.php');
 
-	redirectIfNotLoggedIn();
-
 	// Accepts username and cleartext password; verifies password with hashed one in database
 	function authUser($user, $pass) {
 		$db = getDB();
@@ -23,10 +21,9 @@
 			$_SESSION['password'] = $hash;
 			header('Location: ../menu');
 		} else { // Increment the login attempts by one; throw error if max attempts is reached
-			echo 'Invalid';
-			
-			session_unset();
-			exit();
+	//		session_unset();
+			setErrorVar("That did not work; please try again");
+			header('Location: ../');
 		}
 	}
 

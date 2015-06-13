@@ -19,6 +19,42 @@ function redirectIfNotLoggedIn() {
 	}
 }
 
+function timestampSession() {
+	$_SESSION['lastActivity'] = time();
+}
+
+function ifError() {
+	if (isset($_SESSION['error'])) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+function setErrorVar($str) {
+	$_SESSION['error'] = $str;
+}
+
+function getErrorVar() {
+	$error = $_SESSION['error'];
+	unset($_SESSION['error']);
+
+	return $error;
+}
+
+// Compares time with last activity; logs out if time expired
+function checkLastActivity() {
+	$seconds = 1800;	// 30 minutes
+	if (isset($_SESSION['lastActivity'])) {	
+		if (time() - $_SESSION['lastActivity'] > $seconds) {
+			logout();
+		}
+	} else {
+		timestampSession();
+	}
+	timestampSession();
+}
+
 function forbid() {
 	$user = getUser();
 	if (!isset($_SESSION['user'])) {	
