@@ -6,6 +6,7 @@
 	include('../assets/php/lib.php');
 	
 	// If not an admin, redirect to forbidden.php
+	checkLastActivity();
 	forbid();
 	redirectIfNotLoggedIn();
 ?>

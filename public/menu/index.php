@@ -6,6 +6,7 @@
 
 	include('../assets/php/lib.php');
 
+	checkLastActivity();
 	redirectIfNotLoggedIn();
 ?>
 
