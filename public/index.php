@@ -40,12 +40,11 @@
 			</div>		
 
 		</form>
-	</div>
-	<?php
+		<?php
 		if (ifError()) {
 			echo getErrorVar();
 		}
-	?>
-
+		?>
+	</div>
 </body>
 </html>
