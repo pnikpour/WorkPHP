@@ -38,7 +38,7 @@ function setErrorVar($str) {
 function getErrorVar() {
 	$error = $_SESSION['error'];
 	unset($_SESSION['error']);
-
+	session_unset();
 	return $error;
 }
 
