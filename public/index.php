@@ -2,7 +2,6 @@
 	ini_set('display_startup_errors',1);
 	ini_set('display_errors',1);
 	error_reporting(-1);
-
 	// Include external functions for getting the current database connection
 	include('assets/php/lib.php');
 
@@ -10,14 +9,16 @@
 		setupAdmin();
 	}
 
-	if (!isset($_SESSION['user'])) {
-		session_unset();
-		session_destroy();
-		session_write_close();
-//		setcookie(session_name(),'',0,'/');
-//		session_regenerate_id(true);
-	} else {
-		header('Location: menu');
+	if (!ifError()) {
+		if (!isset($_SESSION['user'])) {
+			session_unset();
+			session_destroy();
+			session_write_close();
+	//		setcookie(session_name(),'',0,'/');
+	//		session_regenerate_id(true);
+		} else {
+			header('Location: menu');
+		}
 	}
 ?>
 
@@ -41,6 +42,11 @@
 			</div>		
 
 		</form>
+		<?php
+			if (ifError()) {
+				echo getErrorVar();
+			}
+		?>
 	<div>
 </body>
 </html>
