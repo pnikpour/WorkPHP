@@ -123,13 +123,18 @@ function printRecords($arr) {
 function generateDashboard() {
 	if (isAdmin()) {
 		$query = 'SELECT * FROM tickets';
+		$result = getDB()->prepare($query);
+		$result->bindParam(':requestor', $_SESSION['user']);
+		$result->execute();	
 	} else {
 		$query = 'SELECT * FROM tickets WHERE requestor LIKE :requestor AND STATUS = :open';
+		$status = 'OPEN';
+		$result = getDB()->prepare($query);
+		$result->bindParam(':requestor', $_SESSION['user']);
+		$result->bindParam(':open', $status);
+		$result->execute();	
 	}
-	$result = getDB()->prepare($query);
-	$result->bindParam(':requestor', $_SESSION['user']);
-	$result->bindParam(':open', 'OPEN');
-	$result->execute();	
+
 
 	printFilterHeader();
 	while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
