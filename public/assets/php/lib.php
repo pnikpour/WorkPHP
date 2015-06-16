@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-require('/var/www/html/public/password_compat/lib/password.php');
+require('/var/www/html/public/assets/php/password_compat/lib/password.php');
 
 function getDB() {
 	try {
