@@ -56,7 +56,7 @@
 
 		$doPasswordChange = true;
 		if ($password1 !== $password2) {
-			echo 'The passwords did not match';
+			echo 'The passwords did not match\n';
 			$doPasswordChange = false;
 		}
 
@@ -64,11 +64,18 @@
 		$newPassword = $password1;
 
 		if ($username == '') {
-			echo 'Please specify a username';
+			echo 'Please specify a username\n';
 			$doPasswordChange = false;
 		}
 
-		if (meetsPasswordLength($password1)) {
+		if (!meetsPasswordLength($password1)) {
+			echo 'Password length requirements have not been met; please enter a password of at least six characters long\n';
+		}
+		if (!passwordsMatch($password1, $password2)) {
+			echo 'The passwords did not match\n'
+		}
+
+		if (meetsPasswordLength($password1) && passwordsMatch($password1, $password2)) {
 			$hash = password_hash($newPassword, PASSWORD_DEFAULT);
 			$query = "UPDATE users SET hash = :hash WHERE username LIKE :username";
 			$result = getDB()->prepare($query);
@@ -76,7 +83,7 @@
 			$result->bindParam(':username', $username);
 			$result->execute();
 			echo 'Password for ' . $username . ' changed';	
-		}
+		 }
 
 	} else {
 		navPOST();
