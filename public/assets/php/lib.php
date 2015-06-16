@@ -271,23 +271,21 @@ function logout() {
 }
 
 function passwordsMatch($pass1, $pass2, $prompt) {
-	if ($prompt) {
-		echo "The passwords do not match\n";
-	}
-	
 	if ($pass1 === $pass2) {
 		return true;
 	} else {
+		if ($prompt) {
+			echo "<p class='error'>The passwords do not match</p>";
+		}
 		return false;
 	}
 }
 
 function meetsPasswordLength($password, $prompt) {
-	if ($prompt) {
-		echo "The password length requirement has not been met; please provide a password of at least six characters long\n";
-	}
-
-	if (strlen($password) < 6 || strlen($password) < 6) {
+	if (strlen($password) < 6 || strlen($password) < 6) {i
+		if ($prompt) {
+			echo "<p class='error'>The password length requirement has not been met; please provide a password of at least six characters long</p>";
+		}
 		return false;
 	} else {
 		return true;
