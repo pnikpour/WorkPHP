@@ -59,11 +59,6 @@
 			echo 'The passwords did not match';
 			$doPasswordChange = false;
 		}
-		if (strlen($password1) < 6 || strlen($password2) < 6) {
-			echo 'The password length requirement has not been met; please provide a password of at least six characters long';
-			$doPasswordChange = false;
-		}
-
 
 		$username = $_POST['username'];
 		$newPassword = $password1;
@@ -73,7 +68,7 @@
 			$doPasswordChange = false;
 		}
 
-		if ($doPasswordChange) {
+		if (meetsPasswordLength($password1)) {
 			$hash = password_hash($newPassword, PASSWORD_DEFAULT);
 			$query = "UPDATE users SET hash = :hash WHERE username LIKE :username";
 			$result = getDB()->prepare($query);

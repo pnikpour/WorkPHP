@@ -270,8 +270,8 @@ function logout() {
 	header('Location: ../index.php');
 }
 
-function meetsPasswordLength() {
-	if (strlen($password1) < 6 || strlen($password2) < 6) {
+function meetsPasswordLength($password) {
+	if (strlen($password) < 6 || strlen($password) < 6) {
 		echo 'The password length requirement has not been met; please provide a password of at least six characters long';
 		return false;
 	} else {
