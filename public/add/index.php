@@ -29,9 +29,9 @@
 
 	include('../assets/php/lib.php');
 	
-	// If not an admin, redirect to forbidden.php
+	forbid(); // If not an admin, redirect to forbidden.php
+
 	checkLastActivity();
-	forbid();
 	redirectIfNotLoggedIn();
 ?>
 
@@ -51,14 +51,17 @@
 	if (isset($_POST['saveNew']) || isset($_POST['submit'])) {
 		$newName = $_POST['newName'];
 		$newPassword = $_POST['newPassword'];
-		$userLevel = $_POST['userLevel'];
+		$userLevel = $_POST['userLevel']; // Administrator or regular user
 		
-		if (userExists($newName)) {
+		if (userExists($newName)) { // If username exists, prompt error
 			echo 'User already exists; please specify a different username';
-		} else
+		} else // If username entered is empty, prompt error
 		if (strlen(trim($newName)) == 0) {
 			echo 'Please specify a username';
-		} else {
+		} 
+
+		// Perform password add; check requirements; only checks password length
+		if (meetsPasswordLength()) {
 			$hash = password_hash($newPassword, PASSWORD_DEFAULT);
 			$query = "INSERT INTO users (username, hash, groups) values (:newName, :hash, :userLevel)";
 			$result = getDB()->prepare($query);
