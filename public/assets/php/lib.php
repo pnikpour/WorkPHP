@@ -282,7 +282,7 @@ function passwordsMatch($pass1, $pass2, $prompt) {
 }
 
 function meetsPasswordLength($password, $prompt) {
-	if (strlen($password) < 6 || strlen($password) < 6) {i
+	if (strlen($password) < 6 || strlen($password) < 6) {
 		if ($prompt) {
 			echo "<p class='error'>The password length requirement has not been met; please provide a password of at least six characters long</p>";
 		}
