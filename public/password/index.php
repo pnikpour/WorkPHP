@@ -52,7 +52,7 @@
 		if ($doPasswordChange) {
 			$hash = password_hash($newPassword, PASSWORD_DEFAULT);
 			$query = "UPDATE users SET hash = :hash WHERE username LIKE :username";
-			$result = getDB().prepare($query);
+			$result = getDB()->prepare($query);
 			$result->bindParam(':hash', $hash);
 			$result->bindParam(':username', $username);
 			$result->execute();
