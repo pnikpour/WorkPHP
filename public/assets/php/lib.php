@@ -47,7 +47,7 @@ function timestampSession() {
 	$_SESSION['lastActivity'] = time();
 }
 
-function ifLogonError() {
+function ifError() {
 	if (isset($_SESSION['error'])) {
 		return true;
 	} else {

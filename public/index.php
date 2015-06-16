@@ -23,12 +23,15 @@
 ?>
 
 <?php
+	// Write errors to screen as needed
 	ini_set('display_startup_errors',1);
 	ini_set('display_errors',1);
 	error_reporting(-1);
+
 	// Include external functions for getting the current database connection
 	include('assets/php/lib.php');
 
+	// If admin user does not exist, redirect to admin setup page
 	if (!adminExists()) {
 		setupAdmin();
 	}
