@@ -7,3 +7,12 @@
 [submodule "public/password_compat"]
 	path = public/password_compat
 	url = https://github.com/ircmaxell/password_compat
+[submodule "assets/php"]
+	path = assets/php
+	url = https://github.com/ircmaxell/password_compat
+[submodule "publicassets/php"]
+	path = publicassets/php
+	url = https://github.com/ircmaxell/password_compat
+[submodule "public/assets/php/password_compat"]
+	path = public/assets/php/password_compat
+	url = https://github.com/ircmaxell/password_compat
