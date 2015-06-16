@@ -124,10 +124,11 @@ function generateDashboard() {
 	if (isAdmin()) {
 		$query = 'SELECT * FROM tickets';
 	} else {
-		$query = 'SELECT * FROM tickets WHERE requestor LIKE :requestor';
+		$query = 'SELECT * FROM tickets WHERE requestor LIKE :requestor AND STATUS = :open';
 	}
 	$result = getDB()->prepare($query);
 	$result->bindParam(':requestor', $_SESSION['user']);
+	$result->bindParam(':open', 'OPEN');
 	$result->execute();	
 
 	printFilterHeader();
