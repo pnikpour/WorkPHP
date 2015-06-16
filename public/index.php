@@ -36,6 +36,7 @@
 		setupAdmin();
 	}
 
+	// If logon failed, print error and display logon form again; otherwise, redirect to user dashboard
 	if (!ifError()) {
 		if (!isset($_SESSION['user'])) {
 			session_unset();
@@ -68,9 +69,10 @@
 
 		</form>
 		<?php
-		if (ifError()) {
-			echo getErrorVar();
-		}
+			// Print the error to the screen if logon error has occurred
+			if (ifError()) {
+				echo getErrorVar();
+			}
 		?>
 	</div>
 </body>
