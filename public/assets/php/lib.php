@@ -59,6 +59,10 @@ function setErrorVar($str) {
 	$_SESSION['error'] = $str;
 }
 
+function printSuccess($str) {
+	echo "<p class='success'>User added to database</p>";
+}
+
 function getErrorVar() {
 	$error = $_SESSION['error'];
 	unset($_SESSION['error']);
@@ -202,6 +206,9 @@ function navPOST() {
 	} else
 	if (isset($_POST['filters'])) {
 		header('Location: ../filters');
+	} else
+	if (isset($_POST['register'])) {
+		header('Location: ../register');
 	}
 
 }
@@ -211,7 +218,6 @@ function userExists($user) {
 	$result = getDB()->prepare($query);
 	$result->execute(array(':user' => $user));
 	$rows = $result->rowCount();
-	echo $rows;
 	if ($rows == 0) {
 		return false;
 	} else {
