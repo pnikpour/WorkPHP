@@ -51,9 +51,15 @@
 			header('Location: ../');
 		}
 	}
-	if (!isset($_POST['user']) || !isset($_POST['password'])) {
-		redirectIfNotLoggedIn();
+
+	// If clicked on register button, redirect to self-register form
+	if (isset($_POST['register'])) {
+		header('Location: ../register');
 	} else {
-		authUser($_POST['user'], $_POST['password']);
+		if (!isset($_POST['user']) || !isset($_POST['password'])) {
+			redirectIfNotLoggedIn();
+		} else {
+			authUser($_POST['user'], $_POST['password']);
+		}
 	}
 ?>
