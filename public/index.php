@@ -65,6 +65,7 @@
 			<input type='password' name='password' placeholder='Password' /> <br>
 			<div class='btnHeader'>
 				<input type='submit' name='login' value='Login' />
+				<input type='submit' name='register' value='Register' />
 			</div>		
 
 		</form>
