@@ -80,7 +80,7 @@
 
 <h1>Form</h1>
 
-<form action="<?php echo $_SERVER['PHP_SELF'] ?>" name='addUserForm' id='addUserForm' method='post'>
+<form action='' name='addUserForm' id='addUserForm' method='post'>
 
 	<?php include '../assets/php/createNav.php'; ?>
 
