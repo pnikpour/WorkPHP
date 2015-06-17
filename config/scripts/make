@@ -7,17 +7,20 @@ git submodule init
 git submodule update
 
 # Remove MySQL; re-install
-sudo yum -y reinstall php php-mysql httpd mysql-server mariadb-server
 
 onCent=0;
+onUbuntu=0;
 if  [[ os=$( cat /etc/os-release ) == *"CentOS"* ]]
 then
 	
+	sudo yum -y reinstall php php-mysql httpd mysql-server mariadb-server
 	echo 'you have cent'
 	onCent=1;
-#	sudo yum -y remove mysql mariadb-server
-#	sudo yum -y install mysql mariadb-server
-
+elif [[ os=$( cat /etc/os-release ) == *"ubuntu"* ]]
+then
+	echo 'You have Ubuntu'
+	onUbuntu=1;
+	sudo apt-get -y install --reinstall apache2 mysql-server libapache2-mod-auth-mysql php5-mysql php5
 fi
 
 if [[ -d '/var/lib/mysql' ]]
@@ -33,8 +36,16 @@ cd '../../public'
 
 
 # Copy the httpd.conf to the appropriate directory
-sudo cp /var/www/html/config/httpd.conf /etc/httpd/conf/
+if [ onCent ]
+then
+	sudo cp /var/www/html/config/httpd.conf /etc/httpd/conf/
+elif [ onUbuntu ]
+then
+	sudo cp /var/www/html/config/apache2.conf /etc/apache2/apache2/conf/
+	sudo cp /var/www/html/config/site-config.conf /etc/apache2/sites-enabled/000-default.conf
+fi
 
+echo "Access your site's main page to setup the admin account";
 # Restart services
 #if [[ onCent ]]; then
 #	sudo systemctl restart mariadb-server
@@ -51,4 +62,3 @@ mysql -u root < '/var/www/html/MySQL_Scripts/makeDB.sql'
 sudo chown -R apache:apache /var/www
 
 echo 'The default password for accounts root and rootWO has been set to "strawberryphp". Please log in to change the root password.';
-echo "Access your site's main page to setup the admin account";

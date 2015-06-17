@@ -1,1 +1,2 @@
 sudo systemctl restart mysqld httpd mariadb-server mariadb
+sudo /etc/init.d/apache2 reload
