@@ -61,7 +61,7 @@
 		} 
 
 		// Perform password add; check requirements; only checks password length
-		if (meetsPasswordLength($newPassword, false)) {
+		if (meetsPasswordLength($newPassword, true)) {
 			$hash = password_hash($newPassword, PASSWORD_DEFAULT);
 			$query = "INSERT INTO users (username, hash, groups) values (:newName, :hash, :userLevel)";
 			$result = getDB()->prepare($query);
@@ -69,7 +69,7 @@
 			$result->bindParam(':hash', $hash);
 			$result->bindParam(':userLevel', $userLevel);
 			$result->execute();
-			echo 'User ' . $newName . ' added to database';
+			printSuccess('User ' . $newName . ' added to database');
 		}
 	}
 
