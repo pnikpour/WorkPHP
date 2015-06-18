@@ -44,6 +44,39 @@
 </head>
 <body>
 
+<h1>Form</h1>
+
+<form action='' name='addUserForm' id='addUserForm' method='post'>
+
+	<?php include '../assets/php/createNav.php'; ?>
+
+	<table border=1>
+		<tr>
+			<th>New Username</th>
+			<th>New Password for Username</th>
+			<th>User Level</th>
+		</tr>
+		<tr>
+			<td>
+			<input type='text' class='logon' name='newName' />
+			</td>
+			<td>
+			<input type='password' class='logon' name='newPassword' />
+			</td>
+			<td>
+			<select id='userLevel' name='userLevel' >
+				<option value='Administrator'>Administrator</option>
+				<option value='User'>User</option>
+			</select>
+			</td>
+		</tr>
+		<tr>
+			<td>
+			<input type='submit' class='button' name='submit' value='Submit' />
+			</td>
+		</tr>
+	</table>
+</form>
 
 <?php
 
@@ -78,39 +111,7 @@
 ?>
 
 
-<h1>Form</h1>
 
-<form action='' name='addUserForm' id='addUserForm' method='post'>
-
-	<?php include '../assets/php/createNav.php'; ?>
-
-	<table border=1>
-		<tr>
-			<th>New Username</th>
-			<th>New Password for Username</th>
-			<th>User Level</th>
-		</tr>
-		<tr>
-			<td>
-			<input type='text' class='logon' name='newName' />
-			</td>
-			<td>
-			<input type='password' class='logon' name='newPassword' />
-			</td>
-			<td>
-			<select id='userLevel' name='userLevel' >
-				<option value='Administrator'>Administrator</option>
-				<option value='User'>User</option>
-			</select>
-			</td>
-		</tr>
-		<tr>
-			<td>
-			<input type='submit' class='button' name='submit' value='Submit' />
-			</td>
-		</tr>
-	</table>
-</form>
 </body>
 </html>
 

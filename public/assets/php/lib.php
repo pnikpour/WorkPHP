@@ -60,7 +60,7 @@ function setErrorVar($str) {
 }
 
 function printSuccess($str) {
-	echo "<p class='success'>User added to database</p>";
+	echo "<p class='success'>$str</p>";
 }
 
 function getErrorVar() {
