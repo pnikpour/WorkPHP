@@ -44,7 +44,7 @@
 	
 </head>
 <body>
-
+<header><img class='logo' src='../assets/images/logo.png' alt='BlueberryPHP Logo'></header>
 <?php
 	navPOST();
 ?>
