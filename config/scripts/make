@@ -6,8 +6,6 @@ cd ../../
 git submodule init
 git submodule update
 
-# Remove MySQL; re-install
-
 onCent=0;
 onUbuntu=0;
 if  [[ os=$( cat /etc/os-release ) == *"CentOS"* ]]
@@ -46,10 +44,6 @@ then
 fi
 
 echo "Access your site's main page to setup the admin account";
-# Restart services
-#if [[ onCent ]]; then
-#	sudo systemctl restart mariadb-server
-#fi
 
 ./restartServ
 
@@ -61,4 +55,4 @@ mysql -u root < '/var/www/html/MySQL_Scripts/makeDB.sql'
 # Set the owner of the web directory and its subdirectories to apache user
 sudo chown -R apache:apache /var/www
 
-echo 'The default password for accounts root and rootWO has been set to "strawberryphp". Please log in to change the root password.';
+echo 'The default password for MySQL root account has been set to "strawberryphp". Please log in to change the root password.';
