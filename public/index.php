@@ -58,7 +58,7 @@
 	<link rel='stylesheet' href='assets/css/styles.css' type='text/css' />
 </head>
 <body>
-	<h1>Login Page</h1>
+	<header><img class='logo' src='assets/images/logo.png' alt='BlueberryPHP Logo'></header>
 	<div id='logonForm'>
 		<form action='login/' name='login' class='logon' method='POST'>
 			<input type='text' name='user' placeholder='Login' /> <br>
