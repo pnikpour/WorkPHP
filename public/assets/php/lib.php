@@ -37,6 +37,12 @@ function getDB() {
 	}
 }
 
+function dontCache() {
+	echo '<meta http-equiv="cache-control" content="no-cache">';
+	echo '<meta http-equiv="expires" content="0">';
+	echo '<meta http-equiv="pragma" content="no-cache">';
+}
+
 function redirectIfNotLoggedIn() {
 	if (!isset($_SESSION['user'])) {	
 		header('Location: ../');
