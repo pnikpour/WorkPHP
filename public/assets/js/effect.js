@@ -33,7 +33,7 @@ $('document').ready(function() {
 	});
 
 	$('.button').mouseleave(function() {
-		$(this).animate({backgroundColor: 'black'}, 'fast');
+		$(this).animate({backgroundColor: 'blue'}, 'fast');
 	});
 
 });
