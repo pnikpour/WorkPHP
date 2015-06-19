@@ -15,7 +15,7 @@ body {
 .button {
 	display: inline;
 	text-decoration: none;
-	background-color: black;
+	background-color: blue;
 	color: white;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
