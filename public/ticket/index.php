@@ -42,6 +42,8 @@
 </head>
 
 <body>
+
+<header><img class='logo' src='../assets/images/logo.png' alt='BlueberryPHP Logo'></header>
 <?php
 	// Governs when the user submits a ticket and refreshes the page; will
 	// increment the ticket number count by one
@@ -118,10 +120,12 @@
 			</td>
 		</tr>
 		<tr>
-			<th colspan='4'><h2>Problem Details</h2></th>
+			<th colspan='2'><h2>Problem Details</h2></th>
+			<th colspan='2'><h2>Solution Details</h2></th>
 		</tr>
 		<tr>
-			<td colspan='4'><textarea rows='5' style='width: 100%;'  name='problemDescription'></textarea></td>
+			<td colspan='2'><textarea rows='5' name='problemDescription'></textarea></td>
+			<td colspan='2'><textarea rows='5' name='solutionDescription'></textarea></td>
 		</tr>
 	</table>
 	<br>

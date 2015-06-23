@@ -41,7 +41,7 @@
 	<link rel='stylesheet' href='../assets/css/styles.css' type='text/css' />
 </head>
 <body>
-
+<header><img class='logo' src='../assets/images/logo.png' alt='BlueberryPHP Logo'></header>
 
 <?php
 

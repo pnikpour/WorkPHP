@@ -12,8 +12,8 @@ FLUSH PRIVILEGES;
 -- Create tickets table
 CREATE TABLE tickets (
 	ticketNumber INT NOT NULL AUTO_INCREMENT, dateCreated date, 
-	problemDescription varchar(100), requestor varchar(25), problemCode ENUM('BOOT ISSUE', 'NETWORK', 'HARDWARE', 'PHONE ISSUE'), assignedTo ENUM('pnikpour'),
-	dateClosed DATE, status ENUM('OPEN', 'CLOSED'), PRIMARY KEY(ticketNumber)
+	problemDescription varchar(256), requestor varchar(25), problemCode ENUM('BOOT ISSUE', 'NETWORK', 'HARDWARE', 'PHONE ISSUE'), assignedTo ENUM('pnikpour'),
+	dateClosed DATE, status ENUM('OPEN', 'CLOSED'), solutionDescription varchar(256), PRIMARY KEY(ticketNumber)
 );
 
 -- Create users table

@@ -40,6 +40,7 @@
 </head>
 <body>
 
+<header><img class='logo' src='../assets/images/logo.png' alt='BlueberryPHP Logo'></header>
 <h1>User Self-Register Form</h1>
 
 <form action='' name='addUserForm' id='addUserForm' method='post'>
@@ -80,10 +81,10 @@
 		$password2 = $_POST['password2'];
 		
 		if (userExists($newName)) { // If username exists, prompt error
-			echo 'User already exists; please specify a different username';
+			printError('User already exists; please specify a different username');
 		} else // If username entered is empty, prompt error
 		if (strlen(trim($newName)) == 0) {
-			echo 'Please specify a username';
+			printError('Please specify a username');
 		} 
 
 		// Perform password add; check requirements; only checks password length

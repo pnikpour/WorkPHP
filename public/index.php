@@ -31,9 +31,6 @@
 	// Include external functions for getting the current database connection
 	include('assets/php/lib.php');
 
-	// Don't cache the page
-	dontCache();
-
 	// If admin user does not exist, redirect to admin setup page
 	if (!adminExists()) {
 		setupAdmin();
@@ -55,8 +52,10 @@
 
 <html>
 <head>
-	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-	<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script type='text/javascript' src="//code.jquery.com/jquery-1.10.2.js"></script>
+	<script type='text/javascript' src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+	<script type='text/javascript' src='assets/js/effect.js' type='text/javascript'></script>
+
 	<script src='assets/js/ghost.js'></script>
 	<link rel='stylesheet' href='assets/css/styles.css' type='text/css' />
 </head>
@@ -67,8 +66,8 @@
 			<input type='text' name='user' placeholder='Login' /> <br>
 			<input type='password' name='password' placeholder='Password' /> <br>
 			<div class='btnHeader'>
-				<input type='submit' name='login' value='Login' />
-				<input type='submit' name='register' value='Register' />
+				<input type='submit' class='button' name='login' value='Login' />
+				<input type='submit' class='button' name='register' value='Register' />
 			</div>		
 
 		</form>

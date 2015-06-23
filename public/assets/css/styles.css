@@ -72,6 +72,20 @@ input {
 	font-size: 20px;
 }
 
+input[type=text] {
+	color: black;
+}
+
+td textarea {
+	color: black;
+	font-color: black;
+	width: 100%;
+}
+
+option {
+	color: black;
+}
+
 h2 {
 	font-size: 24px;
 }
@@ -99,8 +113,9 @@ th {
 	width: 60%;	
 }
 
-#logo {
-	max-width: 600px;
+img {
+	width: 100%;
+	max-width: 300px;
 }
 
 #logonForm input {

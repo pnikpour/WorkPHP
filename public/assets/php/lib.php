@@ -69,6 +69,10 @@ function printSuccess($str) {
 	echo "<p class='success'>$str</p>";
 }
 
+function printError($str) {
+	echo "<p class='error'>$str</p>";
+}
+
 function getErrorVar() {
 	$error = $_SESSION['error'];
 	unset($_SESSION['error']);

@@ -46,6 +46,7 @@
 </head>
 <body>
 
+<header><img class='logo' src='../assets/images/logo.png' alt='BlueberryPHP Logo'></header>
 <?php
 	if (isset($_POST['saveNew']) || isset($_POST['submit'])) {
 		$newName = $_POST['newName'];

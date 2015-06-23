@@ -1,1 +1,2 @@
 sudo systemctl stop mysqld httpd mariadb-server mariadb
+sudo /etc/init.d/apache2 stop
