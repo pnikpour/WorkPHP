@@ -6,6 +6,13 @@ cd ../../
 git submodule init
 git submodule update
 
+# Remove MySQL directory
+if [[ -d '/var/lib/mysql' ]]
+then
+	sudo rm -r /var/lib/mysql
+fi
+
+# Detect OS; re-install LAMP
 onCent=0;
 onUbuntu=0;
 if  [[ os=$( cat /etc/os-release ) == *"CentOS"* ]]
@@ -18,12 +25,8 @@ elif [[ os=$( cat /etc/os-release ) == *"ubuntu"* ]]
 then
 	echo 'You have Ubuntu'
 	onUbuntu=1;
+	sudo apt-get -y remove --purge mysql*
 	sudo apt-get -y install --reinstall apache2 mysql-server libapache2-mod-auth-mysql php5-mysql php5
-fi
-
-if [[ -d '/var/lib/mysql' ]]
-then
-	sudo rm -r /var/lib/mysql/*
 fi
 
 # If apache html directory does not exist, create it
