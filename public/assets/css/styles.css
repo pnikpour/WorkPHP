@@ -1,43 +1,28 @@
 
 * {
 	font-family: Arial, Helvetica, sans-serif;
+
 }
 
-aside {
-	float: right;
+// Selector for all elements except logo header and body
+:not(nav) {
+	background-color: white;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+
 }
+
 
 body {
 	background-image: url("../images/bg.png");
 	background-size: 100% 100%;
 }
 
-.button {
-	display: inline;
-	text-decoration: none;
-	background-color: blue;
-	color: white;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
-}
+/************************
+********Form Styles******
+************************/
 
-
-.left {
-	display: block;
-	float: left;
-	width: 50%;
-}
-
-.right {
-	display: block;
-	float: right;
-	width: 50%;
-}
-
-.right th {
-	font-size: 14px;
-}
 
 form {
 	display: block;
@@ -46,48 +31,28 @@ form {
 	margin-right: auto;
 }
 
+/************************
+*******Table Styles******
+************************/
+
 table {
 	border-style: solid;
 	border-width: 1px;
 	margin-right: auto;
 	padding: 10px;
 	width: 60%;
-}
 
+	background-color: white;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
 
-.ghost {
-	color: #C0C0C0;
-	font-size: 30px;
-}
-
-.filterForm {
-//	padding: 10px;
-}
-
-.filterForm table {
-	width: 100px;
-}
-
-input {
-	font-size: 20px;
-}
-
-input[type=text] {
-	color: black;
 }
 
 td textarea {
 	color: black;
 	font-color: black;
 	width: 100%;
-}
-
-option {
-	color: black;
-}
-
-h2 {
-	font-size: 24px;
 }
 
 td {
@@ -98,6 +63,78 @@ th {
 	font-size: 24px;
 }
 
+input {
+	font-size: 20px;
+}
+
+input[type=text] {
+	color: black;
+}
+
+/*************************************
+*****Filter Form Specific Styles******
+*************************************/
+
+.filterForm table {
+	width: 100px;
+}
+
+option {
+	color: black;
+}
+
+h2 {
+	font-size: 24px;
+}
+
+select {
+	font-size: 24px;
+	width: 100%;
+}
+
+img {
+	width: 100%;
+	max-width: 300px;
+}
+
+/*************************************
+*****Logon Specific Form Styles*******
+*************************************/
+
+#logonForm {
+	margin-left: 30%;
+	width: 60%;	
+}
+
+
+#logonForm input {
+	font-size: 50px;
+}
+
+/************************
+*******Effect Styles*****
+************************/
+
+// Selector for text boxes with placeholders
+.ghost {
+	color: #C0C0C0;
+	font-size: 30px;
+}
+
+.button {
+	color: white;
+	display: inline;
+	text-decoration: none;
+	background-color: blue;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+/*******************************
+******Result Return Styles******
+********************************/
+
 .success {
 	color: green;
 	font-size: 20px;
@@ -106,23 +143,4 @@ th {
 .error {
 	color: red;
 	font-size: 20px;
-}
-
-#logonForm {
-	margin-left: 30%;
-	width: 60%;	
-}
-
-img {
-	width: 100%;
-	max-width: 300px;
-}
-
-#logonForm input {
-	font-size: 50px;
-}
-
-select {
-	font-size: 24px;
-	width: 100%;
 }
