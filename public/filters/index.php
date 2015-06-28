@@ -44,8 +44,6 @@
 <header><img class='logo' src='../assets/images/logo.png' alt='BlueberryPHP Logo'></header>
 
 <?php
-
-
 	// Logout snippet
 	navPOST();
 ?>

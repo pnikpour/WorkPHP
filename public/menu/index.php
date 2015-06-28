@@ -52,18 +52,6 @@
 
 <h1>BlueberryPHP Workflow Menu</h1>
 
-<input class='color' value='D0D0D0'>
-	<script type='text/javascript' src='../assets/js/jscolor/jscolor.js'></script>
-</input>
-
-<script>
-	$('.color').change(function() {
-		var hex = $('.color').val();
-		$('body').css('backgroundColor', hex);
-		$('.button').css('backgroundColor', hex);
-	});
-</script>
-
 <div class='formContainer'>
 	<form action="<?php echo $_SERVER['PHP_SELF'];?>" name='menu' id='menu' method='post'>
 		<?php include '../assets/php/createNav.php'; ?>
