@@ -40,6 +40,7 @@
 	<script src="//code.jquery.com/jquery-1.10.2.js?<?php echo time(); ?>"></script>
 	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js?<?php echo time(); ?>"></script>
 	<script src='../assets/js/effect.js?<?php echo time(); ?>' type='text/javascript'></script>
+	<script src='../assets/js/lib.js?<?php echo time(); ?>' type='text/javascript'></script>
 	<link rel='stylesheet' href='../assets/css/styles.css?<?php echo time(); ?>' type='text/css' />
 </head>
 
@@ -152,7 +153,7 @@
 			</select>
 			</td>
 			<td>
-			<select name='status' id='status' onchange='if ($("#status").val() == "OPEN") {$("#dateClosed").val("")} else {var today = new Date(); var dd = today.getDate(); var mm = today.getMonth()+1; mm = (mm < 10 ? "0" : "") + mm; var yyyy = today.getFullYear(); document.getElementById("dateClosed").value = yyyy + "-" + mm + "-" + dd;}'>
+			<select name='status' id='status' onchange='readyDateClosed()'>
 			<?php
 				$table = "tickets";
 				$col = 'status';
