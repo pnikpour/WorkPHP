@@ -31,6 +31,7 @@
 		echo"
 			<input type='submit' class='button' id='ticket' name='ticket' value='Create Work Order' />
 			<input type='submit' class='button' id='filters' name='filters' value='Filters' />
+			<input type='submit' class='button' id='support' name='support' value='Support' />
 			<input type='submit' class='button' name='logout' value='Log Out' />";
 	}
 

@@ -231,7 +231,10 @@ function navPOST() {
 	} else
 	if (isset($_POST['register'])) {
 		header('Location: ../register');
-	} else
+	} else 
+	if (isset($_POST['support'])) {
+		header('Location: ../support');
+	}  else
 	if (isset($_POST['/btnEdit$/'])) {
 		echo 'Edit button pressed';
 		exit();
