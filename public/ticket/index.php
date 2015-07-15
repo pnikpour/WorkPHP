@@ -70,7 +70,7 @@
 ?>
 
 
-<h1>Form</h1>
+<h1>QuikPHP Ticket</h1>
 
 <div class='formContainer'>
 	<form action="<?php echo $_SERVER['PHP_SELF']; ?>" name='ticket' id='ticket' method='post'>

@@ -46,7 +46,7 @@
 </head>
 <body>
 <header><img class='logo' src='../assets/images/logo.png' alt='QuikPHP Logo'></header>
-<h1>Form</h1>
+<h1>Add Users</h1>
 
 <form action='' name='addUserForm' id='addUserForm' method='post'>
 

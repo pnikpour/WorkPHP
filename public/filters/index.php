@@ -51,7 +51,7 @@
 ?>
 
 
-<h1>Form</h1>
+<h1>Filters</h1>
 
 <div class='filterForm'>
 	<form action="" name='addUserForm' id='addUserForm' method='post'>

@@ -135,6 +135,11 @@ img {
 ******Result Return Styles******
 ********************************/
 
+.para {
+	background-color: white;
+	font-size: 20px;
+}
+
 .success {
 	background-color: white;
 	color: green;

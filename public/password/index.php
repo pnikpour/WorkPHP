@@ -52,7 +52,7 @@
 ?>
 
 
-<h1>Form</h1>
+<h1>Change Password</h1>
 
 <form action="<?php echo $_SERVER['PHP_SELF'] ?>" name='addUserForm' id='addUserForm' method='post'>
 	
