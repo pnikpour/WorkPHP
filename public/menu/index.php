@@ -1,6 +1,6 @@
 <?php
 //**************************************************************************
-// This file is part of the BlueberryPHP project.
+// This file is part of the QuikPHP project.
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -29,6 +29,7 @@
 	error_reporting(-1);
 
 	include('../assets/php/lib.php');
+	dontCache();
 
 	checkLastActivity();
 	redirectIfNotLoggedIn();
@@ -44,23 +45,24 @@
 	
 </head>
 <body>
-<header><img class='logo' src='../assets/images/logo.png' alt='BlueberryPHP Logo'></header>
+<header><img class='logo' src='../assets/images/logo.png' alt='QuikPHP Logo'></header>
 <?php
-	navPOST();
+//	navPOST(); // Omit for now due to redirecting to /processMenu
 ?>
 
 
-<h1>BlueberryPHP Workflow Menu</h1>
+<h1>QuikPHP Workflow Menu</h1>
 
 <div class='formContainer'>
-	<form action="<?php echo $_SERVER['PHP_SELF'];?>" name='menu' id='menu' method='post'>
-		<?php include '../assets/php/createNav.php'; ?>
+	<form action="processMenu/" name='menu' id='menu' method='post'>
+		<?php
+			include '../assets/php/createNav.php';
+			generateDashboard();
+		?>
+
 	</form>
 </div>
 
-<?php
-	generateDashboard();
-?>
 
 </body>
 </html>

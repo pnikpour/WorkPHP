@@ -105,6 +105,11 @@ function forbid() {
 
 }
 
+function openTicket() {
+	header('Location: ../ticket');
+}
+
+
 // Echo a table representing a header for inline queries
 function printFilterHeader() {
 
@@ -132,6 +137,10 @@ function printRecords($arr) {
 	}
 }
 
+function appendEditRecordButton($index) {
+	echo '<td><input type="submit" name="btnEdit" value="Edit"></td>';
+}
+
 // Setup table displaying outstanding workorders; if regular user, display tickets created by that user; if admin,
 // display all outstanding tickets
 function generateDashboard() {
@@ -151,6 +160,7 @@ function generateDashboard() {
 
 
 	printFilterHeader();
+	$numRecords = 0;
 	while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 		$records = array();
 		echo '<tr>';
@@ -168,6 +178,8 @@ function generateDashboard() {
 	
 
 		printRecords($records);
+		appendEditRecordButton($numRecords);
+		$numRecords++;
 		echo '</tr>';
 		
 	}
@@ -219,8 +231,12 @@ function navPOST() {
 	} else
 	if (isset($_POST['register'])) {
 		header('Location: ../register');
+	} else
+	if (isset($_POST['/btnEdit$/'])) {
+		echo 'Edit button pressed';
+		exit();
 	}
-
+	
 }
 
 function userExists($user) {

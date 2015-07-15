@@ -1,6 +1,6 @@
 <?php
 //**************************************************************************
-// This file is part of the BlueberryPHP project.
+// This file is part of the QuikPHP project.
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -26,6 +26,8 @@
 
 	// Include external functions for getting the current database connection
 	include('../assets/php/lib.php');
+
+	dontCache();
 
 ?>
 

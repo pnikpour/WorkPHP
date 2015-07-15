@@ -1,6 +1,6 @@
 <?php
 //**************************************************************************
-// This file is part of the BlueberryPHP project.
+// This file is part of the QuikPHP project.
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -28,6 +28,7 @@
 	error_reporting(-1);
 	
 	include('../assets/php/lib.php');
+	dontCache();
 
 	// If user tried accessing this page directly, redirect to login page
 	if (adminExists()) {
@@ -46,7 +47,7 @@
 </head>
 <body>
 
-<header><img class='logo' src='../assets/images/logo.png' alt='BlueberryPHP Logo'></header>
+<header><img class='logo' src='../assets/images/logo.png' alt='QuikPHP Logo'></header>
 <?php
 	if (isset($_POST['saveNew']) || isset($_POST['submit'])) {
 		$newName = $_POST['newName'];

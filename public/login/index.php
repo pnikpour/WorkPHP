@@ -1,6 +1,6 @@
 <?php
 //**************************************************************************
-// This file is part of the BlueberryPHP project.
+// This file is part of the QuikPHP project.
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -26,7 +26,9 @@
 	ini_set('display_startup_errors',1);
 	ini_set('display_errors',1);
 	error_reporting(-1);
+
 	include('../assets/php/lib.php');
+	dontCache();
 
 	// Accepts username and cleartext password; verifies password with hashed one in database
 	function authUser($user, $pass) {

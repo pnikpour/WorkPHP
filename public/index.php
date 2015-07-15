@@ -31,6 +31,8 @@
 	// Include external functions for getting the current database connection
 	include('assets/php/lib.php');
 
+	dontCache();
+
 	// If admin user does not exist, redirect to admin setup page
 	if (!adminExists()) {
 		setupAdmin();
