@@ -125,7 +125,7 @@ img {
 	color: white;
 	display: inline;
 	text-decoration: none;
-	background-color: blue;
+	background-color: red;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
@@ -136,11 +136,13 @@ img {
 ********************************/
 
 .success {
+	background-color: white;
 	color: green;
 	font-size: 20px;
 }
 
 .error {
+	background-color: white;
 	color: red;
 	font-size: 20px;
 }

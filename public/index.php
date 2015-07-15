@@ -1,6 +1,6 @@
 <?php
 //**************************************************************************
-// This file is part of the BlueberryPHP project.
+// This file is part of the QuikPHP project.
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -62,7 +62,7 @@
 	<link rel='stylesheet' href='assets/css/styles.css' type='text/css' />
 </head>
 <body>
-	<header><img class='logo' src='assets/images/logo.png' alt='BlueberryPHP Logo'></header>
+	<header><img class='logo' src='assets/images/logo.png' alt='QuikPHP Logo'></header>
 	<div id='logonForm'>
 		<form action='login/' name='login' class='logon' method='POST'>
 			<input type='text' name='user' placeholder='Login' /> <br>

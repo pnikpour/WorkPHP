@@ -29,7 +29,7 @@
 
 	include('../assets/php/lib.php');
 
-	dontCache()
+	dontCache();
 
 	checkLastActivity();
 	redirectIfNotLoggedIn();

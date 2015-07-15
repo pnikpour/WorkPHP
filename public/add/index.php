@@ -39,10 +39,10 @@
 
 <html>
 <head>
-	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-	<script src='../assets/js/effect.js' type='text/javascript'></script>
-	<link rel='stylesheet' href='../assets/css/styles.css' type='text/css' />
+	<script src="//code.jquery.com/jquery-1.10.2.js?<?php echo time(); ?>"></script>
+	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js?<?php echo time(); ?>"></script>
+	<script src='../assets/js/effect.js?<?php echo time(); ?>' type='text/javascript'></script>
+	<link rel='stylesheet' href='../assets/css/styles.css?<?php echo time(); ?>' type='text/css' />
 </head>
 <body>
 <header><img class='logo' src='../assets/images/logo.png' alt='QuikPHP Logo'></header>
