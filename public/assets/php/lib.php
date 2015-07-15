@@ -137,8 +137,9 @@ function printRecords($arr) {
 	}
 }
 
+// Put function on hold to implement
 function appendEditRecordButton($index) {
-	echo '<td><input type="submit" name="btnEdit" value="Edit"></td>';
+//	echo '<td><input type="submit" name="btnEdit" value="Edit"></td>';
 }
 
 // Setup table displaying outstanding workorders; if regular user, display tickets created by that user; if admin,
