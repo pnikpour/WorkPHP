@@ -12,7 +12,7 @@ FLUSH PRIVILEGES;
 -- Create tickets table
 CREATE TABLE tickets (
 	ticketNumber INT NOT NULL AUTO_INCREMENT, dateCreated date, 
-	problemDescription varchar(256), requestor varchar(25), problemCode ENUM('BOOT ISSUE', 'NETWORK', 'HARDWARE', 'PHONE ISSUE'), assignedTo ENUM('pnikpour'),
+	problemDescription varchar(256), requestor varchar(25), problemCode ENUM('BOOT ISSUE', 'NETWORK', 'HARDWARE', 'PHONE ISSUE'), assignedTo ENUM(''),
 	dateClosed DATE, status ENUM('OPEN', 'CLOSED'), solutionDescription varchar(256), PRIMARY KEY(ticketNumber)
 );
 
@@ -33,10 +33,6 @@ CREATE TABLE loginAttempts (
 
 -- Set temporary default passwords for root accounts
 SET PASSWORD FOR root@localhost = PASSWORD('strawberryphp');
-
--- Insert root accounts in users table in the workorder database; set admin attributes
--- INSERT INTO users (username) VALUES ('root'), ('rootWO');
--- UPDATE users SET groups = 'Administrator' WHERE username LIKE 'root' OR username LIKE 'rootWO';
 
 -- Set the default ticket number
 ALTER TABLE workorder.tickets AUTO_INCREMENT = 1000;
