@@ -12,7 +12,7 @@ FLUSH PRIVILEGES;
 -- Create tickets table
 CREATE TABLE tickets (
 	ticketNumber INT NOT NULL AUTO_INCREMENT, dateCreated date, 
-	problemDescription varchar(256), requestor varchar(25), problemCode ENUM('BOOT ISSUE', 'NETWORK', 'HARDWARE', 'PHONE ISSUE'), assignedTo ENUM(''),
+	problemDescription varchar(256), requestor varchar(25), problemCode ENUM('BOOT ISSUE', 'NETWORK', 'HARDWARE', 'PHONE ISSUE'), assignedTo ENUM('tech'),
 	dateClosed DATE, status ENUM('OPEN', 'CLOSED'), solutionDescription varchar(256), PRIMARY KEY(ticketNumber)
 );
 
