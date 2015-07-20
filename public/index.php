@@ -59,14 +59,15 @@
 	<script type='text/javascript' src='assets/js/effect.js' type='text/javascript'></script>
 
 	<script src='assets/js/ghost.js'></script>
+	<script src='assets/js/focus.js'></script>
 	<link rel='stylesheet' href='assets/css/styles.css' type='text/css' />
 </head>
 <body>
 	<header><img class='logo' src='assets/images/logo.png' alt='QuikPHP Logo'></header>
 	<div id='logonForm'>
 		<form action='login/' name='login' class='logon' method='POST'>
-			<input type='text' name='user' placeholder='Login' /> <br>
-			<input type='password' name='password' placeholder='Password' /> <br>
+			<input type='text' name='user' id='user' placeholder='Login' /> <br>
+			<input type='password' name='password' id='password' placeholder='Password' /> <br>
 			<div class='btnHeader'>
 				<input type='submit' class='button' name='login' value='Login' />
 				<input type='submit' class='button' name='register' value='Register' />
