@@ -181,11 +181,26 @@ function generateDashboard() {
 }
 
 function doFilter() {
-//	$query = 'SELECT * FROM tickets WHERE ticketNumber LIKE :ticketNumber AND status LIKE :status';
-	$query = 'SELECT * FROM tickets WHERE status LIKE :status';
+	$query = 'SELECT * FROM tickets WHERE status LIKE :status AND ticketNumber = :ticketNumber';
+	$status = $_POST['status'];
+	$ticketNumber = $_POST['ticketNumber'];
+
+	$prepareAgain = false;
+	
 	$result = getDB()->prepare($query);
-//	$result->bindParam(':ticketNumber', $_POST['ticketNumber']);
-	$result->bindParam(':status', $_POST['status']);
+	if ($ticketNumber == "") {
+		$query = 'SELECT * FROM tickets WHERE status LIKE :status AND ticketNumber >= 0';
+		$ticketNumber = "%";
+	} else {
+		$result->bindParam(':ticketNumber', $ticketNumber);
+		$prepareAgain = true;
+	}
+
+	if (!$prepareAgain) {
+		$result = getDB()->prepare($query);
+	}
+
+	$result->bindParam(':status', $status);
 	$result->execute();	
 
 	printFilterHeader();
