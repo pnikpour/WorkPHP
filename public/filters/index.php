@@ -69,6 +69,7 @@
 				$col = 'status';
 				$query = 'SHOW COLUMNS FROM '.$table.' WHERE field="'.$col.'"';
 				$row = getDB()->query($query)->fetch(PDO::FETCH_ASSOC);
+				echo '<option></option>';
 				foreach(explode("','",substr($row['Type'],6,-2)) as $option) {
 					print("<option>$option</option>");
 				}

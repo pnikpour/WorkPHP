@@ -196,6 +196,10 @@ function doFilter() {
 		$prepareAgain = true;
 	}
 
+	if ($status == "") {
+		$status = '%';
+	}
+
 	if (!$prepareAgain) {
 		$result = getDB()->prepare($query);
 	}
