@@ -25,8 +25,10 @@
 <?php
 session_start();
 
+// Require password_compat library
 require('/var/www/html/public/assets/php/password_compat/lib/password.php');
 
+// Return the current working database
 function getDB() {
 	try {
 		return new PDO("mysql:host=localhost;dbname=workorder;charset=utf8", 'secureUser', 'BL3FFEE5WUsrJQnx');
@@ -37,22 +39,26 @@ function getDB() {
 	}
 }
 
+// Tell the browser to not cache the web page
 function dontCache() {
 	echo '<meta http-equiv="cache-control" content="no-cache">';
 	echo '<meta http-equiv="expires" content="0">';
 	echo '<meta http-equiv="pragma" content="no-cache">';
 }
 
+// If visitor is not signed in, redirect to logon page
 function redirectIfNotLoggedIn() {
 	if (!isset($_SESSION['user'])) {	
 		header('Location: ../');
 	}
 }
 
+// Get the last user activity timestamp
 function timestampSession() {
 	$_SESSION['lastActivity'] = time();
 }
 
+// Check session variable for an error; used for logon processing
 function ifError() {
 	if (isset($_SESSION['error'])) {
 		return true;
@@ -61,18 +67,22 @@ function ifError() {
 	}
 }
 
+// Set error session variable true or false
 function setErrorVar($str) {
 	$_SESSION['error'] = $str;
 }
 
+// Print success string
 function printSuccess($str) {
 	echo "<p class='success'>$str</p>";
 }
 
+// Print error string
 function printError($str) {
 	echo "<p class='error'>$str</p>";
 }
 
+// Get error status through session variable; unset the variable, and the current session
 function getErrorVar() {
 	$error = $_SESSION['error'];
 	unset($_SESSION['error']);
@@ -82,7 +92,7 @@ function getErrorVar() {
 
 // Compares time with last activity; logs out if time expired
 function checkLastActivity() {
-	$seconds = 1800;	// 30 minutes
+	$seconds = 900;	// 15 minutes
 	if (isset($_SESSION['lastActivity'])) {	
 		if (time() - $_SESSION['lastActivity'] > $seconds) {
 			logout();
@@ -93,6 +103,7 @@ function checkLastActivity() {
 	timestampSession();
 }
 
+// Used for admin pages; if the user is not logged in, or is not an admin, redirect to forbidden page
 function forbid() {
 	$user = getUser();
 	if (!isset($_SESSION['user'])) {	
@@ -104,11 +115,6 @@ function forbid() {
 	}
 
 }
-
-function openTicket() {
-	header('Location: ../ticket');
-}
-
 
 // Echo a table representing a header for inline queries
 function printFilterHeader() {
@@ -127,17 +133,19 @@ function printFilterHeader() {
 
 }
 
+// Print table footer
 function printFilterFooter() {
 	echo '</table>';
 }
 
+// Accepts ticket object field and print the field in dashboard table
 function printRecords($arr) {
 	foreach($arr as $a) {
 		echo '<td>' . $a . '</td>';
 	}
 }
 
-// Put function on hold to implement
+// Put function on hold to implement; opens ticket 
 function appendEditRecordButton($index) {
 //	echo '<td><input type="submit" name="btnEdit" value="Edit"></td>';
 }
@@ -159,7 +167,6 @@ function generateDashboard() {
 		$result->execute();	
 	}
 
-
 	printFilterHeader();
 	$numRecords = 0;
 	while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
@@ -180,6 +187,7 @@ function generateDashboard() {
 
 }
 
+// Query filter; return table containing support tickets that match the query
 function doFilter() {
 	$query = 'SELECT * FROM tickets WHERE status LIKE :status AND ticketNumber = :ticketNumber';
 	$status = $_POST['status'];
@@ -222,6 +230,7 @@ function doFilter() {
 	printFilterFooter();
 }
 
+// Nav behavior function
 function navPOST() {
 	if (isset($_POST['home'])) {
 		header('Location: ../index.php');
@@ -254,6 +263,7 @@ function navPOST() {
 	
 }
 
+// Queries database and checks if the given username exists
 function userExists($user) {
 	$query = 'SELECT * FROM users WHERE username LIKE :user';
 	$result = getDB()->prepare($query);
@@ -266,6 +276,7 @@ function userExists($user) {
 	}
 }
 
+// Queries database and returns if an admin exists on the server
 function adminExists() {
 	$query = 'SELECT username FROM users WHERE groups LIKE :group';
 	$result = getDB()->prepare($query);
@@ -279,10 +290,12 @@ function adminExists() {
 	
 }
 
+// Redirect to admin setup page
 function setupAdmin() {
 	header('Location: initAdmin/');
 }
 
+// Returns the next ticket number once a ticket has been created
 function getMaxTicketNumber() {	
 	$stmt = getDB()->query("SELECT MAX(ticketNumber) from tickets");
 	$newID = $stmt->fetch(PDO::FETCH_NUM);
@@ -294,8 +307,7 @@ function getMaxTicketNumber() {
 	return $newID;
 }
 
-
-
+// Returns if the currently logged in user is an admin
 function isAdmin() {
 	$user = getUser();
 	$query = 'SELECT groups FROM workorder.users WHERE username LIKE :user';
@@ -311,10 +323,7 @@ function isAdmin() {
 	}
 }
 
-function getPassword() {
-	return $_SESSION['password'];
-}
-
+// Logout of current session
 function logout() {
 	session_unset();
 	session_destroy();
@@ -323,6 +332,7 @@ function logout() {
 	header('Location: ../index.php');
 }
 
+// Compares two cleartext passwords; return true if the passwords match
 function passwordsMatch($pass1, $pass2, $prompt) {
 	if ($pass1 === $pass2) {
 		return true;
@@ -334,8 +344,9 @@ function passwordsMatch($pass1, $pass2, $prompt) {
 	}
 }
 
+// Check if new password meets length requirements; if the password is less than six characters long, throw error and return false
 function meetsPasswordLength($password, $prompt) {
-	if (strlen($password) < 6 || strlen($password) < 6) {
+	if (strlen($password)) {
 		if ($prompt) {
 			echo "<p class='error'>The password length requirement has not been met; please provide a password of at least six characters long</p>";
 		}
@@ -345,6 +356,7 @@ function meetsPasswordLength($password, $prompt) {
 	}
 }
 
+// Get currently logged in username
 function getUser() {
 	return $_SESSION['user'];
 }
