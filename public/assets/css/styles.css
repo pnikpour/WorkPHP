@@ -40,7 +40,8 @@ table {
 	border-width: 1px;
 	margin-right: auto;
 	padding: 10px;
-	width: 60%;
+	table-layout: fixed;
+//	width: 60%;
 
 	background-color: white;
 	-webkit-border-radius: 5px;
@@ -56,7 +57,7 @@ td textarea {
 }
 
 td {
-	width: 100%;
+	padding: 10px;
 }
 
 th {
@@ -75,12 +76,8 @@ input[type=text] {
 *****Filter Form Specific Styles******
 *************************************/
 
-.filterForm table {
-	width: 100px;
-}
-
 option {
-	color: black;
+//	color: black;
 }
 
 h2 {
@@ -138,6 +135,9 @@ img {
 .para {
 	background-color: white;
 	font-size: 20px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 75%;
 }
 
 .success {

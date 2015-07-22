@@ -53,45 +53,43 @@
 
 <h1>Filters</h1>
 
-<div class='filterForm'>
-	<form action="" name='addUserForm' id='addUserForm' method='post'>
+<form action="" name='addUserForm' id='addUserForm' method='post'>
 
-		<?php include '../assets/php/createNav.php'; ?>
+	<?php include '../assets/php/createNav.php'; ?>
 
-		 <table border=1 class='left'>
-			<tr><th>Ticket Number</th></tr>
-			<tr><td><input type='text' name='ticketNumber' id='ticketNumber'/></td></tr>
+	 <table border=1 class='left'>
+		<tr><th>Ticket Number</th></tr>
+		<tr><td><input type='text' name='ticketNumber' id='ticketNumber'/></td></tr>
 
-			<tr><th>Status</th></tr>
-			<tr><td>
-			<select name='status'>
-				<?php
-					$table = "tickets";
-					$col = 'status';
-					$query = 'SHOW COLUMNS FROM '.$table.' WHERE field="'.$col.'"';
-   					$row = getDB()->query($query)->fetch(PDO::FETCH_ASSOC);
-					foreach(explode("','",substr($row['Type'],6,-2)) as $option) {
-						print("<option>$option</option>");
-					}
+		<tr><th>Status</th></tr>
+		<tr><td>
+		<select name='status'>
+			<?php
+				$table = "tickets";
+				$col = 'status';
+				$query = 'SHOW COLUMNS FROM '.$table.' WHERE field="'.$col.'"';
+				$row = getDB()->query($query)->fetch(PDO::FETCH_ASSOC);
+				foreach(explode("','",substr($row['Type'],6,-2)) as $option) {
+					print("<option>$option</option>");
+				}
 
-				?>
-			</select>
-			</td></tr>
-			<tr>
-			<td>
-				<input type='submit' class='button' name='query' id='query' value='Submit Query' />
-			</td>
-			</tr>
-		</table>
-		
-		<?php
-			if (isset($_POST['query'])) {
-				doFilter();
-			}
-		?>
+			?>
+		</select>
+		</td></tr>
+		<tr>
+		<td>
+			<input type='submit' class='button' name='query' id='query' value='Submit Query' />
+		</td>
+		</tr>
+	</table>
+	
+	<?php
+		if (isset($_POST['query'])) {
+			doFilter();
+		}
+	?>
 
-	</form>
-</div>
+</form>
 </body>
 </html>
 

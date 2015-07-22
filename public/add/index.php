@@ -48,7 +48,7 @@
 <header><img class='logo' src='../assets/images/logo.png' alt='QuikPHP Logo'></header>
 <h1>Add Users</h1>
 
-<form action='' name='addUserForm' id='addUserForm' method='post'>
+<form class='formMultipleColumns' action='' name='addUserForm' id='addUserForm' method='post'>
 
 	<?php include '../assets/php/createNav.php'; ?>
 
