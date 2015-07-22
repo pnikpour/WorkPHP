@@ -113,7 +113,7 @@ function openTicket() {
 // Echo a table representing a header for inline queries
 function printFilterHeader() {
 
-	echo '	<table>
+	echo '	<table border=1>
 		<tr>
 			<th>Ticket Number</th>
 			<th>Date Created</th>
@@ -165,14 +165,6 @@ function generateDashboard() {
 	while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 		$records = array();
 		echo '<tr>';
-//		$ticketNumber = $row['ticketNumber'];
-//		$dateCreated = $row['dateCreated'];
-//		$problemDescription = $row['problemDescription'];
-//		$requestor = $row['requestor'];
-//		$problemCode = $row['problemCode'];
-//		$assignedTo = $row['assignedTo'];
-//		$dateClosed = $row['dateClosed'];
-//		$status = $row['status'];
 	
 		array_push($records, $row['ticketNumber'], $row['dateCreated'], $row['problemDescription'], $row['requestor'], 
 		$row['problemCode'], $row['assignedTo'], $row['dateClosed'], $row['status']);
