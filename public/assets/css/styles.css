@@ -19,6 +19,7 @@ body {
 	background-size: 100% 100%;
 }
 
+
 /************************
 ********Form Styles******
 ************************/
@@ -75,10 +76,6 @@ input[type=text] {
 /*************************************
 *****Filter Form Specific Styles******
 *************************************/
-
-option {
-//	color: black;
-}
 
 h2 {
 	font-size: 24px;
@@ -150,4 +147,52 @@ img {
 	background-color: white;
 	color: red;
 	font-size: 20px;
+}
+
+/*******************************
+********Mobile styles***********
+*******************************/
+
+@media (max-width: 320px) {
+	ul li {
+		display: block;
+		list-style-type: none;
+	}
+
+	li {
+		list-style-type: none;
+	}
+
+	ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		width: 100%;
+	}
+	
+	.button {
+		background-color: red;
+		-webkit-border-radius: 5px;
+		-moz-border-radius: 5px;
+		border-radius: 5px;
+		width: 80%;
+	}
+
+}
+
+@media (min-width: 1025px) {
+	ul li {
+		display: inline;
+		list-style-type: none;
+	}
+
+	li {
+		list-style-type: none;
+	}
+
+	ul {
+		margin: 0;
+		padding: 0;
+	}
+	
 }

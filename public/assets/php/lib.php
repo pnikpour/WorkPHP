@@ -189,19 +189,25 @@ function generateDashboard() {
 
 // Query filter; return table containing support tickets that match the query
 function doFilter() {
-	$query = 'SELECT * FROM tickets WHERE status LIKE :status AND ticketNumber = :ticketNumber';
+	$query = 'SELECT * FROM tickets WHERE status LIKE :status AND ticketNumber = :ticketNumber AND requestor LIKE :requestor';
 	$status = $_POST['status'];
 	$ticketNumber = $_POST['ticketNumber'];
+	$requestor = $_POST['requestor'];
 
 	$prepareAgain = false;
 	
 	$result = getDB()->prepare($query);
 	if ($ticketNumber == "") {
-		$query = 'SELECT * FROM tickets WHERE status LIKE :status AND ticketNumber >= 0';
+		$query = 'SELECT * FROM tickets WHERE status LIKE :status AND ticketNumber >= 0 AND requestor LIKE :requestor';
 		$ticketNumber = "%";
 	} else {
 		$result->bindParam(':ticketNumber', $ticketNumber);
 		$prepareAgain = true;
+	}
+
+
+	if ($requestor == "") {
+		$requestor = '%';
 	}
 
 	if ($status == "") {
@@ -213,6 +219,7 @@ function doFilter() {
 	}
 
 	$result->bindParam(':status', $status);
+	$result->bindParam(':requestor', $requestor);
 	$result->execute();	
 
 	printFilterHeader();

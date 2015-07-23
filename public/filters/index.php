@@ -77,18 +77,25 @@
 			?>
 		</select>
 		</td></tr>
-		<tr>
-		<td>
-			<input type='submit' class='button' name='query' id='query' value='Submit Query' />
-		</td>
-		</tr>
+		<tr><th>Requestor</th></tr>
+		<tr><td><input type=='text' name='requestor' id='requestor' /></td></tr>
+		<tr><td><input type='submit' class='button' name='query' id='query' value='Submit Query' /></td></tr>
 	</table>
 	
 	<?php
 		if (isset($_POST['query'])) {
 			doFilter();
 		}
+		
+		if (!isAdmin()) {
+			$requestor = getUser();
+			echo '<script>
+			$("#requestor").val("' . $requestor . '");
+			$("#requestor").attr("readonly", true);
+			</script>';
+		}
 	?>
+
 
 </form>
 </body>
