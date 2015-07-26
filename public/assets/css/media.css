@@ -2,7 +2,7 @@
 ********Mobile styles***********
 *******************************/
 
-@media (max-width: 320px) {
+@media (max-width: 799px) {
         ul li {
                 display: block;
                 list-style-type: none;
@@ -29,7 +29,7 @@
 
 }
 
-@media (min-width: 1025px) {
+@media (min-width: 800px) {
         ul li {
                 display: inline;
                 list-style-type: none;

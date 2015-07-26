@@ -1,8 +1,8 @@
-@import effect.css
-@import form.css
-@import media.css
-@import paragraph.css
-@import table.css
+@import "effect.css";
+@import "form.css";
+@import "media.css";
+@import "paragraph.css";
+@import "table.css";
 
 * {
 	font-family: Arial, Helvetica, sans-serif;
