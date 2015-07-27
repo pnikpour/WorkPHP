@@ -30,8 +30,6 @@
 			session_unset();
 			session_destroy();
 			session_write_close();
-	//		setcookie(session_name(),'',0,'/');
-	//		session_regenerate_id(true);
 		} else {
 			header('Location: menu');
 		}
@@ -47,6 +45,7 @@
 	<script src='assets/js/ghost.js'></script>
 	<script src='assets/js/focus.js'></script>
 	<link rel='stylesheet' href='assets/css/styles.css' type='text/css' />
+	<title>QuikPHP Homebrew Work Order System</title>
 </head>
 <body>
 	<header><img class='logo' src='assets/images/logo.png' alt='QuikPHP Logo'></header>

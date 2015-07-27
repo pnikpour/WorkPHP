@@ -28,6 +28,7 @@
 	<script src='../assets/js/effect.js?<?php echo time(); ?>' type='text/javascript'></script>
 	<script src='../assets/js/lib.js?<?php echo time(); ?>' type='text/javascript'></script>
 	<link rel='stylesheet' href='../assets/css/styles.css?<?php echo time(); ?>' type='text/css' />
+	<title>Create Work Order</title>
 </head>
 
 <body>

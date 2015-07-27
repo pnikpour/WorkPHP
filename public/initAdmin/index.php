@@ -29,7 +29,7 @@
 	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 	<script src='../assets/js/effect.js' type='text/javascript'></script>
 	<link rel='stylesheet' href='../assets/css/styles.css' type='text/css' />
-
+	<title>Setup Admin</title>
 </head>
 <body>
 

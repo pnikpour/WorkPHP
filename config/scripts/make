@@ -29,7 +29,7 @@ then
 	onCent=1;
 
 	sudo cp /var/www/html/config/httpd.conf /etc/httpd/conf/
-elif [[ os=$( cat /etc/os-release ) == *"debian"* ]]
+elif [[ os=$( cat /etc/os-release ) == *"ubuntu"* ]]
 then
 	echo 'You have Ubuntu'
 	onUbuntu=1;

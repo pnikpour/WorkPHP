@@ -29,6 +29,7 @@
 	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js?<?php echo time(); ?>"></script>
 	<script src='../assets/js/effect.js?<?php echo time(); ?>' type='text/javascript'></script>
 	<link rel='stylesheet' href='../assets/css/styles.css?<?php echo time(); ?>' type='text/css' />
+	<title>Add Users</title>
 </head>
 <body>
 <header><img class='logo' src='../assets/images/logo.png' alt='QuikPHP Logo'></header>
