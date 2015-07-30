@@ -196,7 +196,7 @@ function filterTickets() {
 		$query = 'SELECT * FROM tickets WHERE status LIKE :status AND ticketNumber >= 0 AND requestor LIKE :requestor';
 		$ticketNumber = "%";
 	} else {
-		$result->bindParam(':ticketNumber', $queryTicket);
+		$result->bindParam(':queryTicket', $queryTicket);
 		$prepareAgain = true;
 	}
 
@@ -219,7 +219,7 @@ function filterTickets() {
 	$result->bindParam(':requestor', $requestor);
 	$result->execute();	
 
-	printFilterHeader();
+	printTicketFilterHeader();
 	while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 		$records = array();
 		echo '<tr>';
