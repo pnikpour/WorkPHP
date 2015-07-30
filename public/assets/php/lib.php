@@ -100,8 +100,8 @@ function forbid() {
 
 }
 
-// Echo a table representing a header for inline queries
-function printFilterHeader() {
+// Echo a table representing a header for queried tickets
+function printTicketFilterHeader() {
 
 	echo '	<table border=1>
 		<tr>
@@ -113,6 +113,16 @@ function printFilterHeader() {
 			<th>Assigned To</th>
 			<th>Date Closed</th>
 			<th>Status</th>
+		</tr>';
+
+}
+
+// Echo a table representing a header for queried users
+function printUserFilterHeader() {
+
+	echo '	<table border=1>
+		<tr>
+			<th>Username</th>
 		</tr>';
 
 }
@@ -171,33 +181,36 @@ function generateDashboard() {
 
 }
 
-// Query filter; return table containing support tickets that match the query
-function doFilter() {
-	$query = 'SELECT * FROM tickets WHERE status LIKE :status AND ticketNumber = :ticketNumber AND requestor LIKE :requestor';
+// Query filter for tickets; generate table containing support tickets that match the query
+function filterTickets() {
+	$query = 'SELECT * FROM tickets WHERE status LIKE :status AND ticketNumber = :queryTicket AND requestor LIKE :requestor';
 	$status = $_POST['status'];
-	$ticketNumber = $_POST['ticketNumber'];
+	$queryTicket = $_POST['queryTicket'];
 	$requestor = $_POST['requestor'];
 
 	$prepareAgain = false;
 	
 	$result = getDB()->prepare($query);
-	if ($ticketNumber == "") {
+
+	if ($queryTicket == "") {
 		$query = 'SELECT * FROM tickets WHERE status LIKE :status AND ticketNumber >= 0 AND requestor LIKE :requestor';
 		$ticketNumber = "%";
 	} else {
-		$result->bindParam(':ticketNumber', $ticketNumber);
+		$result->bindParam(':ticketNumber', $queryTicket);
 		$prepareAgain = true;
 	}
 
-
+	// If requestor queried is empty, substitute with wildcard
 	if ($requestor == "") {
 		$requestor = '%';
 	}
 
+	// If status queried is empty, substitute with wildcard
 	if ($status == "") {
 		$status = '%';
 	}
 
+	// If ticket number queried is empty, prepare the query again but exclude the ticket number
 	if (!$prepareAgain) {
 		$result = getDB()->prepare($query);
 	}
@@ -220,6 +233,33 @@ function doFilter() {
 	}
 	printFilterFooter();
 }
+
+// Query filter for users; generate table containing existing users in the database that match the query
+function filterUsers() {
+	$query = 'SELECT username FROM users WHERE username LIKE :queryUser';
+	$queryUser = $_POST['queryUser'];
+	
+	$result = getDB()->prepare($query);
+
+	if ($queryUser == "") {
+		$queryUser= '%';
+	}
+
+	$result->bindParam(':queryUser', $queryUser);
+	$result->execute();	
+
+	printTicketFilterHeader();
+	while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+		$records = array();
+		echo '<tr>';
+		array_push($records, $row['username']);
+		printRecords($records);
+		echo '</tr>';
+		
+	}
+	printFilterFooter();
+}
+
 
 // Nav behavior function
 function navPOST() {
