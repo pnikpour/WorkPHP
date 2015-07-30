@@ -66,14 +66,23 @@
 		</td></tr>
 		<tr><th>Requestor</th></tr>
 		<tr><td><input type=='text' name='requestor' id='requestor' /></td></tr>
-		<tr><td><input type='submit' class='button' name='query' id='query' value='Submit Query' /></td></tr>
+		<tr><td><input type='submit' class='button' name='queryTicket' value='Submit Query' /></td></tr>
 	</table>
-	
+
+	<table>
+		<tr><th>Username</th></tr>
+		<tr><td><input type='text' name='usernameQuery' /></td></tr>
+		<tr><td><input type='submit' class='button' name='queryUser' id='queryUser' value='Query User' /></td></tr>
+	</table>
 	<?php
-		if (isset($_POST['query'])) {
-			doFilter();
+		if (isset($_POST['queryTicket'])) {
+			filterTickets();
+		} else
+		if (isset($_POST['queryUsers'])) {
+			filterUsers();
 		}
-		
+	
+		// If user is not an admin, restrict search to tickets created by the user only	
 		if (!isAdmin()) {
 			$requestor = getUser();
 			echo '<script>
