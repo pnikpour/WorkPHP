@@ -71,14 +71,14 @@
 
 	<table>
 		<tr><th>Username</th></tr>
-		<tr><td><input type='text' name='usernameQuery' /></td></tr>
+		<tr><td><input type='text' name='username' /></td></tr>
 		<tr><td><input type='submit' class='button' name='queryUser' id='queryUser' value='Query User' /></td></tr>
 	</table>
 	<?php
 		if (isset($_POST['queryTicket'])) {
 			filterTickets();
 		} else
-		if (isset($_POST['queryUsers'])) {
+		if (isset($_POST['queryUser'])) {
 			filterUsers();
 		}
 	

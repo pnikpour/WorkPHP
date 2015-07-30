@@ -183,20 +183,19 @@ function generateDashboard() {
 
 // Query filter for tickets; generate table containing support tickets that match the query
 function filterTickets() {
-	$query = 'SELECT * FROM tickets WHERE status LIKE :status AND ticketNumber = :queryTicket AND requestor LIKE :requestor';
+	$query = 'SELECT * FROM tickets WHERE status LIKE :status AND ticketNumber = :ticketNumber AND requestor LIKE :requestor';
 	$status = $_POST['status'];
-	$queryTicket = $_POST['queryTicket'];
+	$ticketNumber = $_POST['ticketNumber'];
 	$requestor = $_POST['requestor'];
 
 	$prepareAgain = false;
 	
 	$result = getDB()->prepare($query);
-
-	if ($queryTicket == "") {
+	if ($ticketNumber == "") {
 		$query = 'SELECT * FROM tickets WHERE status LIKE :status AND ticketNumber >= 0 AND requestor LIKE :requestor';
 		$ticketNumber = "%";
 	} else {
-		$result->bindParam(':queryTicket', $queryTicket);
+		$result->bindParam(':ticketNumber', $ticketNumber);
 		$prepareAgain = true;
 	}
 
@@ -209,7 +208,7 @@ function filterTickets() {
 	if ($status == "") {
 		$status = '%';
 	}
-
+	
 	// If ticket number queried is empty, prepare the query again but exclude the ticket number
 	if (!$prepareAgain) {
 		$result = getDB()->prepare($query);
@@ -236,19 +235,20 @@ function filterTickets() {
 
 // Query filter for users; generate table containing existing users in the database that match the query
 function filterUsers() {
-	$query = 'SELECT username FROM users WHERE username LIKE :queryUser';
-	$queryUser = $_POST['queryUser'];
+	$query = 'SELECT username FROM users WHERE username LIKE :username';
+	echo $query;
+	$username = $_POST['username'];
 	
 	$result = getDB()->prepare($query);
 
-	if ($queryUser == "") {
-		$queryUser= '%';
+	if ($username == "") {
+		$username = '%';
 	}
 
-	$result->bindParam(':queryUser', $queryUser);
+	$result->bindParam(':username', $username);
 	$result->execute();	
 
-	printTicketFilterHeader();
+	printUserFilterHeader();
 	while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 		$records = array();
 		echo '<tr>';
