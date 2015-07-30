@@ -161,7 +161,7 @@ function generateDashboard() {
 		$result->execute();	
 	}
 
-	printFilterHeader();
+	printTicketFilterHeader();
 	$numRecords = 0;
 	while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 		$records = array();
