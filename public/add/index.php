@@ -77,9 +77,11 @@
 		
 		if (userExists($newName)) { // If username exists, prompt error
 			echo 'User already exists; please specify a different username';
+			return;
 		} else // If username entered is empty, prompt error
 		if (strlen(trim($newName)) == 0) {
 			echo 'Please specify a username';
+			return;
 		} 
 
 		// Perform password add; check requirements; only checks password length
