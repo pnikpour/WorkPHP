@@ -165,9 +165,12 @@
 				<input type='text' name='dateClosed' id='dateClosed' />
 			</td>
 		</tr>
+		<tr>
+			<td>
+				<input type='submit' class='button' name='saveNew' value='Save and New' />
+			</td>
+		</tr>
 	</table>
-
-	<input type='submit' class='button' name='saveNew' value='Save and New' />
 	</form>
 </div>
 </body>
