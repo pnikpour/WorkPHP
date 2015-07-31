@@ -44,7 +44,7 @@
 
 	<?php include '../assets/php/createNav.php'; ?>
 
-	 <table border=1 class='left'>
+	 <table border=1>
 		<tr><th>Ticket Number</th></tr>
 		<tr><td><input type='text' name='ticketNumber' id='ticketNumber'/></td></tr>
 
