@@ -236,7 +236,6 @@ function filterTickets() {
 // Query filter for users; generate table containing existing users in the database that match the query
 function filterUsers() {
 	$query = 'SELECT username FROM users WHERE username LIKE :username';
-	echo $query;
 	$username = $_POST['username'];
 	
 	$result = getDB()->prepare($query);
