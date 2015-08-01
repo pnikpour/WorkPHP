@@ -63,6 +63,11 @@
 			// Print the error to the screen if logon error has occurred
 			if (ifError()) {
 				echo getErrorVar();
+				
+				$user = $_SESSION['user'];
+				echo "<script>$('#user').val('" . $user . "')</script>";
+				$user = null;
+				session_unset();
 			}
 		?>
 	</div>

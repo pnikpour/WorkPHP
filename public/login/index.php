@@ -29,8 +29,8 @@
 		$hash = $rows['hash'];
 
 
+		$_SESSION['user'] = $user;
 		if (password_verify($pass, $hash)) {
-			$_SESSION['user'] = $user;
 			$_SESSION['password'] = $hash;
 			header('Location: ../menu');
 		} else { // Increment the login attempts by one; throw error if max attempts is reached
