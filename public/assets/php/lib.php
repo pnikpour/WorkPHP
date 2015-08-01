@@ -289,6 +289,9 @@ function navPOST() {
 	if (isset($_POST['/btnEdit$/'])) {
 		echo 'Edit button pressed';
 		exit();
+	} else
+	if (isset($_POST['clearTickets'])) {
+		header('Location: ../clearTickets');
 	}
 	
 }
