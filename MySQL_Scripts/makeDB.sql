@@ -5,7 +5,7 @@ USE workorder;
 -- Initially set privileges for secure user account
 CREATE USER secureUser@localhost;
 SET PASSWORD FOR secureUser@localhost = PASSWORD('BL3FFEE5WUsrJQnx');
-GRANT SELECT, UPDATE, INSERT ON workorder.* TO 'secureUser'@'localhost' IDENTIFIED BY 'BL3FFEE5WUsrJQnx';
+GRANT SELECT, UPDATE, INSERT, DELETE ON workorder.* TO 'secureUser'@'localhost' IDENTIFIED BY 'BL3FFEE5WUsrJQnx';
 FLUSH PRIVILEGES;
 
 
