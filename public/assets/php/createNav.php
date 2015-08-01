@@ -27,6 +27,7 @@
 			<script>
 				$('#filters').after(\"<li><input type='submit' class='button' id='addUser' name='addUser' value='Add Users' /></li>\");
 				$('#addUser').after(\"<li><input type='submit' class='button' id='changePassword' name='changePassword' value='Change Password' /></li>\");
+				$('#changePassword').after(\"<li><input type='submit' class='button' id='clearTickets' name='clearTickets' value='Clear Tickets' /></li>\");
 			</script>";
 	}
 	
