@@ -17,7 +17,7 @@ git submodule update
 
 
 sudo cp /var/www/html/config/site-config /etc/apache2/sites-enabled/000-default
-sudo cp /var/www/html/config/apache2.conf /etc/apache2/apache2/conf/
+sudo cp /var/www/html/config/apache2.conf /etc/apache2/conf/apache2.conf
 sudo cp /var/www/html/config/site-config.conf /etc/apache2/sites-enabled/000-default.conf
 
 # If apache html directory does not exist, create it
