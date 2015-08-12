@@ -1,11 +1,10 @@
-sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get dist-upgrade
 
 echo 'You have Ubuntu'
 sudo apt-get -y install --reinstall apache2 git mysql-server libapache2-mod-auth-mysql php5-mysql php5
 sudo apt-get -y install apache2 git mysql-server libapache2-mod-auth-mysql php5-mysql php5
-
-sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade
-sudo apt-get -f install
 
 
 # Set script directory
@@ -34,5 +33,8 @@ mysql -u root < '/var/www/html/MySQL_Scripts/makeDB.sql'
 # Set the owner of the web directory and its subdirectories to apache user
 # sudo adduser apache apache
 # sudo chown -R apache:apache /var/www
+
+sudo apt-get -y dist-upgrade
+sudo apt-get -y -f install
 
 echo 'The default password for MySQL root account has been set to "strawberryphp". Please log in to change the root password.';
