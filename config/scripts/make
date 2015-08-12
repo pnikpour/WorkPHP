@@ -1,11 +1,12 @@
 sudo apt-get update
 sudo apt-get upgrade
-sudo apt-get dist-upgrade
+#sudo apt-get dist-upgrade
 
 echo 'You have Ubuntu'
-sudo apt-get -y install --reinstall apache2 git mysql-server libapache2-mod-auth-mysql php5-mysql php5
+#sudo apt-get -y install --reinstall apache2 git mysql-server libapache2-mod-auth-mysql php5-mysql php5
 sudo apt-get -y install apache2 git mysql-server libapache2-mod-auth-mysql php5-mysql php5
 
+sudo apt-get -y -f install
 
 # Set script directory
 scriptDir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)
@@ -28,11 +29,11 @@ cd '../../public'
 echo "Access your site's main page to setup the admin account";
 
 # Make the database and permissions
-mysql -u root < '/var/www/html/MySQL_Scripts/makeDB.sql'
+#mysql -u root < '/var/www/html/MySQL_Scripts/makeDB.sql'
 
 # Set the owner of the web directory and its subdirectories to apache user
-# sudo adduser apache apache
-# sudo chown -R apache:apache /var/www
+  sudo adduser apache apache
+  sudo chown -R apache:apache /var/www
 
 sudo apt-get -y dist-upgrade
 sudo apt-get -y -f install
