@@ -1,41 +1,43 @@
+#!/usr/bin/env bash
+
+# Set initial root MySQL password; fixes install issue where random garbled output would occur for MySQL
+debconf-set-selections <<< 'mysql-server mysql-server/root_password password strawberryphp'
+debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password strawberryphp'
+
+# Update packages
+sudo apt-get -f install
 sudo apt-get update
-sudo apt-get upgrade
 sudo apt-get dist-upgrade
+sudo apt-get upgrade
 
 echo 'You have Ubuntu'
-sudo apt-get -y install --reinstall apache2 git mysql-server libapache2-mod-auth-mysql php5-mysql php5
-sudo apt-get -y install apache2 git mysql-server libapache2-mod-auth-mysql php5-mysql php5
-
-sudo apt-get -y -f install
+sudo apt-get -y install libapache2-mod-auth-mysql
+sudo apt-get -y install apache2 git vim mysql-server-5.5 php5-mysql php5
+sudo apt-get -f install
 
 # Set script directory
 scriptDir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)
 cd $scriptDir
 cd ../../
+cd /var/www/quikphp.com
 git submodule init
 git submodule update
 
-
-sudo cp /var/www/html/config/site-config /etc/apache2/sites-enabled/000-default
-sudo cp /var/www/html/config/apache2.conf /etc/apache2/conf/apache2.conf
-sudo cp /var/www/html/config/site-config.conf /etc/apache2/sites-enabled/000-default.conf
+sudo cp /var/www/quikphp.com/config/quikphp.com.conf /etc/apache2/sites-available/quikphp.com.conf
 
 # If apache html directory does not exist, create it
-sudo mkdir -p '/var/www/html'
+sudo mkdir -p '/var/www/quikphp.com'
 cd $scriptDir
-cd '../../public'
-./setup
 
 echo "Access your site's main page to setup the admin account";
 
 # Make the database and permissions
-mysql -u root < '/var/www/html/MySQL_Scripts/makeDB.sql'
+sudo mysql -u root --password='strawberryphp' < '/var/www/quikphp.com/MySQL_Scripts/makeDB.sql'
 
-# Set the owner of the web directory and its subdirectories to apache user
-  sudo adduser apache apache
-  sudo chown -R apache:apache /var/www
-
-sudo apt-get -y dist-upgrade
-sudo apt-get -y -f install
+#sudo apt-get -y dist-upgrade
+#sudo apt-get -y -f install
 
 echo 'The default password for MySQL root account has been set to "strawberryphp". Please log in to change the root password.';
+
+# Restart the web server
+sudo /etc/init.d/apache2 reload

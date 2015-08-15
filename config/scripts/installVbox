@@ -1,0 +1,11 @@
+
+# Install VirtualBox
+sudo cat 'deb http://download.virtualbox.org/virtualbox/debian trusty contrib' >> /etc/apt/sources.list
+wget -q http://download.virtualbox.org/virtualbox/debian/oracle_vbox.asc -O- | sudo apt-key add -
+sudo apt-get update
+sudo apt-get install linux-headers-$(uname -r) build-essential virtualbox-4.3 dkms
+
+# Download and install VirtualBox expansion
+cd /tmp
+wget http://download.virtualbox.org/virtualbox/4.3.10/Oracle_VM_VirtualBox_Extension_Pack-4.3.10-93012.vbox-extpack
+sudo VBoxManage extpack install Oracle_VM_VirtualBox_Extension_Pack-4.3.10-93012.vbox-extpack

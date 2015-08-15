@@ -1,0 +1,4 @@
+
+# Add all except Vagrant-specific files
+Vagrant/*
+.vagrant/*
