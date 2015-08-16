@@ -12,7 +12,7 @@
 session_start();
 
 // Require password_compat library
-require('/var/www/html/public/assets/php/password_compat/lib/password.php');
+require('/var/www/quikphp.com/public/assets/php/password_compat/lib/password.php');
 
 // Return the current working database
 function getDB() {
