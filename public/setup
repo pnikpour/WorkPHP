@@ -1,2 +1,2 @@
-sudo rm -r /var/www/html/*
-sudo rsync -a --exclude .git ../* /var/www/html
+sudo rm -r /var/www/quikphp.com/*
+sudo rsync -a --exclude .git ../* /var/www/quikphp.com
