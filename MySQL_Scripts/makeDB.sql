@@ -3,6 +3,7 @@ CREATE SCHEMA workorder;
 USE workorder;
 
 -- Initially set privileges for secure user account
+DROP USER secureUser@localhost;
 CREATE USER secureUser@localhost;
 SET PASSWORD FOR secureUser@localhost = PASSWORD('BL3FFEE5WUsrJQnx');
 GRANT SELECT, UPDATE, INSERT, DELETE ON workorder.* TO 'secureUser'@'localhost' IDENTIFIED BY 'BL3FFEE5WUsrJQnx';
@@ -30,9 +31,6 @@ CREATE TABLE loginAttempts (
 	userID INT(11) NOT NULL,
 	attemptTime VARCHAR(30) NOT NULL
 ) ENGINE = InnoDB;
-
--- Set temporary default passwords for root accounts
-SET PASSWORD FOR root@localhost = PASSWORD('strawberryphp');
 
 -- Set the default ticket number
 ALTER TABLE workorder.tickets AUTO_INCREMENT = 1000;
