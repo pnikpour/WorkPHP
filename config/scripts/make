@@ -15,18 +15,23 @@ sudo apt-get -y install libapache2-mod-auth-mysql
 sudo apt-get -y install apache2 git vim mysql-server-5.5 php5-mysql php5
 sudo apt-get -f install
 
+sudo mkdir -p '/var/www/quikphp.com'
+
 # Set script directory
 scriptDir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)
 cd $scriptDir
 cd ../../
-cd /var/www/quikphp.com
+cd public
+./setup
+cd ../
+
+#cd /var/www/quikphp.com
 git submodule init
 git submodule update
 
 sudo cp /var/www/quikphp.com/config/quikphp.com.conf /etc/apache2/sites-available/quikphp.com.conf
 
 # If apache html directory does not exist, create it
-sudo mkdir -p '/var/www/quikphp.com'
 cd $scriptDir
 
 echo "Access your site's main page to setup the admin account";
