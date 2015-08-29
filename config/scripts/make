@@ -11,7 +11,7 @@ sudo apt-get dist-upgrade
 sudo apt-get upgrade
 
 echo 'You have Ubuntu'
-sudo apt-get -y install libapache2-mod-auth-mysql
+sudo apt-get -y install libapache2-mod-auth-mysql libapache2-mod-php5
 sudo apt-get -y install apache2 git vim mysql-server-5.5 php5-mysql php5
 sudo apt-get -f install
 
@@ -36,13 +36,18 @@ cd $scriptDir
 
 echo "Access your site's main page to setup the admin account";
 
+echo 'Current MySQL password:'
+read -s password
+
 # Make the database and permissions
-sudo mysql -u root --password='strawberryphp' < '/var/www/quikphp.com/MySQL_Scripts/makeDB.sql'
+sudo mysql -u root --password=$password < '/var/www/quikphp.com/MySQL_Scripts/makeDB.sql'
 
 #sudo apt-get -y dist-upgrade
 #sudo apt-get -y -f install
 
 echo 'The default password for MySQL root account has been set to "strawberryphp". Please log in to change the root password.';
+
+sudo a2ensite quikphp.com
 
 # Restart the web server
 sudo /etc/init.d/apache2 reload
