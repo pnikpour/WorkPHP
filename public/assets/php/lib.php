@@ -100,6 +100,18 @@ function forbid() {
 
 }
 
+// Echo a table header representing user tasks
+function printTaskListFilterHeader() {
+
+	echo '	<table border=1>
+		<tr>
+			<th>Task Name</th>
+			<th>Task Description</th>
+			<th>Task Completed?</th>
+		</tr>';
+
+}
+
 // Echo a table representing a header for queried tickets
 function printTicketFilterHeader() {
 
@@ -142,6 +154,30 @@ function printRecords($arr) {
 // Put function on hold to implement; opens ticket 
 function appendEditRecordButton($index) {
 //	echo '<td><input type="submit" name="btnEdit" value="Edit"></td>';
+}
+
+// Display all user tasks to Task List page; only outputs tasks belonging to the user
+function generateDashboard() {
+	$query = 'SELECT * FROM taskList WHERE taskOwner LIKE :requestor';
+	$result = getDB()->prepare($query);
+	$result->bindParam(':taskOwner', $_SESSION['user']);
+	$result->execute();	
+	printTaskListFilterHeader();
+	$numRecords = 0;
+	
+	while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+		$records = array();
+		echo '<tr>';
+	
+		array_push($records, $row['taskName'], $row['taskDescription'], $row['taskCompleted']);	
+
+		printRecords($records);
+		$numRecords++;
+		echo '</tr>';
+		
+	}
+	printFilterFooter();
+
 }
 
 // Setup table displaying outstanding workorders; if regular user, display tickets created by that user; if admin,
