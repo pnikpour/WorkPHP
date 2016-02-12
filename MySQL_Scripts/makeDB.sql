@@ -15,7 +15,15 @@ CREATE TABLE tickets (
 	ticketNumber INT NOT NULL AUTO_INCREMENT, dateCreated date, 
 	problemDescription varchar(256), requestor varchar(25), problemCode ENUM('BOOT ISSUE', 'NETWORK', 'HARDWARE', 'PHONE ISSUE'), assignedTo ENUM('tech'),
 	dateClosed DATE, status ENUM('OPEN', 'CLOSED'), solutionDescription varchar(256), PRIMARY KEY(ticketNumber)
-);
+) ENGINE = InnoDB;
+
+-- Create task list table
+CREATE TABLE taskList (
+	taskId INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	taskName VARCHAR(32) NOT NULL,
+	taskDescription VARCHAR(512),
+	taskCompleted BOOLEAN NOT NULL
+) ENGINE = InnoDB;
 
 -- Create users table
 CREATE TABLE users (
