@@ -95,7 +95,7 @@
 	<table>
 		<tr>
 			<td>
-				<input type='button' name='newTask' value='+'/>
+				<button onclick='addTaskRow(); return false'>+</button>
 			</td>
 			<td>
 				<input type='submit' name='saveTaskList' value='Save Task List'/>
