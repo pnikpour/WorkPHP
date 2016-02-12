@@ -20,6 +20,7 @@ CREATE TABLE tickets (
 -- Create task list table
 CREATE TABLE taskList (
 	taskId INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	taskOwner VARCHAR(32) NOT NULL,
 	taskName VARCHAR(32) NOT NULL,
 	taskDescription VARCHAR(512),
 	taskCompleted BOOLEAN NOT NULL
