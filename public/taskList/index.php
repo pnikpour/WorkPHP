@@ -38,28 +38,25 @@
 	// Governs when the user submits a ticket and refreshes the page; will
 	// increment the ticket number count by one
 	if (isset($_POST['saveTaskList'])) {
-		
-		// Submit the ticket to the database
-		$ticketNumber = getMaxTicketNumber();
-		$requestor = $_SESSION['user'];
-		$dateCreated = $_POST['dateCreated'];
-		$problemDescription = $_POST['problemDescription'];
-		$problemCode = $_POST['problemCode'];
-		$assignedTo = $_POST['assignedTo'];
-		$dateClosed = $_POST['dateClosed'];
-		$status = $_POST['status'];
-		$query = "INSERT INTO tickets (ticketNumber, requestor, dateCreated, problemDescription, problemCode, assignedTo, status, dateClosed) values (:ticketNumber, :requestor, :dateCreated, :problemDescription, :problemCode, :assignedTo, :status, :dateClosed);";
-		
-		$stmt = getDB()->prepare($query);
-		$stmt->bindParam(':ticketNumber', $ticketNumber);
-		$stmt->bindParam(':requestor', $requestor);
-		$stmt->bindParam(':dateCreated', $dateCreated);
-		$stmt->bindParam(':problemDescription', $problemDescription);
-		$stmt->bindParam(':problemCode', $problemCode);
-		$stmt->bindParam(':assignedTo', $assignedTo);
-		$stmt->bindParam(':status', $status);
-		$stmt->bindParam(':dateClosed', $dateClosed);
 
+		$taskName = $_POST['taskName'];
+		$taskOwner = $_SESSION['user'];
+		$taskDescription = $_POST['taskDescription'];
+	
+		if (isset($_POST['taskCompleted'])) {
+			$taskCompleted = $_POST['taskCompleted'];
+		} else {
+			$taskCompleted = '0';
+		}
+
+		$query = 'INSERT INTO taskList (taskName, taskOwner, taskDescription, taskCompleted) VALUES (:taskName, :taskOwner, :taskDescription,
+			  :taskCompleted)';
+
+		// Submit the task to the database
+		$stmt = getDB()->prepare($query);
+		$stmt->bindParam(':taskName', $taskName);
+		$stmt->bindParam(':taskDescription', $taskDescription);
+		$stmt->bindParam(':taskCompleted', $taskCompleted);
 		$stmt->execute();
 	}
 	navPOST();
@@ -72,36 +69,37 @@
 <div class='formContainer'>
 	<form action="<?php echo $_SERVER['PHP_SELF']; ?>" name='ticket' id='ticket' method='post'>
 
-	<?php include '../assets/php/createNav.php'; ?>
-	
-	<table id='taskTable' border=1>
-		<tr>
-			<th>Task Name</th>
-			<th>Task Description</th>
-			<th>Completed?</th>
-		</tr>
-		<tr>
-			<td>
-				<input type='text' name='taskName' id='taskName0'/>
-			</td>
-			<td>
-				<textarea rows='5' name='taskDescription' id='taskDescription0'></textarea></td>
-			</td>
-			<td>
-				<input type='checkbox' name='taskCompleted' id='taskCompleted0'/>
-			</td>
-		</tr>
-	</table>
-	<table>
-		<tr>
-			<td>
-				<button onclick='addTaskRow(); return false'>+</button>
-			</td>
-			<td>
-				<input type='submit' name='saveTaskList' value='Save Task List'/>
-			</td>
-		</tr>
-	</table>
+		<?php include '../assets/php/createNav.php'; ?>
+		
+		<table id='taskTable' border=1>
+			<tr>
+				<th>Task Name</th>
+				<th>Task Description</th>
+				<th>Completed?</th>
+			</tr>
+			<tr>
+				<td>
+					<input type='text' name='taskName' id='taskName'/>
+				</td>
+				<td>
+					<textarea rows='5' name='taskDescription' id='taskDescription'></textarea></td>
+				</td>
+				<td>
+					<input type='checkbox' name='taskCompleted' id='taskCompleted'/>
+				</td>
+			</tr>
+		</table>
+		<table>
+			<tr>
+				<td>
+					<button onclick='addTaskRow(); return false'>+</button>
+				</td>
+				<td>
+					<input type='submit' name='saveTaskList' value='Save Task List'/>
+				</td>
+			</tr>
+		</table>
+	</form>
 </div>
 </body>
 </html>
