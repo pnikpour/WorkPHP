@@ -286,9 +286,8 @@ function navPOST() {
 	if (isset($_POST['support'])) {
 		header('Location: ../support');
 	}  else
-	if (isset($_POST['/btnEdit$/'])) {
-		echo 'Edit button pressed';
-		exit();
+	if (isset($_POST['taskList'])) {
+		header('Location: ../taskList');
 	} else
 	if (isset($_POST['clearTickets'])) {
 		header('Location: ../clearTickets');
