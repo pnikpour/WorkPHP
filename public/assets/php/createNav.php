@@ -19,6 +19,7 @@
 			<li><input type='submit' class='button' id='ticket' name='ticket' value='Create Work Order' /></li>
 			<li><input type='submit' class='button' id='filters' name='filters' value='Filters' /></li>
 			<li><input type='submit' class='button' id='support' name='support' value='Support' /></li>
+			<li><input type='submit' class='button' id='taskList' name='taskList' value='Task List' /></li>
 			<li><input type='submit' class='button' name='logout' value='Log Out' /></li>";
 	}
 
