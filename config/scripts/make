@@ -50,4 +50,4 @@ echo 'The default password for MySQL root account has been set to "strawberryphp
 sudo a2ensite quikphp.com
 
 # Restart the web server
-sudo /etc/init.d/apache2 reload
+sudo service apache2 reload

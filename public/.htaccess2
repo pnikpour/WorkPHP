@@ -1,0 +1,8 @@
+
+
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule !.*\.php$ %{REQUEST_FILENAME}.php [L]
+
+RewriteEngine On
+RewriteCond %{HTTP_HOST} !^example\.com$ [NC]
+RewriteRule ^(.*)$ http://example.com/$1 [R=301,L]
