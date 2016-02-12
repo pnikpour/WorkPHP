@@ -74,7 +74,7 @@
 
 	<?php include '../assets/php/createNav.php'; ?>
 	
-	<table border=1>
+	<table id='taskTable' border=1>
 		<tr>
 			<th>Task Name</th>
 			<th>Task Description</th>
@@ -82,18 +82,20 @@
 		</tr>
 		<tr>
 			<td>
-				<input type='text' name='taskName'/>
+				<input type='text' name='taskName' id='taskName0'/>
 			</td>
 			<td>
-				<textarea rows='5' name='taskDescription'></textarea></td>
+				<textarea rows='5' name='taskDescription' id='taskDescription0'></textarea></td>
 			</td>
 			<td>
-				<input type='checkbox' name='taskCompleted'/>
+				<input type='checkbox' name='taskCompleted' id='taskCompleted0'/>
 			</td>
 		</tr>
+	</table>
+	<table>
 		<tr>
 			<td>
-				<input type='button' name='newTask'/>
+				<input type='button' name='newTask' value='+'/>
 			</td>
 			<td>
 				<input type='submit' name='saveTaskList' value='Save Task List'/>
