@@ -151,6 +151,13 @@ function printRecords($arr) {
 	}
 }
 
+function printTask($arr, $index) {
+	echo '<td><input type="text" name="taskName"' . $index . 'id="taskName"' . $index . ' value=' . $arr[0] . '/></td>';
+	echo '<td><input type="text" name="taskDescription"' . $index . 'id="taskDescription"' . $index . ' value=' . $arr[1] . '/> </td>';
+	echo '<td><input type="checkbox" name="taskCompleted"' . $index . 'id="taskCompleted"' . $index . ' value=' . $arr[2] . '/>' . '</td>';
+	echo '<td><button name="toggleTask"' . $index . 'id="toggleTask"' . $index . '>Toggle</button></td>';
+}
+
 // Put function on hold to implement; opens ticket 
 function appendEditRecordButton($index) {
 //	echo '<td><input type="submit" name="btnEdit" value="Edit"></td>';
@@ -164,17 +171,17 @@ function generateTaskListDashboard() {
 	$result->execute();	
 	printTaskListFilterHeader();
 	$numRecords = 0;
-	
+	$index = 0;
 	while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 		$records = array();
 		echo '<tr>';
 	
 		array_push($records, $row['taskName'], $row['taskDescription'], $row['taskCompleted']);	
 
-		printRecords($records);
+		printTask($records, $index);
 		$numRecords++;
 		echo '</tr>';
-		
+		$index++;
 	}
 	printFilterFooter();
 
