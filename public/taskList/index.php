@@ -43,7 +43,7 @@
 		$taskDescription = $_POST['taskDescription'];
 	
 		if (isset($_POST['taskCompleted'])) {
-			$taskCompleted = $_POST['taskCompleted'];
+			$taskCompleted = true;
 		} else {
 			$taskCompleted = false;
 		}
