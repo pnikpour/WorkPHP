@@ -81,13 +81,13 @@
 				</tr>
 				<tr>
 					<td>
-						<input type='text' name='taskName' id='taskName'/>
+						<input type='text0' name='taskName0' id='taskName'/>
 					</td>
 					<td>
-						<input type='text' name='taskDescription' id='taskDescription'/>
+						<input type='text0' name='taskDescription0' id='taskDescription'/>
 					</td>
 					<td>
-						<input type='checkbox' name='taskCompleted' id='taskCompleted'/>
+						<input type='checkbox0' name='taskCompleted0' id='taskCompleted'/>
 					</td>
 					<td>
 						<input type='submit' name='saveTaskList' value='Save Task List'/>
