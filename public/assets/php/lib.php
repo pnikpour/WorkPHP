@@ -158,7 +158,7 @@ function appendEditRecordButton($index) {
 
 // Display all user tasks to Task List page; only outputs tasks belonging to the user
 function generateTaskListDashboard() {
-	$query = 'SELECT * FROM taskList WHERE taskOwner LIKE :taskOwner';
+	$query = 'SELECT * FROM taskList WHERE taskOwner LIKE :taskOwner ORDER BY taskCompleted';
 	$result = getDB()->prepare($query);
 	$result->bindParam(':taskOwner', $_SESSION['user']);
 	$result->execute();	
