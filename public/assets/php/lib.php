@@ -102,8 +102,8 @@ function forbid() {
 
 // Echo a table header representing user tasks
 function printTaskListFilterHeader() {
-
-	echo '	<table border=1>
+	
+	echo '<table>
 		<tr>
 			<th>Task Name</th>
 			<th>Task Description</th>
@@ -152,10 +152,14 @@ function printRecords($arr) {
 }
 
 function printTask($arr, $index) {
-	echo '<td><input type="text" name="taskName"' . $index . 'id="taskName"' . $index . ' value=' . $arr[0] . '/></td>';
-	echo '<td><input type="text" name="taskDescription"' . $index . 'id="taskDescription"' . $index . ' value=' . $arr[1] . '/> </td>';
-	echo '<td><input type="checkbox" name="taskCompleted"' . $index . 'id="taskCompleted"' . $index . ' value=' . $arr[2] . '/>' . '</td>';
-	echo '<td><button name="toggleTask"' . $index . 'id="toggleTask"' . $index . '>Toggle</button></td>';
+	echo '<td><input type="text" name="taskName"' . $index  . ' id="taskName"' . $index . ' value=' . $arr[0] . ' /></td>';
+	echo '<td><input type="text" name="taskDescription"' . $index . ' id="taskDescription"' . $index . ' value=' . $arr[1] . ' /></td>';
+	
+	if ($arr[2] == true) {
+		echo '<td><input type="checkbox" checked name="taskCompleted"' . $index . ' id="taskCompleted"' . $index . ' value=' . $arr[2] . ' /></td>';
+	} else {
+		echo '<td><input type="checkbox" name="taskCompleted"' . $index . ' id="taskCompleted"' . $index . ' value=' . $arr[2] . ' /></td>';
+	}
 }
 
 // Put function on hold to implement; opens ticket 
@@ -184,7 +188,6 @@ function generateTaskListDashboard() {
 		$index++;
 	}
 	printFilterFooter();
-
 }
 
 // Setup table displaying outstanding workorders; if regular user, display tickets created by that user; if admin,
