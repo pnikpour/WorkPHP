@@ -83,7 +83,7 @@
 						<input type='text' name='taskName' id='taskName'/>
 					</td>
 					<td>
-						<textarea rows='5' name='taskDescription' id='taskDescription'></textarea></td>
+						<input type='text' name='taskDescription' id='taskDescription'/>
 					</td>
 					<td>
 						<input type='checkbox' name='taskCompleted' id='taskCompleted'/>
