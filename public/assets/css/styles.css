@@ -8,6 +8,10 @@
 	font-family: Arial, Helvetica, sans-serif;
 }
 
+.taskTableView {
+	width: 500px;
+}
+
 // Selector for all elements except logo header and body
 :not(nav) {
 	background-color: white;
