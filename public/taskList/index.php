@@ -77,6 +77,7 @@
 					<th>Task Name</th>
 					<th>Task Description</th>
 					<th>Completed?</th>
+					<th>Save</th>
 				</tr>
 				<tr>
 					<td>
@@ -88,10 +89,6 @@
 					<td>
 						<input type='checkbox' name='taskCompleted' id='taskCompleted'/>
 					</td>
-				</tr>
-			</table>
-			<table>
-				<tr>
 					<td>
 						<input type='submit' name='saveTaskList' value='Save Task List'/>
 					</td>
