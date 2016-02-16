@@ -37,12 +37,12 @@
 <?php
 	// Governs when the user submits a ticket and refreshes the page; will
 	// increment the ticket number count by one
-	if (isset($_POST['saveTaskList'])) {
-		$taskName = $_POST['taskName'];
+	if (isset($_POST['addTask'])) {
+		$taskName = $_POST['taskName0'];
 		$taskOwner = $_SESSION['user'];
-		$taskDescription = $_POST['taskDescription'];
+		$taskDescription = $_POST['taskDescription0'];
 	
-		if (isset($_POST['taskCompleted'])) {
+		if (isset($_POST['taskCompleted0'])) {
 			$taskCompleted = true;
 		} else {
 			$taskCompleted = false;
@@ -67,12 +67,12 @@
 <h1>My Task List</h1>
 
 <div class='taskView'>
-	<form action="<?php echo $_SERVER['PHP_SELF']; ?>" name='ticket' id='ticket' method='post'>
+	<form action=""  method='post'>
 
 		<?php include '../assets/php/createNav.php'; ?>
 		
 		<div class='taskTableView'>
-			<table id='taskTable' border=1>
+			<table name='taskInputTable' id='taskInputTable' border=1>
 				<tr>
 					<th>Task Name</th>
 					<th>Task Description</th>
@@ -81,23 +81,32 @@
 				</tr>
 				<tr>
 					<td>
-						<input type='text0' name='taskName0' id='taskName'/>
+						<input type='text' name='taskName0' id='taskName0'/>
 					</td>
 					<td>
-						<input type='text0' name='taskDescription0' id='taskDescription'/>
+						<input type='text' name='taskDescription0' id='taskDescription0'/>
 					</td>
 					<td>
-						<input type='checkbox0' name='taskCompleted0' id='taskCompleted'/>
+						<input type='checkbox' name='taskCompleted0' id='taskCompleted0'/>
 					</td>
 					<td>
-						<input type='submit' name='saveTaskList' value='Save Task List'/>
+						<input type='submit' name='addTask' value='+'/>
 					</td>
 				</tr>
 			</table>
 			<br/>
 			<?php generateTaskListDashboard(); ?>
+			<table>
+				<td><input type='submit' name='saveTaskList' value='Save Task List'/></td>
+			</table>
 		</div>
 	</form>
 </div>
+
+<?php
+	if (isset($_POST['saveTaskList'])) {
+		echo $_POST['taskName2'];
+	}
+?>
 </body>
 </html>
