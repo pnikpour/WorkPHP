@@ -38,7 +38,6 @@
 	// Governs when the user submits a ticket and refreshes the page; will
 	// increment the ticket number count by one
 	if (isset($_POST['saveTaskList'])) {
-
 		$taskName = $_POST['taskName'];
 		$taskOwner = $_SESSION['user'];
 		$taskDescription = $_POST['taskDescription'];
@@ -46,7 +45,7 @@
 		if (isset($_POST['taskCompleted'])) {
 			$taskCompleted = $_POST['taskCompleted'];
 		} else {
-			$taskCompleted = '0';
+			$taskCompleted = false;
 		}
 
 		$query = 'INSERT INTO taskList (taskName, taskOwner, taskDescription, taskCompleted) VALUES (:taskName, :taskOwner, :taskDescription,
@@ -55,6 +54,7 @@
 		// Submit the task to the database
 		$stmt = getDB()->prepare($query);
 		$stmt->bindParam(':taskName', $taskName);
+		$stmt->bindParam(':taskOwner', $taskOwner);
 		$stmt->bindParam(':taskDescription', $taskDescription);
 		$stmt->bindParam(':taskCompleted', $taskCompleted);
 		$stmt->execute();
@@ -66,39 +66,40 @@
 
 <h1>My Task List</h1>
 
-<div class='formContainer'>
+<div class='taskView'>
 	<form action="<?php echo $_SERVER['PHP_SELF']; ?>" name='ticket' id='ticket' method='post'>
 
 		<?php include '../assets/php/createNav.php'; ?>
 		
-		<table id='taskTable' border=1>
-			<tr>
-				<th>Task Name</th>
-				<th>Task Description</th>
-				<th>Completed?</th>
-			</tr>
-			<tr>
-				<td>
-					<input type='text' name='taskName' id='taskName'/>
-				</td>
-				<td>
-					<textarea rows='5' name='taskDescription' id='taskDescription'></textarea></td>
-				</td>
-				<td>
-					<input type='checkbox' name='taskCompleted' id='taskCompleted'/>
-				</td>
-			</tr>
-		</table>
-		<table>
-			<tr>
-				<td>
-					<button onclick='addTaskRow(); return false'>+</button>
-				</td>
-				<td>
-					<input type='submit' name='saveTaskList' value='Save Task List'/>
-				</td>
-			</tr>
-		</table>
+		<div class='taskTableView'>
+			<table id='taskTable' border=1>
+				<tr>
+					<th>Task Name</th>
+					<th>Task Description</th>
+					<th>Completed?</th>
+				</tr>
+				<tr>
+					<td>
+						<input type='text' name='taskName' id='taskName'/>
+					</td>
+					<td>
+						<textarea rows='5' name='taskDescription' id='taskDescription'></textarea></td>
+					</td>
+					<td>
+						<input type='checkbox' name='taskCompleted' id='taskCompleted'/>
+					</td>
+				</tr>
+			</table>
+			<table>
+				<tr>
+					<td>
+						<input type='submit' name='saveTaskList' value='Save Task List'/>
+					</td>
+				</tr>
+			</table>
+			<br/>
+			<?php generateTaskListDashboard(); ?>
+		</div>
 	</form>
 </div>
 </body>
