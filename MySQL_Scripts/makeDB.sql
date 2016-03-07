@@ -3,6 +3,7 @@ CREATE SCHEMA workorder;
 USE workorder;
 
 -- Initially set privileges for secure user account
+GRANT USAGE ON *.* to 'secureUser'@'localhost';
 DROP USER secureUser@localhost;
 CREATE USER secureUser@localhost;
 SET PASSWORD FOR secureUser@localhost = PASSWORD('BL3FFEE5WUsrJQnx');
