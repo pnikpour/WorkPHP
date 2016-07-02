@@ -48,7 +48,8 @@
 		$assignedTo = $_POST['assignedTo'];
 		$dateClosed = $_POST['dateClosed'];
 		$status = $_POST['status'];
-		$query = "INSERT INTO tickets (ticketNumber, requestor, dateCreated, problemDescription, problemCode, assignedTo, status, dateClosed) values (:ticketNumber, :requestor, :dateCreated, :problemDescription, :problemCode, :assignedTo, :status, :dateClosed);";
+		$solutionDescription = $_POST['solutionDescription'];
+		$query = "INSERT INTO tickets (ticketNumber, requestor, dateCreated, problemDescription, problemCode, assignedTo, status, dateClosed, solutionDescription) values (:ticketNumber, :requestor, :dateCreated, :problemDescription, :problemCode, :assignedTo, :status, :dateClosed, :solutionDescription);";
 		
 		$stmt = getDB()->prepare($query);
 		$stmt->bindParam(':ticketNumber', $ticketNumber);
@@ -59,6 +60,7 @@
 		$stmt->bindParam(':assignedTo', $assignedTo);
 		$stmt->bindParam(':status', $status);
 		$stmt->bindParam(':dateClosed', $dateClosed);
+		$stmt->bindParam(':solutionDescription', $solutionDescription);
 
 		$stmt->execute();
 	}
