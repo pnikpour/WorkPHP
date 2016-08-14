@@ -164,7 +164,7 @@ function printTask($arr, $index) {
 
 // Put function on hold to implement; opens ticket 
 function appendEditRecordButton($index) {
-//	echo '<td><input type="submit" name="btnEdit" value="Edit"></td>';
+	echo '<td><input type="submit" name="btnEdit" value=' . $index . ' </td>';
 }
 
 // Display all user tasks to Task List page; only outputs tasks belonging to the user
@@ -218,7 +218,7 @@ function generateDashboard() {
 	
 
 		printRecords($records);
-		appendEditRecordButton($numRecords);
+		appendEditRecordButton($row['ticketNumber']);
 		$numRecords++;
 		echo '</tr>';
 		
@@ -337,6 +337,9 @@ function navPOST() {
 	} else
 	if (isset($_POST['clearTickets'])) {
 		header('Location: ../clearTickets');
+	} else
+	if (isset($_POST['btnEdit'])) {
+		header('Location: ../ticket');
 	}
 	
 }
