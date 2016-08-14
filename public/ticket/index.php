@@ -160,6 +160,14 @@
 				foreach(explode("','", substr($row['Type'],6,-2)) as $option) {
 					echo ("<option>$option</option>");
 				}
+
+
+			// If the ticket number POST variable is set from the main menu dashboard, populate the form fields
+			// with the data from the ticket pertaining to this key
+			if (isset($_POST['btnEdit'])) {
+				$ticketNumberPOST = $_POST['btnEdit'];
+				echo $ticketNumber;
+			}
 			?>
 			</select>
 			</td>
