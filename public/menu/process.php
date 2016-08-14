@@ -15,9 +15,4 @@
 	include('../assets/php/lib.php');
 
 	navPOST();
-	
-	// If edit button is pressed, send that data to the ticket form
-	if (isset($_POST['btnEdit'])) {
-		
-	}
 ?>

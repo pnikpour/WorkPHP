@@ -38,7 +38,7 @@
 <h1>QuikPHP Workflow Menu</h1>
 
 <div class='formContainer'>
-	<form action="process.php" name='menu' id='menu' method='post'>
+	<form action='process.php' name='menu' id='menu' method='post'>
 		<?php
 			include '../assets/php/createNav.php';
 			generateDashboard();
